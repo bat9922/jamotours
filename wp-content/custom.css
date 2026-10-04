@@ -2,6 +2,13 @@
    one place. The rules target the home page's Elementor element ids, which
    are generated per page, so they only apply to the home page. */
 
+:root {
+	--jamo-green:        #3F7D06;  /* the natural green used for active/hover states */
+	--jamo-green-deep:   #2F5E04;  /* pressed */
+	--jamo-green-light:  #6E9E35;  /* hover preview on an unselected tab */
+	--jamo-surface:      #F4EEE3;  /* card surface at rest */
+	--jamo-green-shadow: rgba(47, 94, 4, 0.30);
+}
 /* Card grid under the hero: stretch each card to the row height so the
    "1名様～催行可能！" line sits on one baseline across all six cards. */
 .elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box,
@@ -40,7 +47,7 @@
 .elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box {
 	position: relative;
 	cursor: pointer;
-	background-color: #F4EEE3;
+	background-color: var(--jamo-surface);
 	border-radius: 6px;
 	padding: 14px 14px 18px;
 	transition: background-color .25s ease, box-shadow .25s ease, transform .25s ease;
@@ -59,8 +66,8 @@
 /* Soft green on hover. :focus-within gives keyboard users the same cue. */
 .elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover,
 .elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:focus-within {
-	background-color: #3F7D06;
-	box-shadow: 0 6px 18px rgba(47, 94, 4, 0.30);
+	background-color: var(--jamo-green);
+	box-shadow: 0 6px 18px var(--jamo-green-shadow);
 	transform: translateY(-3px);
 }
 
@@ -213,8 +220,8 @@
    ================================================================= */
 .elementor-8 .elementor-element.elementor-element-e82c36f.elementor-widget-n-tabs > .elementor-widget-container > .e-n-tabs > .e-n-tabs-heading > .e-n-tab-title[aria-selected="true"],
 .elementor-8 .elementor-element.elementor-element-e82c36f.elementor-widget-n-tabs > .elementor-widget-container > .e-n-tabs[data-touch-mode='true'] > .e-n-tabs-heading > .e-n-tab-title[aria-selected="false"]:hover {
-	background: #3F7D06;
-	border-color: #2F5E04;
+	background: var(--jamo-green);
+	border-color: var(--jamo-green-deep);
 	color: #FFFFFF;
 }
 .elementor-8 .elementor-element.elementor-element-e82c36f.elementor-widget-n-tabs > .elementor-widget-container > .e-n-tabs > .e-n-tabs-heading > .e-n-tab-title[aria-selected="true"] .e-n-tab-title-text {
@@ -224,7 +231,7 @@
 /* Hovering a tab that is not selected previews the green, a shade lighter
    so it never reads as the selected one. */
 .elementor-8 .elementor-element.elementor-element-e82c36f.elementor-widget-n-tabs > .elementor-widget-container > .e-n-tabs[data-touch-mode='false'] > .e-n-tabs-heading > .e-n-tab-title[aria-selected="false"]:hover {
-	background: #6E9E35;
+	background: var(--jamo-green-light);
 	color: #FFFFFF;
 }
 .elementor-8 .elementor-element.elementor-element-e82c36f.elementor-widget-n-tabs > .elementor-widget-container > .e-n-tabs[data-touch-mode='false'] > .e-n-tabs-heading > .e-n-tab-title[aria-selected="false"]:hover .e-n-tab-title-text {
@@ -252,12 +259,12 @@
 }
 .elementor-8 .elementor-element.elementor-element-43cacdf > .elementor-widget-container:hover,
 .elementor-8 .elementor-element.elementor-element-43cacdf > .elementor-widget-container:focus-within {
-	background-color: #3F7D06;
-	border-color: #3F7D06;
+	background-color: var(--jamo-green);
+	border-color: var(--jamo-green);
 }
 .elementor-8 .elementor-element.elementor-element-43cacdf > .elementor-widget-container:active {
-	background-color: #2F5E04;
-	border-color: #2F5E04;
+	background-color: var(--jamo-green-deep);
+	border-color: var(--jamo-green-deep);
 }
 
 /* The two text spans carry their own colours, so they are turned over too. */
@@ -282,7 +289,7 @@
    hover with the text turned over so it stays readable.
    ================================================================= */
 .elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box {
-	background-color: #F4EEE3;
+	background-color: var(--jamo-surface);
 	border-radius: 6px;
 	padding: 14px 14px 18px;
 	transition: background-color .25s ease, box-shadow .25s ease, transform .25s ease;
@@ -306,8 +313,8 @@
 
 .elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:hover,
 .elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:focus-within {
-	background-color: #3F7D06;
-	box-shadow: 0 6px 18px rgba(47, 94, 4, 0.30);
+	background-color: var(--jamo-green);
+	box-shadow: 0 6px 18px var(--jamo-green-shadow);
 	transform: translateY(-3px);
 }
 .elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:hover .elementor-image-box-title,
@@ -326,5 +333,87 @@
 	.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:hover,
 	.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:focus-within {
 		transform: none;
+	}
+}
+
+/* =================================================================
+   Tour pages (body.single-post - 32 of the 45 pages).
+
+   Every button on these pages carries the same three classes, so there
+   is nothing in the markup that separates the anchor row
+   (体験すること / 日程表 / 料金 / ...) from the other buttons, and CSS
+   cannot select on the colour they happen to have now. The container
+   that holds the anchor row exists on only 9 of the 32 pages, so
+   targeting it would quietly skip the rest. All buttons therefore take
+   the green, which also keeps them consistent with the home page.
+
+   The generated per-page rule is (0,4,0); the selectors below add the
+   body element and a second widget class to land at (0,4,1), so they
+   win on specificity rather than on load order.
+   ================================================================= */
+body.single-post .elementor-element.elementor-widget-button .elementor-button {
+	background-color: var(--jamo-green);
+	color: #FFFFFF;
+	transition: background-color .2s ease, color .2s ease;
+}
+body.single-post .elementor-element.elementor-widget-button .elementor-button:hover,
+body.single-post .elementor-element.elementor-widget-button .elementor-button:focus {
+	background-color: var(--jamo-green-deep);
+	color: #FFFFFF;
+}
+/* icons sitting inside a button follow the label */
+body.single-post .elementor-element.elementor-widget-button .elementor-button .elementor-button-icon svg {
+	fill: #FFFFFF;
+}
+@media (prefers-reduced-motion: reduce) {
+	body.single-post .elementor-element.elementor-widget-button .elementor-button {
+		transition: none;
+	}
+}
+/* =================================================================
+   Site-wide guards (all 60 pages).
+   ================================================================= */
+
+/* Swiper's own stylesheet was never captured by the mirror, and Elementor's
+   frontend bundle does not initialise here either, so a carousel lays every
+   slide out in a row instead of stacking them: on a 390px phone the review
+   slider dragged the tour pages out to 1720px wide, with 235 elements past
+   the viewport. overflow:hidden is exactly what swiper's own CSS applies,
+   so this restores the intended clipping rather than inventing a layout.
+   The carousel shows its first slide and does not advance, which is already
+   true of every other JS-driven widget in this copy. */
+.swiper-container,
+.elementor-main-swiper,
+.elementor-swiper {
+	overflow: hidden;
+}
+
+/* Media never widens its column, on any page. */
+.elementor-widget img,
+.elementor-widget video,
+.elementor-widget iframe {
+	max-width: 100%;
+}
+/* The tour pages carry 8-9 grid containers each, declared at 2 to 6 columns
+   with no narrow-screen variant, so on a phone the six-button anchor row
+   alone held the document 720px wide. auto-fit lets each grid pick its own
+   column count from the width available, which suits grids of 2, 3, 4, 5 and
+   6 columns without naming a breakpoint for each. */
+@media (max-width: 1024px) {
+	/* The container has no definite width of its own, so auto-fit and 1fr
+	   both resolve against max-content and the grid still laid out five
+	   144px columns. Capping the width first is what makes the fractions
+	   mean anything. */
+	body.single-post .e-con,
+	body.single-post .e-con.e-grid {
+		max-width: 100%;
+	}
+	body.single-post .e-con.e-grid {
+		--e-con-grid-template-columns: repeat(3, 1fr);
+	}
+}
+@media (max-width: 767px) {
+	body.single-post .e-con.e-grid {
+		--e-con-grid-template-columns: repeat(2, 1fr);
 	}
 }
