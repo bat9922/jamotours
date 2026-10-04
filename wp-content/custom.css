@@ -596,3 +596,24 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 		width: auto;
 	}
 }
+/* =================================================================
+   Header logo.
+   The generated CSS sized it with percentages (37% on desktop, 58% on
+   mobile), which rendered the file at 51x30 - about a third of the
+   137x80 it actually contains. Sizing it in pixels instead shows it at
+   its native resolution, so it gets markedly bigger without softening.
+   137px is the ceiling: past that the file has no pixels left and it
+   would start to blur, which is why max-width keeps it at 1:1.
+   Scoped by widget id rather than by page wrapper, since the header is
+   shared and each page wrapper has its own id.
+   ================================================================= */
+.elementor-location-header .elementor-element.elementor-widget-image img[src*="ALTANTOUR-logo"],
+.elementor .elementor-element.elementor-element-6620536.elementor-widget-image img {
+	width: 137px;
+	max-width: 100%;
+	height: auto;
+	/* JPEG logo: its white background showed as a pale box on the cream header
+	   once enlarged. multiply drops white to the backdrop and leaves the
+	   artwork, so no transparent file is needed. */
+	mix-blend-mode: multiply;
+}
