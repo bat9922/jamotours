@@ -417,3 +417,182 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 		--e-con-grid-template-columns: repeat(2, 1fr);
 	}
 }
+/* =================================================================
+   Tour detail pages written by hand (currently ito-tsuri-6days-tour).
+   The markup is plain HTML rather than Elementor widgets, so it needs
+   its own type and table styling; it reuses the colour tokens above.
+   ================================================================= */
+.tour-detail {
+	padding: 48px 20px 64px;
+	background-color: #FAF7F0;
+}
+.tour-detail__inner {
+	max-width: 1000px;
+	margin: 0 auto;
+}
+/* Without a definite width the scroll wrapper below cannot contain the table,
+   and the page widens instead of the table scrolling - the same trap the
+   grid containers fell into. */
+.tour-detail,
+.tour-detail__inner,
+.tour-detail__section,
+.tour-detail__head,
+.tour-table-scroll {
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+}
+/* The wrapper sits where Elementor's content container used to, and that
+   parent chain is wider than the viewport on a phone, so the text was
+   rendering past the edge and getting clipped rather than wrapping. */
+.tour-detail {
+	max-width: 100vw;
+}
+.tour-detail__title,
+.tour-detail__lead,
+.tour-detail__h2,
+.tour-list li {
+	overflow-wrap: break-word;
+	word-break: normal;
+	line-break: strict;
+}
+.tour-detail__title {
+	margin: 0 0 .6em;
+	font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+	line-height: 1.35;
+	font-weight: 700;
+	color: var(--jamo-green);
+}
+.tour-detail__lead {
+	margin: 0 0 2.4em;
+	font-size: clamp(.95rem, 1.6vw, 1.05rem);
+	line-height: 1.9;
+	color: #2E2E2E;
+}
+.tour-detail__section {
+	margin: 0 0 2.8em;
+}
+.tour-detail__h2 {
+	margin: 0 0 .8em;
+	padding-left: .6em;
+	border-left: 6px solid var(--jamo-green);
+	font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+	line-height: 1.4;
+	font-weight: 700;
+	color: #1F2D11;
+}
+
+/* Tables ---------------------------------------------------------- */
+/* The scroll wrapper keeps a wide table from widening the page on a
+   phone, the same failure the grids had. */
+.tour-table-scroll {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+.tour-table {
+	width: 100%;
+	border-collapse: collapse;
+	background: #FFFFFF;
+	font-size: clamp(.88rem, 1.5vw, 1rem);
+	line-height: 1.8;
+}
+.tour-table th,
+.tour-table td {
+	padding: 14px 16px;
+	border: 1px solid #E2DACB;
+	text-align: left;
+	vertical-align: top;
+}
+.tour-table thead th {
+	background: var(--jamo-green);
+	color: #FFFFFF;
+	font-weight: 700;
+	white-space: nowrap;
+}
+.tour-table tbody th {
+	background: var(--jamo-surface);
+	font-weight: 700;
+	white-space: nowrap;
+	color: #1F2D11;
+}
+.tour-table tbody tr:nth-child(even) td {
+	background: #FBF8F2;
+}
+.tour-table--schedule .tour-table__day {
+	width: 5.5em;
+}
+.tour-table--schedule .tour-table__stay {
+	width: 13em;
+}
+.tour-table--price {
+	max-width: 520px;
+}
+.tour-table--price td {
+	font-weight: 700;
+	color: var(--jamo-green-deep);
+}
+
+/* Lists ----------------------------------------------------------- */
+.tour-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.tour-list li {
+	position: relative;
+	padding: .35em 0 .35em 1.5em;
+	line-height: 1.85;
+	color: #2E2E2E;
+}
+.tour-list li::before {
+	content: "・";
+	position: absolute;
+	left: .2em;
+	color: var(--jamo-green);
+	font-weight: 700;
+}
+.tour-list--yes li::before { content: "○"; font-size: .85em; top: .35em; }
+.tour-list--no  li::before { content: "×"; font-size: .85em; top: .35em; color: #9A5B2C; }
+.tour-list--note li::before { content: "※"; font-size: .85em; top: .35em; color: #9A5B2C; }
+
+/* Two columns for the included / not-included pair, stacking when narrow */
+.tour-detail__section--split {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	gap: 2em 2.5em;
+}
+.tour-detail__section--split .tour-detail__col h2 {
+	margin-top: 0;
+}
+
+.tour-detail__cta {
+	margin: 2.5em 0 0;
+}
+.tour-detail__cta .elementor-button {
+	display: inline-block;
+	padding: 16px 38px;
+	border-radius: 4px;
+	background-color: var(--jamo-green);
+	color: #FFFFFF;
+	font-weight: 700;
+	text-decoration: none;
+	transition: background-color .2s ease;
+}
+.tour-detail__cta .elementor-button:hover,
+.tour-detail__cta .elementor-button:focus {
+	background-color: var(--jamo-green-deep);
+	color: #FFFFFF;
+}
+@media (max-width: 600px) {
+	.tour-detail {
+		padding: 32px 14px 44px;
+	}
+	.tour-table th,
+	.tour-table td {
+		padding: 10px 12px;
+	}
+	.tour-table--schedule .tour-table__stay {
+		width: auto;
+	}
+}
