@@ -660,3 +660,32 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 		padding-right: 18px;
 	}
 }
+
+/* =================================================================
+   The container and grid guards above were scoped to body.single-post,
+   so the 14 information pages never received them: ordermade, travel-company
+   and guide-repeater still ran 112px, 96px and 47px past a 390px viewport.
+   The same caps are applied to every page here.
+   ================================================================= */
+@media (max-width: 1024px) {
+	.e-con,
+	.e-con-inner,
+	.elementor-widget-container,
+	.elementor-button-wrapper {
+		max-width: 100%;
+		min-width: 0;
+	}
+	.e-con.e-grid {
+		--e-con-grid-template-columns: repeat(3, 1fr);
+	}
+}
+@media (max-width: 767px) {
+	.e-con.e-grid {
+		--e-con-grid-template-columns: repeat(2, 1fr);
+	}
+	/* long unbroken strings in buttons and headings were part of the spill */
+	.elementor-button,
+	.elementor-heading-title {
+		overflow-wrap: break-word;
+	}
+}
