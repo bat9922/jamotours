@@ -1,0 +1,330 @@
+/* Custom styling for jamotours. Extracted from index.html so it lives in
+   one place. The rules target the home page's Elementor element ids, which
+   are generated per page, so they only apply to the home page. */
+
+/* Card grid under the hero: stretch each card to the row height so the
+   "1名様～催行可能！" line sits on one baseline across all six cards. */
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box > .elementor-widget-container,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-wrapper,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-content {
+	display: flex;
+	flex-direction: column;
+}
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box > .elementor-widget-container,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-wrapper {
+	height: 100%;
+}
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-content {
+	flex: 1 1 auto;
+}
+/* position-top sets margin:auto on the figure, which would eat the free
+   space the availability line needs; keep only the horizontal centering. */
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-img {
+	flex: 0 0 auto;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-description {
+	margin-bottom: 0;
+}
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .tour-availability {
+	margin: auto 0 0;
+	padding-top: 0.75em;
+	font-weight: 700;
+	white-space: nowrap;
+}
+/* Soft tinted surface for each card, a shade deeper than the #FAF7F0
+   section behind it. */
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box {
+	position: relative;
+	cursor: pointer;
+	background-color: #F4EEE3;
+	border-radius: 6px;
+	padding: 14px 14px 18px;
+	transition: background-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+
+/* The whole card is one target: the title's link is stretched over the card,
+   so a click anywhere in it follows that link. The image already links to the
+   same page, so nothing is covered up that pointed somewhere else. */
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-title a::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+}
+
+/* Soft green on hover. :focus-within gives keyboard users the same cue. */
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:focus-within {
+	background-color: #3F7D06;
+	box-shadow: 0 6px 18px rgba(47, 94, 4, 0.30);
+	transform: translateY(-3px);
+}
+
+/* The card's resting text is near-black (#0C0C0C / #202020), which drops to
+   about 3:1 against this green. The whole card's text therefore turns white
+   while hovered. That also replaces the theme's gold title-hover colour,
+   which is no more readable on the green than the black was. */
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-title,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-title a,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-description,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .tour-availability {
+	transition: color .25s ease;
+}
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover .elementor-image-box-title,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover .elementor-image-box-title a,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover .elementor-image-box-description,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover .tour-availability,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:focus-within .elementor-image-box-title,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:focus-within .elementor-image-box-title a,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:focus-within .elementor-image-box-description,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:focus-within .tour-availability {
+	color: #FFFFFF;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box {
+		transition: background-color .25s ease;
+	}
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover,
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:focus-within {
+		transform: none;
+	}
+}
+
+/* =================================================================
+   Responsive pass: phone / tablet / notebook / desktop.
+   The generated CSS only has one real breakpoint (767px), so the
+   768-1024px range was still being served the 6-column desktop
+   layout and the full-size desktop type.
+   ================================================================= */
+
+/* Media never overflows its column. */
+.elementor-8 img,
+.elementor-8 video,
+.elementor-8 iframe {
+	max-width: 100%;
+	height: auto;
+}
+
+/* --- Fluid headings: the max of each clamp is the original desktop
+       size, so desktop is unchanged and smaller screens scale down. --- */
+.elementor-8 .elementor-element.elementor-element-be9f305 .elementor-heading-title {
+	font-size: clamp(2.5rem, 6.4vw, 4.875rem);    /* 40 -> 78px */
+	line-height: 1.15;
+}
+.elementor-8 .elementor-element.elementor-element-bfd64ae .elementor-icon {
+	font-size: clamp(2.75rem, 6.4vw, 5rem);       /* 44 -> 80px */
+}
+.elementor-8 .elementor-element.elementor-element-b0f5446 .elementor-heading-title {
+	font-size: clamp(1.75rem, 3.4vw, 2.625rem);   /* 28 -> 42px */
+	line-height: 1.2;
+}
+.elementor-8 .elementor-element.elementor-element-f562548 .elementor-heading-title {
+	font-size: clamp(1.5rem, 2.9vw, 2.1875rem);   /* 24 -> 35px */
+	line-height: 1.25;
+}
+.elementor-8 .elementor-element.elementor-element-c76d8af .elementor-heading-title,
+.elementor-8 .elementor-element.elementor-element-755d294 .elementor-heading-title {
+	font-size: clamp(1.375rem, 2.5vw, 1.875rem);  /* 22 -> 30px */
+	line-height: 1.3;         /* was 8px on 30px text: lines overlapped */
+}
+.elementor-8 .elementor-element.elementor-element-43cacdf .elementor-headline {
+	font-size: clamp(1.125rem, 2vw, 1.5rem);      /* 18 -> 24px */
+	line-height: 1.4;
+}
+
+/* --- Card grid under the hero: step the columns down per device.
+       Each step is a later rule, so the narrowest match wins. --- */
+@media (max-width: 1199px) {	/* notebook */
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c {
+		--e-con-grid-template-columns: repeat(4, 1fr);
+	}
+}
+@media (max-width: 1024px) {	/* tablet */
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c {
+		--e-con-grid-template-columns: repeat(3, 1fr);
+	}
+	.elementor-8 .elementor-element.elementor-element-404e71c {
+		--min-height: auto;
+	}
+}
+@media (max-width: 767px) {	/* large phone, small tablet */
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c {
+		--e-con-grid-template-columns: repeat(2, 1fr);
+	}
+}
+@media (max-width: 480px) {	/* phone */
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c {
+		--e-con-grid-template-columns: repeat(1, 1fr);
+	}
+}
+
+@media (max-width: 1024px) {
+	/* The generated CSS sets per-card line-heights as small as 1px, which
+	   only holds while the text stays on one line. Once cards narrow the
+	   text wraps and the lines collide. !important because those rules are
+	   per-element and beat any generic selector used here. */
+	.elementor-8 .elementor-image-box-title {
+		line-height: 1.35 !important;
+	}
+	.elementor-8 .elementor-image-box-description {
+		line-height: 1.6 !important;
+	}
+}
+
+/* --- Two widgets are pinned with hard-coded desktop offsets (left:782px
+       on the button, left:317px on the icon). On anything narrower than a
+       desktop they stand outside the viewport and drag the whole document
+       to 949px wide, which is what put a horizontal scrollbar on phones.
+       Letting them flow normally also lets the button's own
+       elementor-mobile-align-center finally take effect. --- */
+@media (max-width: 1024px) {
+	.elementor-8 .elementor-element.elementor-element-9d42dfd,
+	.elementor-8 .elementor-element.elementor-element-bfd64ae {
+		position: static;
+	}
+}
+
+/* --- Phones: these sections carry fixed desktop heights (911px, 652px,
+       607px, 436px, 294px) that leave dead space, so let them size to
+       their content. The hero is left alone: it has its own override. --- */
+@media (max-width: 767px) {
+	.elementor-8 .elementor-element.elementor-element-0898605,
+	.elementor-8 .elementor-element.elementor-element-ddffc9e,
+	.elementor-8 .elementor-element.elementor-element-6f34a22,
+	.elementor-8 .elementor-element.elementor-element-93c8d77,
+	.elementor-8 .elementor-element.elementor-element-ac9cd09,
+	.elementor-8 .elementor-element.elementor-element-f87f2c5 {
+		--min-height: auto;
+	}
+}
+
+/* =================================================================
+   Tabs (テーマから探す / モンゴル観光名所から探す / モンゴル地図から探す)
+   The selected tab was grey. Elementor flips aria-selected on click,
+   so colouring that state turns the tab green the moment it is clicked
+   and keeps it green while its tour list is the one on show.
+   Selectors mirror the generated ones exactly: same specificity, and
+   this block is last in the head, so it wins on source order.
+   ================================================================= */
+.elementor-8 .elementor-element.elementor-element-e82c36f.elementor-widget-n-tabs > .elementor-widget-container > .e-n-tabs > .e-n-tabs-heading > .e-n-tab-title[aria-selected="true"],
+.elementor-8 .elementor-element.elementor-element-e82c36f.elementor-widget-n-tabs > .elementor-widget-container > .e-n-tabs[data-touch-mode='true'] > .e-n-tabs-heading > .e-n-tab-title[aria-selected="false"]:hover {
+	background: #3F7D06;
+	border-color: #2F5E04;
+	color: #FFFFFF;
+}
+.elementor-8 .elementor-element.elementor-element-e82c36f.elementor-widget-n-tabs > .elementor-widget-container > .e-n-tabs > .e-n-tabs-heading > .e-n-tab-title[aria-selected="true"] .e-n-tab-title-text {
+	color: #FFFFFF;
+}
+
+/* Hovering a tab that is not selected previews the green, a shade lighter
+   so it never reads as the selected one. */
+.elementor-8 .elementor-element.elementor-element-e82c36f.elementor-widget-n-tabs > .elementor-widget-container > .e-n-tabs[data-touch-mode='false'] > .e-n-tabs-heading > .e-n-tab-title[aria-selected="false"]:hover {
+	background: #6E9E35;
+	color: #FFFFFF;
+}
+.elementor-8 .elementor-element.elementor-element-e82c36f.elementor-widget-n-tabs > .elementor-widget-container > .e-n-tabs[data-touch-mode='false'] > .e-n-tabs-heading > .e-n-tab-title[aria-selected="false"]:hover .e-n-tab-title-text {
+	color: #FFFFFF;
+}
+
+.elementor-8 .elementor-element.elementor-element-e82c36f .e-n-tab-title {
+	transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+	.elementor-8 .elementor-element.elementor-element-e82c36f .e-n-tab-title {
+		transition: none;
+	}
+}
+
+/* =================================================================
+   The ツアー一覧 pill (現地旅行会社の豊富なプランへようこそ！…).
+   It is a white rounded button wrapping one link, so pointing at or
+   pressing it turns the whole pill the same natural green as the tabs.
+   :active also matches on ancestors of the pressed link, which is why
+   it can sit on the container rather than on the <a>.
+   ================================================================= */
+.elementor-8 .elementor-element.elementor-element-43cacdf > .elementor-widget-container {
+	transition: background-color .2s ease, border-color .2s ease;
+}
+.elementor-8 .elementor-element.elementor-element-43cacdf > .elementor-widget-container:hover,
+.elementor-8 .elementor-element.elementor-element-43cacdf > .elementor-widget-container:focus-within {
+	background-color: #3F7D06;
+	border-color: #3F7D06;
+}
+.elementor-8 .elementor-element.elementor-element-43cacdf > .elementor-widget-container:active {
+	background-color: #2F5E04;
+	border-color: #2F5E04;
+}
+
+/* The two text spans carry their own colours, so they are turned over too. */
+.elementor-8 .elementor-element.elementor-element-43cacdf > .elementor-widget-container:hover .elementor-headline-plain-text,
+.elementor-8 .elementor-element.elementor-element-43cacdf > .elementor-widget-container:hover .elementor-headline-dynamic-text,
+.elementor-8 .elementor-element.elementor-element-43cacdf > .elementor-widget-container:focus-within .elementor-headline-plain-text,
+.elementor-8 .elementor-element.elementor-element-43cacdf > .elementor-widget-container:focus-within .elementor-headline-dynamic-text,
+.elementor-8 .elementor-element.elementor-element-43cacdf > .elementor-widget-container:active .elementor-headline-plain-text,
+.elementor-8 .elementor-element.elementor-element-43cacdf > .elementor-widget-container:active .elementor-headline-dynamic-text {
+	color: #FFFFFF;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.elementor-8 .elementor-element.elementor-element-43cacdf > .elementor-widget-container {
+		transition: none;
+	}
+}
+
+/* =================================================================
+   モンゴルを知る cards (grid 0b2d1f8) get the same treatment as the
+   cards under the hero: tinted surface at rest, natural green on
+   hover with the text turned over so it stays readable.
+   ================================================================= */
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box {
+	background-color: #F4EEE3;
+	border-radius: 6px;
+	padding: 14px 14px 18px;
+	transition: background-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+
+/* These titles carry line-heights of 1-14px from the editor, which hold
+   only while the text stays on one line. In a six-column grid they wrap,
+   so the lines collided as soon as the cards got a visible surface. */
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-title {
+	line-height: 1.35;
+}
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-description {
+	line-height: 1.6;
+}
+
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-title,
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-title a,
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-description {
+	transition: color .25s ease;
+}
+
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:hover,
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:focus-within {
+	background-color: #3F7D06;
+	box-shadow: 0 6px 18px rgba(47, 94, 4, 0.30);
+	transform: translateY(-3px);
+}
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:hover .elementor-image-box-title,
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:hover .elementor-image-box-title a,
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:hover .elementor-image-box-description,
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:focus-within .elementor-image-box-title,
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:focus-within .elementor-image-box-title a,
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:focus-within .elementor-image-box-description {
+	color: #FFFFFF;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box {
+		transition: background-color .25s ease;
+	}
+	.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:hover,
+	.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:focus-within {
+		transform: none;
+	}
+}
