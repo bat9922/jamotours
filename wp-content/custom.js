@@ -2,9 +2,15 @@
    Elementor's frontend bundle does not initialise in this static copy, so its
    Slides widgets never start their swiper and every slide renders in the same
    spot at once. This drives them directly: one slide visible at a time, a
-   crossfade between them, and working dots. It touches nothing else, and if
-   Elementor's own JS is ever restored this stays out of its way by bailing
-   out as soon as it sees swiper has taken over. */
+   crossfade between them, and working dots. It stands down if it ever finds
+   swiper has taken the track over, so restoring Elementor's own JS would not
+   collide with it.
+
+   The timer reschedules itself after every step rather than running off a
+   single setInterval, so a missed or cleared tick cannot leave the banner
+   parked on one slide. There is deliberately no pause on hover: that is what
+   stalled an earlier version, since a pointer resting over the banner stopped
+   it and nothing started it again until the pointer moved away. */
 (function () {
 	'use strict';
 
@@ -25,72 +31,74 @@
 
 		track.dataset.jamoSlides = 'on';
 
+		var widget = track.closest('.elementor-widget-slides') || track;
+		var dots = [];
 		var current = 0;
 		var timer = null;
 
-		function show(n) {
-			slides[current].classList.remove(ACTIVE);
-			current = (n + slides.length) % slides.length;
-			slides[current].classList.add(ACTIVE);
-			if (dots.length) {
-				for (var i = 0; i < dots.length; i++) {
-					dots[i].classList.toggle('jamo-dot-on', i === current);
-					dots[i].setAttribute('aria-selected', i === current ? 'true' : 'false');
-				}
+		function paint() {
+			for (var i = 0; i < slides.length; i++) {
+				slides[i].classList.toggle(ACTIVE, i === current);
+			}
+			for (var j = 0; j < dots.length; j++) {
+				dots[j].classList.toggle('jamo-dot-on', j === current);
+				dots[j].setAttribute('aria-selected', j === current ? 'true' : 'false');
 			}
 		}
 
-		// dots: Elementor only creates the pagination container in its own JS,
-		// so on these pages there is nothing to fill and one has to be made.
-		var dots = [];
-		var widget = track.closest('.elementor-widget-slides');
-		var pager = widget ? widget.querySelector('.swiper-pagination') : null;
-		if (!pager && widget) {
-			var host = widget.querySelector('.elementor-swiper') || widget;
-			host.style.position = host.style.position || 'relative';
+		function go(n) {
+			current = ((n % slides.length) + slides.length) % slides.length;
+			paint();
+		}
+
+		function tick() {
+			go(current + 1);
+			schedule();
+		}
+
+		function schedule() {
+			if (timer) { clearTimeout(timer); timer = null; }
+			if (document.hidden) { return; }
+			if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
+			timer = setTimeout(tick, INTERVAL);
+		}
+
+		// Elementor only builds the pagination container inside its own JS, so
+		// on these pages there is nothing to fill and one has to be made.
+		var pager = widget.querySelector('.swiper-pagination');
+		if (!pager) {
+			var pagerHost = widget.querySelector('.elementor-swiper') || widget;
+			if (!pagerHost.style.position) { pagerHost.style.position = 'relative'; }
 			pager = document.createElement('div');
 			pager.className = 'swiper-pagination';
 			pager.setAttribute('role', 'tablist');
-			host.appendChild(pager);
+			pagerHost.appendChild(pager);
 		}
-		if (pager) {
-			pager.innerHTML = '';
-			pager.classList.add('jamo-dots');
-			slides.forEach(function (slide, i) {
-				var b = document.createElement('button');
-				b.type = 'button';
-				b.className = 'jamo-dot';
-				b.setAttribute('role', 'tab');
-				b.setAttribute('aria-label', 'スライド ' + (i + 1));
-				b.addEventListener('click', function () { stop(); show(i); start(); });
-				pager.appendChild(b);
-				dots.push(b);
-			});
-		}
-
-		function start() {
-			if (timer) { return; }
-			if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
-			timer = setInterval(function () { show(current + 1); }, INTERVAL);
-		}
-		function stop() {
-			if (timer) { clearInterval(timer); timer = null; }
-		}
-
-		slides[0].classList.add(ACTIVE);
-		show(0);
-
-		// pause while the pointer or keyboard focus is on the banner
-		var host = widget || track;
-		host.addEventListener('mouseenter', stop);
-		host.addEventListener('mouseleave', start);
-		host.addEventListener('focusin', stop);
-		host.addEventListener('focusout', start);
-		document.addEventListener('visibilitychange', function () {
-			if (document.hidden) { stop(); } else { start(); }
+		pager.innerHTML = '';
+		pager.classList.add('jamo-dots');
+		slides.forEach(function (slide, i) {
+			var b = document.createElement('button');
+			b.type = 'button';
+			b.className = 'jamo-dot';
+			b.setAttribute('role', 'tab');
+			b.setAttribute('aria-label', 'スライド ' + (i + 1));
+			b.addEventListener('click', function () { go(i); schedule(); });
+			pager.appendChild(b);
+			dots.push(b);
 		});
 
-		start();
+		// Only the tab being hidden pauses it; a browser stops firing timers
+		// there anyway, and this picks the rotation back up on return.
+		document.addEventListener('visibilitychange', function () {
+			if (document.hidden) {
+				if (timer) { clearTimeout(timer); timer = null; }
+			} else {
+				schedule();
+			}
+		});
+
+		go(0);
+		schedule();
 	}
 
 	function init() {
