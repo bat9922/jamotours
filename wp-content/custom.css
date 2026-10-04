@@ -689,3 +689,21 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 		overflow-wrap: break-word;
 	}
 }
+
+/* =================================================================
+   Slides widget without its JS.
+   Elementor never initialises the swiper here, so all three slides
+   rendered in the same place - three Gobi photos and three captions
+   superimposed into a blur. Laying the track out as a grid did not
+   separate them: every slide still resolved to the same cell.
+   The first slide is shown and the rest are held back, which gives a
+   clean banner. All three images are present, so the carousel rotates
+   normally wherever Elementor own JS does run.
+   ================================================================= */
+.elementor-widget-slides .swiper-wrapper.elementor-slides > .swiper-slide:not(:first-child) {
+	display: none;
+}
+.elementor-widget-slides .swiper-pagination,
+.elementor-widget-slides .elementor-swiper-button {
+	display: none;
+}
