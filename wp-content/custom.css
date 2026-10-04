@@ -617,3 +617,46 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 	   artwork, so no transparent file is needed. */
 	mix-blend-mode: multiply;
 }
+/* =================================================================
+   Header menu.
+   Only the active item had a colour of its own; the rest inherited the
+   theme grey (#54595F), which read faint against the cream bar. They now
+   take a dark tone from the palette, and the active item keeps its green
+   so it still stands out. The list is also centred.
+   Two selectors again: the home page has its own inline header (nav widget
+   935f201) while the other 60 pages use the shared header template.
+   ================================================================= */
+.elementor-location-header .elementor-nav-menu--main > ul.elementor-nav-menu,
+.elementor-element-935f201 .elementor-nav-menu--main > ul.elementor-nav-menu {
+	justify-content: center;
+}
+.elementor-location-header .elementor-nav-menu--main > ul.elementor-nav-menu > li > a.elementor-item,
+.elementor-element-935f201 .elementor-nav-menu--main > ul.elementor-nav-menu > li > a.elementor-item {
+	color: #1F2D11;
+	font-weight: 600;
+	transition: color .18s ease;
+}
+.elementor-location-header .elementor-nav-menu--main > ul.elementor-nav-menu > li > a.elementor-item:hover,
+.elementor-location-header .elementor-nav-menu--main > ul.elementor-nav-menu > li > a.elementor-item:focus,
+.elementor-element-935f201 .elementor-nav-menu--main > ul.elementor-nav-menu > li > a.elementor-item:hover,
+.elementor-element-935f201 .elementor-nav-menu--main > ul.elementor-nav-menu > li > a.elementor-item:focus {
+	color: var(--jamo-green);
+}
+@media (prefers-reduced-motion: reduce) {
+	.elementor-location-header .elementor-nav-menu--main > ul.elementor-nav-menu > li > a.elementor-item,
+	.elementor-element-935f201 .elementor-nav-menu--main > ul.elementor-nav-menu > li > a.elementor-item {
+		transition: none;
+	}
+}
+
+/* Nine items came to 1114px against 1109px of bar - five pixels short, so
+   the last one dropped to a second line on its own. Trimming 2px of padding
+   each side frees 36px and keeps the row intact. Only above 1025px, since
+   below that the menu collapses to the toggle anyway. */
+@media (min-width: 1025px) {
+	.elementor-location-header .elementor-nav-menu--main > ul.elementor-nav-menu > li > a.elementor-item,
+	.elementor-element-935f201 .elementor-nav-menu--main > ul.elementor-nav-menu > li > a.elementor-item {
+		padding-left: 18px;
+		padding-right: 18px;
+	}
+}
