@@ -691,19 +691,57 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 }
 
 /* =================================================================
-   Slides widget without its JS.
-   Elementor never initialises the swiper here, so all three slides
-   rendered in the same place - three Gobi photos and three captions
-   superimposed into a blur. Laying the track out as a grid did not
-   separate them: every slide still resolved to the same cell.
-   The first slide is shown and the rest are held back, which gives a
-   clean banner. All three images are present, so the carousel rotates
-   normally wherever Elementor own JS does run.
+   Slides widget.
+   Elementor never initialises its swiper in this copy, so all slides
+   rendered in the same spot at once. wp-content/custom.js drives them
+   instead and marks the visible one; these rules do the crossfade and
+   build the dots it creates. Slides stay stacked, which is what they
+   were doing anyway, so the banner keeps its height.
    ================================================================= */
-.elementor-widget-slides .swiper-wrapper.elementor-slides > .swiper-slide:not(:first-child) {
-	display: none;
+.elementor-widget-slides .swiper-wrapper.elementor-slides > .swiper-slide {
+	opacity: 0;
+	transition: opacity .8s ease;
 }
-.elementor-widget-slides .swiper-pagination,
+.elementor-widget-slides .swiper-wrapper.elementor-slides > .swiper-slide.jamo-slide-on {
+	opacity: 1;
+}
+/* until the script runs, the first slide carries the banner on its own */
+.elementor-widget-slides .swiper-wrapper.elementor-slides:not([data-jamo-slides]) > .swiper-slide:first-child {
+	opacity: 1;
+}
+
+.elementor-widget-slides .jamo-dots {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 18px;
+	z-index: 2;
+}
+.elementor-widget-slides .jamo-dot {
+	width: 11px;
+	height: 11px;
+	padding: 0;
+	border: 1px solid rgba(255, 255, 255, .85);
+	border-radius: 50%;
+	background: rgba(255, 255, 255, .28);
+	cursor: pointer;
+	transition: background-color .2s ease, transform .2s ease;
+}
+.elementor-widget-slides .jamo-dot:hover {
+	background: rgba(255, 255, 255, .6);
+}
+.elementor-widget-slides .jamo-dot.jamo-dot-on {
+	background: #FFFFFF;
+	transform: scale(1.15);
+}
 .elementor-widget-slides .elementor-swiper-button {
 	display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+	.elementor-widget-slides .swiper-wrapper.elementor-slides > .swiper-slide {
+		transition: none;
+	}
 }
