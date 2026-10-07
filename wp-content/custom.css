@@ -9,95 +9,174 @@
 	--jamo-surface:      #F4EEE3;  /* card surface at rest */
 	--jamo-green-shadow: rgba(47, 94, 4, 0.30);
 }
-/* Card grid under the hero: stretch each card to the row height so the
-   "1名様～催行可能！" line sits on one baseline across all six cards. */
-.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box > .elementor-widget-container,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-wrapper,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-content {
-	display: flex;
-	flex-direction: column;
-}
-.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box > .elementor-widget-container,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-wrapper {
-	height: 100%;
-}
-.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-content {
-	flex: 1 1 auto;
-}
-/* position-top sets margin:auto on the figure, which would eat the free
-   space the availability line needs; keep only the horizontal centering. */
-.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-img {
-	flex: 0 0 auto;
-	margin-top: 0;
-	margin-bottom: 0;
-}
-.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-description {
-	margin-bottom: 0;
-}
-.elementor-8 .elementor-element.elementor-element-d1e8b1c .tour-availability {
-	margin: auto 0 0;
-	padding-top: 0.75em;
-	font-weight: 700;
-	white-space: nowrap;
-}
-/* Soft tinted surface for each card, a shade deeper than the #FAF7F0
-   section behind it. */
-.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box {
-	position: relative;
-	cursor: pointer;
-	background-color: var(--jamo-surface);
-	border-radius: 6px;
-	padding: 14px 14px 18px;
-	transition: background-color .25s ease, box-shadow .25s ease, transform .25s ease;
-}
+/* =================================================================
+   「注目！おすすめツアー」slider (container d1e8b1c)
 
-/* The whole card is one target: the title's link is stretched over the card,
-   so a click anywhere in it follows that link. The image already links to the
-   same page, so nothing is covered up that pointed somewhere else. */
-.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-title a::after {
+   Overlay photo card, the same one as 「モンゴルを知る」 and
+   「モンゴル旅行の準備」: one aspect ratio for every photo, the title,
+   the blurb and the 「1名様～催行可能！」 line all lifted onto it over a
+   gradient scrim. This replaces the tinted beige surface that went
+   solid green on hover - the row now reads as photographs rather than
+   as six panels, and nothing changes colour underfoot.
+
+   The track mechanics live in the shared `[data-jamo-track]` block
+   further down; only the card width is set here.
+   ================================================================= */
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box {
+	flex: 0 0 calc((100% - 66px) / 4);   /* four to a view, three gaps */
+	height: auto;
+}
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box > .elementor-widget-container {
+	margin: 0;
+	padding: 0;
+}
+/* one grid cell holds both the photo and the text, so the text sits on
+   the photo without either one leaving the flow and the card keeps its
+   height from the photo alone. */
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-wrapper {
+	position: relative;
+	display: grid;
+	grid-template-areas: "card";
+	height: auto;
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, .22);
+	text-align: center;
+	transition: transform .25s ease, box-shadow .25s ease;
+}
+@media (hover: hover) {
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover .elementor-image-box-wrapper,
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:focus-within .elementor-image-box-wrapper {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 24px var(--jamo-green-shadow);
+	}
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover .elementor-image-box-img img {
+		transform: scale(1.06);
+	}
+}
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-img,
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-content {
+	grid-area: card;
+	min-width: 0;
+}
+/* the figure sets the card height; every photo is cropped to it */
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-widget-image-box .elementor-image-box-img {
+	position: relative;
+	display: block;
+	width: 100%;
+	margin: 0;
+	aspect-ratio: 4 / 5;
+}
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-widget-image-box .elementor-image-box-img img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	box-shadow: none;
+	filter: brightness(1.06) saturate(1.08);
+	transition: transform .45s ease;
+}
+/* scrim: carries three sizes of white text, so it holds further up the
+   card than the 準備 one, and still clears by ~78% */
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-img::after {
 	content: "";
 	position: absolute;
 	inset: 0;
-	z-index: 2;
+	background: linear-gradient(to top,
+		rgba(0, 0, 0, .84) 0%,
+		rgba(0, 0, 0, .72) 24%,
+		rgba(0, 0, 0, .48) 40%,
+		rgba(0, 0, 0, .20) 54%,
+		rgba(0, 0, 0, .04) 68%,
+		rgba(0, 0, 0, 0) 78%);
+	pointer-events: none;
 }
-
-/* Soft green on hover. :focus-within gives keyboard users the same cue. */
-.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:focus-within {
-	background-color: var(--jamo-green);
-	box-shadow: 0 6px 18px var(--jamo-green-shadow);
-	transform: translateY(-3px);
+/* the figure is positioned (it carries the scrim), so the text needs a
+   z-index of its own to land on top of it rather than behind it. It
+   lets clicks through to the photo's link, except on the title. */
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-content {
+	display: block;
+	position: relative;
+	z-index: 1;
+	align-self: end;
+	flex: none;
+	padding: 30px 16px 18px;
+	pointer-events: none;
 }
-
-/* The card's resting text is near-black (#0C0C0C / #202020), which drops to
-   about 3:1 against this green. The whole card's text therefore turns white
-   while hovered. That also replaces the theme's gold title-hover colour,
-   which is no more readable on the green than the black was. */
-.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-title,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-title a,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-description,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c .tour-availability {
-	transition: color .25s ease;
-}
-.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover .elementor-image-box-title,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover .elementor-image-box-title a,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover .elementor-image-box-description,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover .tour-availability,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:focus-within .elementor-image-box-title,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:focus-within .elementor-image-box-title a,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:focus-within .elementor-image-box-description,
-.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:focus-within .tour-availability {
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box .elementor-image-box-title {
+	margin: 0;
+	font-family: "Roboto", Sans-serif;
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 1.5;
+	letter-spacing: 0;
+	line-break: strict;
 	color: #FFFFFF;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, .75);
 }
-
-@media (prefers-reduced-motion: reduce) {
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box .elementor-image-box-description {
+	margin: 7px 0 0;
+	font-family: "Roboto", Sans-serif;
+	font-size: 15px;
+	font-weight: 400;
+	line-height: 1.7;
+	letter-spacing: 0;
+	line-break: strict;
+	color: rgba(255, 255, 255, .94);
+	text-shadow: 0 1px 3px rgba(0, 0, 0, .8);
+}
+/* the availability line used to be pushed to the foot of a stretched
+   card; on the photo it just follows the blurb */
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .tour-availability {
+	display: block;
+	margin: 9px 0 0;
+	padding: 0;
+	font-size: 15px;
+	font-weight: 700;
+	line-height: 1.5;
+	white-space: nowrap;
+	color: #FFE9A8;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, .85);
+}
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-title a {
+	color: inherit;
+	text-decoration: none;
+	pointer-events: auto;
+}
+/* the photo's own link already wraps the whole card, so stretching it
+   over the figure makes every part of the card a hit target */
+.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-img a {
+	display: block;
+	height: 100%;
+}
+.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:focus-within .elementor-image-box-wrapper {
+	outline: 2px solid #FFFFFF;
+	outline-offset: -4px;
+}
+@media (max-width: 1024px) {
 	.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box {
-		transition: background-color .25s ease;
+		flex: 0 0 calc((100% - 22px) / 2);
 	}
-	.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover,
-	.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:focus-within {
+	.elementor-8 .elementor-element.elementor-element-404e71c {
+		--min-height: auto;
+	}
+}
+@media (max-width: 767px) {
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box {
+		flex: 0 0 86%;     /* the next card peeks, so the strip reads as one */
+	}
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-content {
+		padding: 32px 18px 20px;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-image-box-wrapper,
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c .elementor-widget-image-box .elementor-image-box-img img {
+		transition: none;
+	}
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover .elementor-image-box-wrapper,
+	.elementor-8 .elementor-element.elementor-element-d1e8b1c > .elementor-widget-image-box:hover .elementor-image-box-img img {
 		transform: none;
 	}
 }
@@ -142,32 +221,6 @@
 .elementor-8 .elementor-element.elementor-element-43cacdf .elementor-headline {
 	font-size: clamp(1.125rem, 2vw, 1.5rem);      /* 18 -> 24px */
 	line-height: 1.4;
-}
-
-/* --- Card grid under the hero: step the columns down per device.
-       Each step is a later rule, so the narrowest match wins. --- */
-@media (max-width: 1199px) {	/* notebook */
-	.elementor-8 .elementor-element.elementor-element-d1e8b1c {
-		--e-con-grid-template-columns: repeat(4, 1fr);
-	}
-}
-@media (max-width: 1024px) {	/* tablet */
-	.elementor-8 .elementor-element.elementor-element-d1e8b1c {
-		--e-con-grid-template-columns: repeat(3, 1fr);
-	}
-	.elementor-8 .elementor-element.elementor-element-404e71c {
-		--min-height: auto;
-	}
-}
-@media (max-width: 767px) {	/* large phone, small tablet */
-	.elementor-8 .elementor-element.elementor-element-d1e8b1c {
-		--e-con-grid-template-columns: repeat(2, 1fr);
-	}
-}
-@media (max-width: 480px) {	/* phone */
-	.elementor-8 .elementor-element.elementor-element-d1e8b1c {
-		--e-con-grid-template-columns: repeat(1, 1fr);
-	}
 }
 
 @media (max-width: 1024px) {
@@ -284,54 +337,240 @@
 }
 
 /* =================================================================
-   モンゴルを知る cards (grid 0b2d1f8) get the same treatment as the
-   cards under the hero: tinted surface at rest, natural green on
-   hover with the text turned over so it stays readable.
+   Card sliders - shared machinery
+
+   「モンゴルを知る」, 「モンゴル旅行の準備」 and 「選ばれる理由」 are all one
+   row that scrolls sideways with dots underneath. The track is a flex
+   strip with CSS scroll-snap, so a swipe, a trackpad flick or a
+   shift-wheel is the browser's own scrolling and there is nothing to
+   drag. custom.js only builds the dots and keeps them in step; with the
+   script blocked the strips still scroll, they just have no dots.
+
+   `data-jamo-track` marks the scrolling element. On the two Elementor
+   containers that element is the container itself, which still carries
+   Elementor's `--display:grid`; `display:flex` here outranks the
+   `.e-con` rule that reads that variable, so the grid stands down.
+   ================================================================= */
+[data-jamo-track] {
+	display: flex;
+	gap: 22px;
+	margin: 0;
+	padding: 4px 0 6px;
+	list-style: none;
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	scroll-snap-type: x mandatory;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;          /* the dots are the affordance */
+}
+[data-jamo-track]::-webkit-scrollbar {
+	display: none;
+}
+[data-jamo-track] > * {
+	flex: 0 0 auto;
+	min-width: 0;
+	scroll-snap-align: start;
+}
+.jamo-slider-dots {
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+	margin-top: 24px;
+}
+.jamo-slider-dot {
+	width: 13px;
+	height: 13px;
+	padding: 0;
+	border: 1px solid var(--jamo-green);
+	border-radius: 50%;
+	background: transparent;
+	cursor: pointer;
+	transition: background-color .2s ease, transform .2s ease;
+}
+.jamo-slider-dot:hover {
+	background: var(--jamo-green-light);
+}
+.jamo-slider-dot.jamo-slider-dot-on {
+	background: var(--jamo-green);
+	transform: scale(1.2);
+}
+.jamo-slider-dot:focus-visible {
+	outline: 2px solid var(--jamo-green-deep);
+	outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+	.jamo-slider-dot {
+		transition: none;
+	}
+	.jamo-slider-dot.jamo-slider-dot-on {
+		transform: none;
+	}
+}
+
+/* =================================================================
+   「モンゴルを知る」slider (container 0b2d1f8)
+
+   Overlay photo card: one aspect ratio for every photo, the text lifted
+   onto it over a gradient scrim. Six narrow columns used to put the
+   title at 14px and the description at 11px, which is below what this
+   audience can comfortably read; four cards to a view gives 273px of
+   width, which still carries 22px/16px comfortably.
    ================================================================= */
 .elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box {
-	background-color: var(--jamo-surface);
-	border-radius: 6px;
-	padding: 14px 14px 18px;
-	transition: background-color .25s ease, box-shadow .25s ease, transform .25s ease;
+	flex: 0 0 calc((100% - 66px) / 4);   /* four to a view, three gaps */
 }
-
-/* These titles carry line-heights of 1-14px from the editor, which hold
-   only while the text stays on one line. In a six-column grid they wrap,
-   so the lines collided as soon as the cards got a visible surface. */
-.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-title {
-	line-height: 1.35;
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box > .elementor-widget-container {
+	margin: 0;
+	padding: 0;
 }
-.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-description {
-	line-height: 1.6;
+/* one grid cell holds both the photo and the text, so the text sits on
+   the photo without either one leaving the flow and the card keeps its
+   height from the photo alone. */
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-wrapper {
+	position: relative;
+	display: grid;
+	grid-template-areas: "card";
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, .22);
+	text-align: center;
+	transition: transform .25s ease, box-shadow .25s ease;
 }
-
-.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-title,
-.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-title a,
-.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-description {
-	transition: color .25s ease;
-}
-
-.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:hover,
-.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:focus-within {
-	background-color: var(--jamo-green);
-	box-shadow: 0 6px 18px var(--jamo-green-shadow);
-	transform: translateY(-3px);
-}
-.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:hover .elementor-image-box-title,
-.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:hover .elementor-image-box-title a,
-.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:hover .elementor-image-box-description,
-.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:focus-within .elementor-image-box-title,
-.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:focus-within .elementor-image-box-title a,
-.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:focus-within .elementor-image-box-description {
-	color: #FFFFFF;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box {
-		transition: background-color .25s ease;
+/* only the five cards that link anywhere lift; 「アクティビティ」 has no
+   link, so it should not offer the affordance. */
+@media (hover: hover) {
+	.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-widget-image-box:has(a):hover .elementor-image-box-wrapper {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 24px var(--jamo-green-shadow);
 	}
-	.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:hover,
-	.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box:focus-within {
+	.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-widget-image-box:has(a):hover .elementor-image-box-img img {
+		transform: scale(1.06);
+	}
+}
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-img,
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-content {
+	grid-area: card;
+	min-width: 0;
+}
+/* the figure sets the card height; every photo is cropped to it */
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-widget-image-box .elementor-image-box-img {
+	position: relative;
+	width: 100%;
+	margin: 0;
+	aspect-ratio: 4 / 5;
+}
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-widget-image-box .elementor-image-box-img img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	box-shadow: none;
+	filter: brightness(1.06) saturate(1.08);
+	transition: transform .45s ease;
+}
+/* 「モンゴルを知る」 is the one card whose image is a map, 1.75:1 and all
+   detail: cropping it to a portrait card would cut Mongolia in half, so
+   it is fitted whole instead. A blurred, zoomed copy of the same file
+   fills the space that leaves, rather than an empty band. The backdrop
+   is a static grid item in the same cell, which puts it under the
+   positioned figure without any z-index juggling. */
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-element-214b02b .elementor-image-box-wrapper::before {
+	content: "";
+	grid-area: card;
+	/* relative to this stylesheet at /wp-content/custom.css */
+	background: url(uploads/2025/12/Map-mongolia.jpg) center / cover no-repeat;
+	filter: blur(16px) saturate(1.15);
+	transform: scale(1.25);
+}
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-element-214b02b .elementor-image-box-img img {
+	object-fit: contain;
+	object-position: center 40%;
+}
+/* scrim: carries two sizes of white text, so it holds further up the
+   card than the 準備 one. It still clears by ~76%, which leaves the top
+   quarter of every photo at full brightness. */
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-img::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to top,
+		rgba(0, 0, 0, .82) 0%,
+		rgba(0, 0, 0, .70) 22%,
+		rgba(0, 0, 0, .46) 38%,
+		rgba(0, 0, 0, .18) 52%,
+		rgba(0, 0, 0, .04) 66%,
+		rgba(0, 0, 0, 0) 76%);
+	pointer-events: none;
+}
+/* the figure is positioned (it carries the scrim), so the text needs a
+   z-index of its own to land on top of it rather than behind it. It
+   lets clicks through to the photo's link, except on the title. */
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-content {
+	position: relative;
+	z-index: 1;
+	align-self: end;
+	padding: 34px 18px 20px;
+	pointer-events: none;
+}
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box .elementor-image-box-title {
+	margin: 0;
+	font-family: "Roboto", Sans-serif;
+	font-size: 22px;
+	font-weight: 700;
+	line-height: 1.5;
+	letter-spacing: 0;
+	word-spacing: normal;
+	line-break: strict;
+	color: #FFFFFF;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, .75);
+}
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box .elementor-image-box-description {
+	margin: 8px 0 0;
+	font-family: "Roboto", Sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.7;
+	letter-spacing: 0;
+	line-break: strict;
+	color: rgba(255, 255, 255, .94);
+	text-shadow: 0 1px 3px rgba(0, 0, 0, .8);
+}
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-title a {
+	color: inherit;
+	text-decoration: none;
+	pointer-events: auto;
+}
+/* the photo's own link already wraps the whole card, so stretching it
+   over the figure makes every part of the card a hit target */
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-img a {
+	display: block;
+	height: 100%;
+}
+.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-widget-image-box:focus-within .elementor-image-box-wrapper {
+	outline: 2px solid #FFFFFF;
+	outline-offset: -4px;
+}
+@media (max-width: 1024px) {
+	.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box {
+		flex: 0 0 calc((100% - 22px) / 2);
+	}
+}
+@media (max-width: 767px) {
+	.elementor-8 .elementor-element.elementor-element-0b2d1f8 > .elementor-widget-image-box {
+		flex: 0 0 86%;     /* the next card peeks, so the strip reads as one */
+	}
+	.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-content {
+		padding: 32px 16px 18px;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-image-box-wrapper,
+	.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-widget-image-box .elementor-image-box-img img {
+		transition: none;
+	}
+	.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-widget-image-box:has(a):hover .elementor-image-box-wrapper,
+	.elementor-8 .elementor-element.elementor-element-0b2d1f8 .elementor-widget-image-box:has(a):hover .elementor-image-box-img img {
 		transform: none;
 	}
 }
@@ -373,6 +612,16 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 /* =================================================================
    Site-wide guards (all 60 pages).
    ================================================================= */
+
+/* Elementor marks anything given an entrance animation with
+   .elementor-invisible (visibility:hidden) and lifts the class from JS
+   once the element scrolls into view. That bundle never initialises in
+   this copy, so the class never lifts and the element stays hidden for
+   good - the six 「注目！おすすめツアー」 cards among them, which is why
+   that row rendered as an empty band. 12 elements across the mirror. */
+.elementor-invisible {
+	visibility: visible;
+}
 
 /* Swiper's own stylesheet was never captured by the mirror, and Elementor's
    frontend bundle does not initialise here either, so a carousel lays every
@@ -743,5 +992,213 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 @media (prefers-reduced-motion: reduce) {
 	.elementor-widget-slides .swiper-wrapper.elementor-slides > .swiper-slide {
 		transition: none;
+	}
+}
+
+/* =================================================================
+   「モンゴル旅行の準備」slider (container d4724ed)
+
+   The same overlay photo card as 「モンゴルを知る」, title only. Seven
+   columns used to leave 139px per card and a 12px title, below what
+   this audience can comfortably read; four to a view gives 270px and
+   carries 20px.
+   ================================================================= */
+/* The section was built with a 436px floor, no bottom padding and a
+   -90px bottom margin, which let the next section ride up over the old
+   185px cards without showing. The cards are twice that tall now, so
+   the overlap became an obvious clip: let the section size to its
+   content and sit clear of its neighbour. */
+.elementor-8 .elementor-element.elementor-element-93c8d77 {
+	--min-height: auto;
+	--margin-bottom: 0px;
+	--padding-bottom: 48px;
+}
+.elementor-8 .elementor-element.elementor-element-d4724ed > .elementor-widget-image-box {
+	flex: 0 0 calc((100% - 66px) / 4);   /* four to a view, three gaps */
+}
+.elementor-8 .elementor-element.elementor-element-d4724ed > .elementor-widget-image-box > .elementor-widget-container {
+	margin: 0;
+	padding: 0;
+}
+/* 「ご利用ガイド」 carries Elementor's "Order: Start" (--order:-99999),
+   which pulled it out of the source order to the head of the row. Put
+   it back where the markup has it, fourth. The durable fix is to clear
+   Advanced > Order on that widget in Elementor; this holds until then. */
+.elementor-8 .elementor-element.elementor-element-d4724ed > .elementor-element.elementor-element-bb43375 {
+	--order: 0;
+}
+/* one grid cell holds both the photo and the caption, so the caption
+   sits on the photo without either one leaving the flow and the card
+   keeps its height from the photo alone. */
+.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-image-box-wrapper {
+	position: relative;
+	display: grid;
+	grid-template-areas: "card";
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, .22);
+	text-align: center;
+	transition: transform .25s ease, box-shadow .25s ease;
+}
+/* hover only where there is a pointer, so a tap does not leave a card
+   stuck in the lifted state */
+@media (hover: hover) {
+	.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-widget-image-box:hover .elementor-image-box-wrapper {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 24px var(--jamo-green-shadow);
+	}
+	/* 8a2bdb1 ships a :hover rule that resets filter to 100%, and it
+	   outranks the base rule below, so restate the lift here. */
+	.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-widget-image-box:hover .elementor-image-box-img img {
+		transform: scale(1.06);
+		filter: brightness(1.06) saturate(1.08);
+	}
+}
+.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-image-box-img,
+.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-image-box-content {
+	grid-area: card;
+	min-width: 0;
+}
+/* the figure sets the card height; every photo is cropped to it */
+.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-widget-image-box .elementor-image-box-img {
+	position: relative;
+	width: 100%;
+	margin: 0;
+	aspect-ratio: 4 / 5;
+}
+.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-widget-image-box .elementor-image-box-img img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	box-shadow: none;
+	filter: brightness(1.06) saturate(1.08);
+	transition: transform .45s ease;
+}
+/* scrim: dark enough at the foot to carry white text over any photo,
+   and clear by ~58% so the top of the photo keeps its full brightness
+   instead of sitting under a wash */
+.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-image-box-img::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to top,
+		rgba(0, 0, 0, .78) 0%,
+		rgba(0, 0, 0, .66) 17%,
+		rgba(0, 0, 0, .36) 31%,
+		rgba(0, 0, 0, .10) 45%,
+		rgba(0, 0, 0, 0) 58%);
+	pointer-events: none;
+}
+/* the figure is positioned (it carries the scrim), so the caption needs
+   a z-index of its own to land on top of it rather than behind it.
+   It lets clicks through to the photo's link, except on the title. */
+.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-image-box-content {
+	position: relative;
+	z-index: 1;
+	align-self: end;
+	padding: 32px 14px 18px;
+	pointer-events: none;
+}
+.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-widget-image-box .elementor-image-box-title {
+	margin: 0;
+	font-family: "Roboto", Sans-serif;
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 1.5;
+	letter-spacing: 0;
+	word-spacing: normal;
+	line-break: strict;
+	color: #FFFFFF;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, .75);
+}
+.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-image-box-title a {
+	color: inherit;
+	text-decoration: none;
+	pointer-events: auto;
+}
+/* the photo's own link already wraps the whole card, so stretching it
+   over the figure makes every part of the card a hit target */
+.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-image-box-img a {
+	display: block;
+	height: 100%;
+}
+.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-widget-image-box:focus-within .elementor-image-box-wrapper {
+	outline: 2px solid #FFFFFF;
+	outline-offset: -4px;
+}
+@media (max-width: 1024px) {
+	.elementor-8 .elementor-element.elementor-element-d4724ed > .elementor-widget-image-box {
+		flex: 0 0 calc((100% - 22px) / 2);
+	}
+	.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-widget-image-box .elementor-image-box-title {
+		font-size: 22px;
+	}
+}
+@media (max-width: 767px) {
+	.elementor-8 .elementor-element.elementor-element-d4724ed > .elementor-widget-image-box {
+		flex: 0 0 86%;     /* the next card peeks, so the strip reads as one */
+	}
+	.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-image-box-content {
+		padding: 32px 16px 18px;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-image-box-wrapper,
+	.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-widget-image-box .elementor-image-box-img img {
+		transition: none;
+	}
+	.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-widget-image-box:hover .elementor-image-box-wrapper,
+	.elementor-8 .elementor-element.elementor-element-d4724ed .elementor-widget-image-box:hover .elementor-image-box-img img {
+		transform: none;
+	}
+}
+
+/* =================================================================
+   「アルタンツアーが選ばれる理由」slider
+
+   The five Elementor image boxes that used to sit here are gone: each
+   reason is now one illustrated card that carries its own number, title
+   and copy, so there is no separate title or description to style. The
+   text still reaches search engines and screen readers through each
+   image's alt.
+
+   The five artworks run from 1600x2028 to 1600x2320, so at their own
+   heights they would end on five different baselines. Every slide takes
+   the tallest of those ratios and fills it, which trims the sides of
+   the shorter files rather than banding their top and bottom: at worst
+   6.3% comes off each side of 1600x2028, and the nearest thing to the
+   edge in any of the five - the 1/5 marker - sits 9.4% in, so only the
+   blank margin is lost. Export all five at 1600x2320 and nothing is
+   trimmed at all.
+   ================================================================= */
+.jamo-slider {
+	position: relative;
+	width: 100%;
+}
+.jamo-slide {
+	flex: 0 0 calc((100% - 44px) / 3);   /* three to a view, two gaps */
+	aspect-ratio: 1600 / 2320;
+	overflow: hidden;
+	border-radius: 14px;
+	background-color: #E9E9EE;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, .18);
+}
+.jamo-slide img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+@media (max-width: 1024px) {
+	.jamo-slide {
+		flex: 0 0 calc((100% - 22px) / 2);
+	}
+}
+@media (max-width: 767px) {
+	.jamo-slide {
+		flex: 0 0 86%;
 	}
 }

@@ -112,3 +112,143 @@
 		init();
 	}
 })();
+
+/* Dots for the three card sliders (「モンゴルを知る」, 「モンゴル旅行の準備」,
+   「選ばれる理由」).
+
+   The sliding itself is CSS scroll-snap, so nothing here moves a strip
+   by hand: a dot click is a scrollTo and the strip reports back on
+   scroll. A swipe, a trackpad flick, shift-wheel and the dots therefore
+   all drive the same single source of truth. The strips still scroll
+   with this file blocked - they just have no dots, which is why the
+   dots are built here rather than shipped in the markup.
+
+   One dot per *page*, not per card. Four cards are on screen in 準備 at
+   desktop width, so of seven only the first four can ever reach the
+   left edge: seven dots would have left three unreachable and a fourth
+   permanently lit. Pages are recomputed on resize, where the count
+   changes with the breakpoint.
+
+   Positions are measured once per layout rather than read during
+   scroll, so the scroll handler is arithmetic only and never forces a
+   reflow. */
+(function () {
+	'use strict';
+
+	var ON = 'jamo-slider-dot-on';
+
+	function setUp(root) {
+		if (root.dataset.jamoSliderOn === 'on') { return; }
+
+		// the two Elementor containers carry both attributes themselves;
+		// the 理由 markup wraps its track in a parent
+		var track = root.hasAttribute('data-jamo-track')
+			? root
+			: root.querySelector('[data-jamo-track]');
+		if (!track) { return; }
+
+		var slides = [];
+		for (var i = 0; i < track.children.length; i++) {
+			if (track.children[i].nodeType === 1) { slides.push(track.children[i]); }
+		}
+		if (slides.length < 2) { return; }
+
+		var host = (track === root) ? track.parentNode : root;
+		if (!host) { return; }
+
+		root.dataset.jamoSliderOn = 'on';
+
+		var pager = document.createElement('div');
+		pager.className = 'jamo-slider-dots';
+		pager.setAttribute('role', 'tablist');
+		if (root.getAttribute('data-jamo-slider')) {
+			pager.setAttribute('aria-label', root.getAttribute('data-jamo-slider'));
+		}
+		host.appendChild(pager);
+
+		var stops = [];      // scrollLeft of each page
+		var dots = [];
+		var current = -1;
+
+		function measure() {
+			var max = track.scrollWidth - track.clientWidth;
+			var step = slides.length > 1
+				? (slides[1].offsetLeft - slides[0].offsetLeft)   // card + gap
+				: slides[0].getBoundingClientRect().width;
+			var perPage = Math.max(1, Math.round(track.clientWidth / step));
+
+			stops = [];
+			for (var i = 0; i < slides.length; i += perPage) {
+				var at = Math.min(slides[i].offsetLeft - track.offsetLeft, max);
+				// the clamp can land two pages on the same place at the end
+				if (!stops.length || at - stops[stops.length - 1] > 1) { stops.push(at); }
+			}
+			if (!stops.length) { stops = [0]; }
+		}
+
+		function paint(n) {
+			if (n === current) { return; }
+			current = n;
+			for (var i = 0; i < dots.length; i++) {
+				dots[i].classList.toggle(ON, i === n);
+				dots[i].setAttribute('aria-selected', i === n ? 'true' : 'false');
+			}
+		}
+
+		function nearest() {
+			var best = 0;
+			var bestGap = Infinity;
+			for (var i = 0; i < stops.length; i++) {
+				var gap = Math.abs(stops[i] - track.scrollLeft);
+				if (gap < bestGap) { bestGap = gap; best = i; }
+			}
+			return best;
+		}
+
+		function buildDots() {
+			pager.innerHTML = '';
+			dots = [];
+			current = -1;
+			if (stops.length < 2) { return; }      // nothing to page through
+			for (var i = 0; i < stops.length; i++) {
+				(function (n) {
+					var b = document.createElement('button');
+					b.type = 'button';
+					b.className = 'jamo-slider-dot';
+					b.setAttribute('role', 'tab');
+					b.setAttribute('aria-label', (n + 1) + 'ページ目');
+					b.addEventListener('click', function () {
+						track.scrollTo({ left: stops[n], behavior: 'smooth' });
+					});
+					pager.appendChild(b);
+					dots.push(b);
+				})(i);
+			}
+		}
+
+		function relayout() {
+			var before = stops.length;
+			measure();
+			if (stops.length !== before) { buildDots(); }
+			paint(nearest());
+		}
+
+		track.addEventListener('scroll', function () { paint(nearest()); }, { passive: true });
+		window.addEventListener('resize', relayout);
+
+		measure();
+		buildDots();
+		paint(nearest());
+	}
+
+	function init() {
+		var roots = document.querySelectorAll('[data-jamo-slider]');
+		for (var i = 0; i < roots.length; i++) { setUp(roots[i]); }
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', init);
+	} else {
+		init();
+	}
+})();

@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1180" width="800" height="1180">
+  <defs>
+    <clipPath id="night"><rect x="70" y="200" width="660" height="450" rx="30"/></clipPath>
+  </defs>
+  <rect width="800" height="1180" fill="#E9E9EE"/>
+  <rect x="30" y="30" width="740" height="1120" rx="48" fill="#EFE8CB"/>
+
+  <!-- 4/5 -->
+  <text x="78" y="118" font-family="Noto Sans CJK JP, sans-serif" font-weight="700" font-size="44" fill="#2B3A67">4</text>
+  <line x1="72" y1="170" x2="140" y2="80" stroke="#2B3A67" stroke-width="4"/>
+  <text x="118" y="168" font-family="Noto Sans CJK JP, sans-serif" font-weight="700" font-size="30" fill="#2B3A67">5</text>
+
+  <!-- night panel -->
+  <g clip-path="url(#night)">
+    <rect x="70" y="200" width="660" height="450" fill="#2B3A67"/>
+    <!-- stars -->
+    <g fill="#FFFFFF">
+      <circle cx="120" cy="250" r="2.5"/><circle cx="180" cy="300" r="2"/><circle cx="240" cy="235" r="3"/>
+      <circle cx="300" cy="320" r="2"/><circle cx="350" cy="250" r="2.5"/><circle cx="420" cy="300" r="2"/>
+      <circle cx="470" cy="240" r="3"/><circle cx="520" cy="330" r="2"/><circle cx="560" cy="270" r="2.5"/>
+      <circle cx="140" cy="380" r="2"/><circle cx="400" cy="380" r="2.5"/><circle cx="600" cy="390" r="2"/>
+      <circle cx="680" cy="340" r="2"/><circle cx="210" cy="360" r="1.8"/><circle cx="460" cy="420" r="1.8"/>
+    </g>
+    <g fill="#FFD66B">
+      <path d="M280 270 l5 13 l13 5 l-13 5 l-5 13 l-5 -13 l-13 -5 l13 -5 z"/>
+      <path d="M520 220 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 z"/>
+      <path d="M160 440 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 z"/>
+      <path d="M640 440 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 z"/>
+    </g>
+    <!-- shooting star -->
+    <line x1="330" y1="230" x2="420" y2="270" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+    <circle cx="420" cy="270" r="4" fill="#FFFFFF"/>
+    <!-- moon -->
+    <circle cx="640" cy="270" r="34" fill="#FFD66B"/>
+    <circle cx="656" cy="258" r="30" fill="#2B3A67"/>
+    <!-- hills -->
+    <path d="M70 600 Q250 540 420 590 Q580 540 730 585 V650 H70 Z" fill="#3D6B4F"/>
+    <path d="M70 625 Q300 590 520 620 Q640 605 730 615 V650 H70 Z" fill="#2F5A40"/>
+    <!-- ger -->
+    <path d="M470 610 V560 Q545 495 620 560 V610 Z" fill="#FFFFFF"/>
+    <path d="M470 560 Q545 495 620 560" fill="none" stroke="#E85D5D" stroke-width="6"/>
+    <rect x="470" y="572" width="150" height="8" fill="#E85D5D"/>
+    <rect x="530" y="580" width="30" height="30" fill="#FFB547"/>
+    <rect x="538" y="518" width="14" height="10" fill="#9DB7D9"/>
+    <line x1="545" y1="518" x2="545" y2="500" stroke="#8A8A8A" stroke-width="4"/>
+  </g>
+
+  <!-- ===== Adult in deel with bow ===== -->
+  <!-- bow -->
+  <path d="M180 470 Q140 545 180 620" fill="none" stroke="#C47A3A" stroke-width="6" stroke-linecap="round"/>
+  <line x1="180" y1="470" x2="180" y2="620" stroke="#EFE8CB" stroke-width="1.5"/>
+  <g stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polyline points="218,478 192,520 178,545" stroke="#3A86FF" stroke-width="20"/>
+    <polyline points="266,478 290,520 305,545" stroke="#3A86FF" stroke-width="20"/>
+  </g>
+  <circle cx="176" cy="548" r="10" fill="#E8A37C"/>
+  <path d="M212 470 Q242 460 272 470 L285 610 L200 610 Z" fill="#3A86FF"/>
+  <path d="M242 466 L262 500" stroke="#FFC93C" stroke-width="5"/>
+  <rect x="204" y="530" width="76" height="12" fill="#FFC93C"/>
+  <rect x="215" y="608" width="22" height="16" rx="4" fill="#5B4A3A"/>
+  <rect x="248" y="608" width="22" height="16" rx="4" fill="#5B4A3A"/>
+  <rect x="234" y="445" width="16" height="20" fill="#E8A37C"/>
+  <circle cx="242" cy="428" r="28" fill="#E8A37C"/>
+  <!-- hat -->
+  <path d="M212 418 Q242 370 272 418 Z" fill="#E85D5D"/>
+  <rect x="208" y="412" width="68" height="10" rx="5" fill="#FFC93C"/>
+  <circle cx="242" cy="378" r="5" fill="#FFC93C"/>
+  <circle cx="232" cy="433" r="3" fill="#1E1E2A"/><circle cx="252" cy="433" r="3" fill="#1E1E2A"/>
+  <path d="M233 444 Q242 452 251 444" fill="none" stroke="#1E1E2A" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- ===== Child in deel pointing at stars ===== -->
+  <g stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polyline points="344,522 366,488 380,452" stroke="#E85D5D" stroke-width="16"/>
+    <polyline points="312,522 300,555 304,575" stroke="#E85D5D" stroke-width="16"/>
+  </g>
+  <circle cx="382" cy="446" r="8" fill="#C68B59"/>
+  <circle cx="305" cy="578" r="8" fill="#C68B59"/>
+  <path d="M308 515 Q328 507 348 515 L358 612 L298 612 Z" fill="#E85D5D"/>
+  <rect x="301" y="555" width="54" height="9" fill="#2EC4B6"/>
+  <rect x="308" y="610" width="17" height="13" rx="4" fill="#5B4A3A"/>
+  <rect x="332" y="610" width="17" height="13" rx="4" fill="#5B4A3A"/>
+  <circle cx="328" cy="490" r="22" fill="#C68B59"/>
+  <path d="M306 488 C 304 460, 352 460, 350 488 C 340 476, 318 474, 306 488 Z" fill="#1E1E2A"/>
+  <circle cx="322" cy="492" r="2.5" fill="#1E1E2A"/><circle cx="338" cy="492" r="2.5" fill="#1E1E2A"/>
+  <path d="M322 500 Q330 510 338 500 Z" fill="#FFFFFF" stroke="#1E1E2A" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- 50% OFF badge -->
+  <g transform="translate(655,175) rotate(8)">
+    <path d="M0 -78 L18 -62 L42 -66 L48 -42 L70 -32 L62 -10 L76 10 L58 26 L60 50 L36 54 L24 76 L2 66 L-20 78 L-34 58 L-58 56 L-58 32 L-76 16 L-62 -4 L-70 -28 L-48 -38 L-44 -62 L-20 -60 Z" fill="#FF6B5B"/>
+    <text x="0" y="-26" text-anchor="middle" font-family="Noto Sans CJK JP, sans-serif" font-weight="700" font-size="15" fill="#FFFFFF">お子様 最大</text>
+    <text x="0" y="16" text-anchor="middle" font-family="Noto Sans CJK JP, sans-serif" font-weight="900" font-size="42" fill="#FFFFFF">50%</text>
+    <text x="0" y="44" text-anchor="middle" font-family="Noto Sans CJK JP, sans-serif" font-weight="900" font-size="22" fill="#FFF3B0">OFF</text>
+  </g>
+
+  <!-- text: title baseline 800, body from 870 at 46 leading - the same
+       grid on all three cards so the blocks line up across the slider -->
+  <text x="78" y="800" font-family="Noto Sans CJK JP, sans-serif" font-weight="700" font-size="44" fill="#1E1E2A">割引・特典＆取消料無料</text>
+  <text font-family="Noto Sans CJK JP, sans-serif" font-size="28" fill="#3A3A3A">
+    <tspan x="78" y="870">お子様（12歳以下）は<tspan font-weight="700" fill="#E85D5D">最大50％OFF！</tspan></tspan>
+    <tspan x="78" y="914">ゲル泊なら星空観察・民族衣装の試着・</tspan>
+    <tspan x="78" y="958">弓矢体験などの各体験が無料！</tspan>
+  </text>
+  <g>
+    <rect x="78" y="1000" width="440" height="54" rx="27" fill="#2B3A67"/>
+    <text x="298" y="1036" text-anchor="middle" font-family="Noto Sans CJK JP, sans-serif" font-weight="700" font-size="26" fill="#FFFFFF">更にご家族はキャンセル料無料！</text>
+  </g>
+</svg>
