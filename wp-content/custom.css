@@ -1769,3 +1769,25 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 .elementor-211 .elementor-element.elementor-element-2bf6cb9 .elementor-menu-toggle {
 	color: #FFFFFF;
 }
+/* The nine items of the bottom footer menu wrapped onto a second line: the
+   home page's copy pads each item by 30px a side and the shared footer by 20px,
+   which no longer fits once the row is boxed to the site's 1140px. Same two
+   menus as the rule above; this only tightens the horizontal padding, so the
+   click targets keep their full height. */
+.elementor-8 .elementor-element.elementor-element-9a6af36 .elementor-nav-menu--main .elementor-item,
+.elementor-211 .elementor-element.elementor-element-2bf6cb9 .elementor-nav-menu--main .elementor-item {
+	padding-left: 12px;
+	padding-right: 12px;
+}
+/* Same problem in the header: its nine items need 1078px of the 973px the menu
+   column gets beside the logo, so 連絡先 dropped to a second row on every page.
+   18px a side is Elementor's default here - 10px brings the row to ~934px and
+   keeps it on one line down to the tablet breakpoint, where the burger takes
+   over anyway. Both headers: the shared one (208) and the home page's (8). */
+.elementor-208 .elementor-element.elementor-element-cadfae4 .elementor-nav-menu--main .elementor-item,
+.elementor-8 .elementor-element.elementor-element-935f201 .elementor-nav-menu--main .elementor-item {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-inline-start: 10px;
+	padding-inline-end: 10px;
+}
