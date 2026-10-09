@@ -14,8 +14,14 @@
 	   These three are the eco-green replacements, one hue family with
 	   --jamo-green so the footer reads as part of the site. */
 	--jamo-footer:      #27500F;  /* the footer body */
-	--jamo-footer-deep: #1C3B0B;  /* the partner-banner strip under it */
+	--jamo-footer-deep: #1C3B0B;  /* kept for reference; no longer painted */
+	/* The strip of five partner banners sits on white: the dark green read
+	   as a heavy slab between the grey body and the cream nav below it. */
+	--jamo-footer-banners: #FFFFFF;
 	--jamo-footer-bar:  #3F7D06;  /* the thin bars that frame the footer */
+	/* The grey of the contact bar above the home footer. The whole footer
+	   body is now this one grey, on every page. */
+	--jamo-footer-grey: #6D6D6D;
 }
 /* =================================================================
    「注目！おすすめツアー」slider (container d1e8b1c)
@@ -1227,19 +1233,27 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
        LINE icon joined FB / FB / YouTube instead of floating on its own.
    ================================================================= */
 
-/* --- The eco-green base. These selectors have to match the generated
-       ones exactly to win on specificity; this file loads last. --- */
+/* --- The footer base. These selectors have to match the generated ones
+       exactly to win on specificity; this file loads last. The body -
+       both the link row and the brand block - is one grey, and the
+       contact bar above it is the same grey on every page: the home page
+       already had it, the sub-pages carried a green bar there. --- */
 .elementor-211 .elementor-element.elementor-element-09630a4:not(.elementor-motion-effects-element-type-background),
 .elementor-211 .elementor-element.elementor-element-87ece5d:not(.elementor-motion-effects-element-type-background),
 .elementor-8 .elementor-element.elementor-element-0e8b923:not(.elementor-motion-effects-element-type-background) {
-	background-color: var(--jamo-footer);
+	background-color: var(--jamo-footer-grey);
 }
 .elementor-211 .elementor-element.elementor-element-aebf2be:not(.elementor-motion-effects-element-type-background),
 .elementor-211 .elementor-element.elementor-element-b54d85f:not(.elementor-motion-effects-element-type-background),
 .elementor-8 .elementor-element.elementor-element-b69ff1f:not(.elementor-motion-effects-element-type-background) {
-	background-color: var(--jamo-footer-deep);
+	background-color: var(--jamo-footer-banners);
 }
+/* The two green bars that frame the grey: the contact line at the top and
+   the copyright line at the foot. The top one was grey on the home page and
+   a different green on the sub-pages; both are the one green now, so the bar
+   reads as a separate band rather than as part of the grey body. */
 .elementor-211 .elementor-element.elementor-element-1c91fc8:not(.elementor-motion-effects-element-type-background),
+.elementor-8 .elementor-element.elementor-element-4c6c098:not(.elementor-motion-effects-element-type-background),
 .elementor-211 .elementor-element.elementor-element-2ba75d5:not(.elementor-motion-effects-element-type-background),
 .elementor-8 .elementor-element.elementor-element-d388d60:not(.elementor-motion-effects-element-type-background) {
 	background-color: var(--jamo-footer-bar);
@@ -1268,6 +1282,26 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 	margin: 0;
 }
 
+/* --- The link lists were set for the old near-black footer: #C2C2C2 text
+       and #8A8A8A icons. Against the grey those fall to 2.8:1 and 1.4:1,
+       so the text goes white like the headings and the icons follow it. --- */
+.elementor-211 .elementor-element.elementor-element-3eb936a .elementor-icon-list-text,
+.elementor-211 .elementor-element.elementor-element-1f09ff6 .elementor-icon-list-text,
+.elementor-211 .elementor-element.elementor-element-886ca9f .elementor-icon-list-text,
+.elementor-8 .elementor-element.elementor-element-34aad6e .elementor-icon-list-text,
+.elementor-8 .elementor-element.elementor-element-1253b4b .elementor-icon-list-text,
+.elementor-8 .elementor-element.elementor-element-e5475fc .elementor-icon-list-text {
+	color: #FFFFFF;
+}
+.elementor-211 .elementor-element.elementor-element-3eb936a .elementor-icon-list-icon svg,
+.elementor-211 .elementor-element.elementor-element-1f09ff6 .elementor-icon-list-icon svg,
+.elementor-211 .elementor-element.elementor-element-886ca9f .elementor-icon-list-icon svg,
+.elementor-8 .elementor-element.elementor-element-34aad6e .elementor-icon-list-icon svg,
+.elementor-8 .elementor-element.elementor-element-1253b4b .elementor-icon-list-icon svg,
+.elementor-8 .elementor-element.elementor-element-e5475fc .elementor-icon-list-icon svg {
+	fill: #F0F0F0;
+}
+
 /* --- The link row is three columns, not four: the logo used to sit in the
        first cell and has moved down into the brand block. --- */
 .elementor-211 .elementor-element.elementor-element-5843e43,
@@ -1275,27 +1309,42 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 	--e-con-grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-/* --- The brand block. Left: the two addresses side by side. Right, in a
-       stack: "Follow us" with the logo beside it, then the Terelj banner.
-       Rows are auto, not `1fr` - with equal rows the short ones left
-       gaps - and explicit, because the banner comes first in the markup
-       but reads last. --- */
+/* --- The brand block runs on the same three tracks as the link row above
+       it: the two addresses share the first two, so 日本連絡先 starts under
+       モンゴルを知る, and the third carries "Follow us" with the Terelj
+       banner in the space beneath it, under ご利用ガイド. Both rows write
+       their gap and side padding out rather than inheriting them - the link
+       row takes Elementor's 10px default and the brand block 15px, which is
+       what pulled the two out of step. Rows are auto, not `1fr`: with equal
+       rows the short one left a gap. --- */
+.elementor-211 .elementor-element.elementor-element-5843e43,
+.elementor-8 .elementor-element.elementor-element-84993e6,
 .elementor-211 .elementor-element.elementor-element-aa73d89,
 .elementor-8 .elementor-element.elementor-element-97d8a16 {
-	--e-con-grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
-	--e-con-grid-template-rows: auto auto auto;
+	--gap: 20px;
+	--row-gap: 20px;
+	--column-gap: 20px;
+	--padding-left: 10px;
+	--padding-right: 10px;
+}
+.elementor-211 .elementor-element.elementor-element-aa73d89,
+.elementor-8 .elementor-element.elementor-element-97d8a16 {
+	--e-con-grid-template-columns: repeat(3, minmax(0, 1fr));
+	--e-con-grid-template-rows: auto auto;
 	--padding-top: 26px;
+	--row-gap: 16px;
+	--gap: 16px 20px;
 	align-items: start;
 }
+/* The addresses hold the first two tracks between them; the third stacks the
+   icons over the banner. Rows are explicit because the banner comes first in
+   the markup but reads last. */
 .elementor-211 .elementor-element.elementor-element-0006fa0,
-.elementor-8 .elementor-element.elementor-element-9c793d8 { grid-column: 1; grid-row: 1 / -1; }
+.elementor-8 .elementor-element.elementor-element-9c793d8 { grid-column: 1 / span 2; grid-row: 1 / -1; }
 .elementor-211 .elementor-element.elementor-element-6b901a2,
-.elementor-8 .elementor-element.elementor-element-2bad84f { grid-column: 2; grid-row: 1; }
+.elementor-8 .elementor-element.elementor-element-2bad84f { grid-column: 3; grid-row: 1; }
 .elementor-211 .elementor-element.elementor-element-7cb5012,
-.elementor-8 .elementor-element.elementor-element-9d42dfd { grid-column: 2; grid-row: 2; }
-.elementor-8 .elementor-element.elementor-element-9d42dfd {
-	position: static;   /* was pinned at left:782px / top:155px */
-}
+.elementor-8 .elementor-element.elementor-element-9d42dfd { grid-column: 3; grid-row: 2; }
 
 /* --- The two addresses. They are the two paragraphs of a single text
        widget, so the widget itself becomes the two-column grid; on the
@@ -1303,16 +1352,24 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 .elementor-211 .elementor-element.elementor-element-0006fa0 > .elementor-widget-container,
 .elementor-8 .elementor-element.elementor-element-9c793d8 > .elementor-widget-container {
 	display: grid;
-	/* content-sized, so the long UB street line keeps to one line while
-	   the shorter Japan column takes only what it needs */
-	grid-template-columns: auto auto;
-	justify-content: start;
-	column-gap: 32px;
+	/* The widget straddles the first two tracks of the row, so its own two
+	   columns repeat those tracks exactly - equal width, same 20px gap - and
+	   the Japan block lands under モンゴルを知る. */
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	column-gap: 20px;
 	align-items: start;
 }
 .elementor-211 .elementor-element.elementor-element-0006fa0 > .elementor-widget-container > p,
 .elementor-8 .elementor-element.elementor-element-9c793d8 > .elementor-widget-container > p {
 	margin: 0;
+}
+/* Each link column insets its own content by 10px; the addresses are bare
+   widgets, so they take the same inset by hand or they sit 10px to the left
+   of the headings above them. */
+.elementor-211 .elementor-element.elementor-element-0006fa0 > .elementor-widget-container > p,
+.elementor-8 .elementor-element.elementor-element-9c793d8 > .elementor-widget-container > p,
+.elementor-8 .elementor-element.elementor-element-9c793d8 > .elementor-widget-container > h5 {
+	padding-inline: 10px;
 }
 /* On the home page the company name is a heading of its own, so it takes the
    first column and the Japan block starts level with it rather than a line
@@ -1363,15 +1420,24 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
        beside them. All three were separate cells of other grids. --- */
 .elementor-211 .elementor-element.elementor-element-6b901a2,
 .elementor-8 .elementor-element.elementor-element-2bad84f {
-	--e-con-grid-template-columns: auto auto;
+	/* The icon row keeps its natural width - two `auto` tracks let the logo
+	   squeeze it until LINE dropped to a second line in the narrower footer
+	   the sub-pages use - and the logo takes what is left, scaling down. */
+	--e-con-grid-template-columns: max-content minmax(0, 1fr);
 	--e-con-grid-template-rows: auto auto;
-	--width: 100%;
+	/* 388px is the icon row (198) + gap (20) + logo (150) + the 10px inset
+	   on each side: the block ends exactly at the logo's right edge, and the
+	   banner below is given the same width so the two end together. In the
+	   narrower sub-page footer this falls back to the track and the logo
+	   scales down, so the two edges still meet. */
+	--width: min(388px, 100%);
 	--gap: 4px 20px;
 	--row-gap: 4px;
 	--column-gap: 20px;
-	/* flush with the banner above */
-	--padding-left: 0px;
-	--padding-right: 0px;
+	/* the same 10px inset every link column uses, so "Follow us" starts
+	   under ご利用ガイド and over the banner below it */
+	--padding-left: 10px;
+	--padding-right: 10px;
 	justify-content: start;
 	justify-items: start;
 	align-items: center;
@@ -1438,19 +1504,69 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 	transform: scale(1.14);
 }
 
-/* --- The Terelj banner. line-height:51px on 17px text made a button
-       three lines tall that could not wrap; it now sizes to its own
-       label and keeps the yellow, which still carries against green. --- */
+/* --- The Terelj banner, in the space under "Follow us". It was an absolute
+       overlay pinned at left:782px / top:155px, and line-height:51px on 17px
+       text made a button three lines tall that could not wrap. It is now a
+       plain cell of the brand grid that sizes to its own label: a small
+       rectangle starting where "Follow us" starts, keeping the yellow,
+       which still carries against the green. --- */
+.elementor-211 .elementor-element.elementor-element-7cb5012,
+.elementor-8 .elementor-element.elementor-element-9d42dfd {
+	position: static;
+	/* the same width as the "Follow us" block above, so the banner ends on
+	   the logo's right edge */
+	width: min(388px, 100%);
+	/* the 10px inset the link columns and "Follow us" both use */
+	padding-inline: 10px;
+}
+.elementor-211 .elementor-element.elementor-element-7cb5012 .elementor-button-wrapper,
+.elementor-8 .elementor-element.elementor-element-9d42dfd .elementor-button-wrapper {
+	text-align: left;   /* the widget still carries elementor-align-right */
+}
 .elementor-211 .elementor-element.elementor-element-7cb5012 .elementor-button,
 .elementor-8 .elementor-element.elementor-element-9d42dfd .elementor-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;   /* icon and label centred in the block */
+	gap: 6px;
+	width: 100%;   /* fills the width set on the widget, no more */
+	max-width: 100%;
 	/* 17px left the label two lines wide even in the widened column */
-	font-size: 15px;
-	line-height: 1.5;
-	width: 100%;   /* flush with the Follow us row below it */
-	padding: 18px 20px;
-	border-radius: 6px;
+	font-size: 13px;
+	line-height: 1.4;
+	padding: 10px 14px;
+	border-radius: 4px;   /* a rectangle, not a pill */
 	white-space: normal;
-	max-width: 100%;   /* it is wider than a phone otherwise */
+	text-align: center;
+}
+.elementor-211 .elementor-element.elementor-element-7cb5012 .elementor-button-content-wrapper,
+.elementor-8 .elementor-element.elementor-element-9d42dfd .elementor-button-content-wrapper {
+	align-items: center;
+	gap: 6px;
+}
+.elementor-211 .elementor-element.elementor-element-7cb5012 .elementor-button-icon,
+.elementor-8 .elementor-element.elementor-element-9d42dfd .elementor-button-icon {
+	flex: 0 0 auto;
+}
+
+/* --- Tablets: the third column is no longer wide enough to hold the icon
+       row and the logo side by side - the logo was squeezed to a sliver -
+       so the logo drops under the icons. --- */
+@media (max-width: 1024px) {
+	.elementor-211 .elementor-element.elementor-element-6b901a2,
+	.elementor-8 .elementor-element.elementor-element-2bad84f {
+		--e-con-grid-template-columns: minmax(0, 1fr);
+		--e-con-grid-template-rows: auto auto auto;
+		--row-gap: 10px;
+		--gap: 10px 0px;
+	}
+	.elementor-211 .elementor-element.elementor-element-ef70d19,
+	.elementor-8 .elementor-element.elementor-element-20a6f41 {
+		grid-column: 1;
+		grid-row: 3;
+		align-self: start;
+		justify-self: start;
+	}
 }
 
 /* --- Phones and small tablets: one column, in reading order. --- */
@@ -1495,6 +1611,16 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 	.elementor-8 .elementor-element.elementor-element-2bad84f { grid-row: 2; }
 	.elementor-211 .elementor-element.elementor-element-7cb5012,
 	.elementor-8 .elementor-element.elementor-element-9d42dfd { grid-row: 3; }
+	/* centred with everything else, and the 10px desktop inset off */
+	.elementor-211 .elementor-element.elementor-element-7cb5012 .elementor-button-wrapper,
+	.elementor-8 .elementor-element.elementor-element-9d42dfd .elementor-button-wrapper {
+		text-align: center;
+	}
+	.elementor-211 .elementor-element.elementor-element-0006fa0 > .elementor-widget-container > p,
+	.elementor-8 .elementor-element.elementor-element-9c793d8 > .elementor-widget-container > p,
+	.elementor-8 .elementor-element.elementor-element-9c793d8 > .elementor-widget-container > h5 {
+		padding-inline: 0;
+	}
 	/* and the logo drops under the icons rather than sitting beside them */
 	.elementor-211 .elementor-element.elementor-element-6b901a2,
 	.elementor-8 .elementor-element.elementor-element-2bad84f {
@@ -1612,10 +1738,34 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 	line-height: 1.35;
 }
 
-/* --- The bottom menu marks the current page in white, on a #FAF7F0
-       bar, so whichever page you are on loses its own menu item. --- */
+/* --- The bottom menu bar. It was a #FAF7F0 band carrying #4E4E4E items;
+       on the grey those drop to 1.4:1, so the items take the same white as
+       the rest of the footer. The current page was marked by colour alone
+       (white, and invisible on the cream bar); white is now the norm, so it
+       is marked with an underline - an inset shadow, which costs no
+       layout. --- */
+.elementor-8 .elementor-element.elementor-element-ab4bf2f:not(.elementor-motion-effects-element-type-background),
+.elementor-211 .elementor-element.elementor-element-e37667e:not(.elementor-motion-effects-element-type-background) {
+	background-color: var(--jamo-footer-grey);
+}
+/* The bar also carries a half-opaque #FAF7F0 overlay, which washed the grey
+   out to #B3B2AE; clearing it lets the band match the body exactly. */
+.elementor-8 .elementor-element.elementor-element-ab4bf2f::before,
+.elementor-211 .elementor-element.elementor-element-e37667e::before {
+	background-color: transparent;
+}
+.elementor-8 .elementor-element.elementor-element-9a6af36 .elementor-nav-menu--main .elementor-item,
+.elementor-211 .elementor-element.elementor-element-2bf6cb9 .elementor-nav-menu--main .elementor-item {
+	color: #FFFFFF;
+	fill: #FFFFFF;
+}
 .elementor-8 .elementor-element.elementor-element-9a6af36 .elementor-nav-menu--main .elementor-item.elementor-item-active,
 .elementor-211 .elementor-element.elementor-element-2bf6cb9 .elementor-nav-menu--main .elementor-item.elementor-item-active {
-	color: #000000;
-	fill: #000000;
+	color: #FFFFFF;
+	fill: #FFFFFF;
+}
+/* the burger that replaces the menu on phones */
+.elementor-8 .elementor-element.elementor-element-9a6af36 .elementor-menu-toggle,
+.elementor-211 .elementor-element.elementor-element-2bf6cb9 .elementor-menu-toggle {
+	color: #FFFFFF;
 }
