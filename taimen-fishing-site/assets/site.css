@@ -1,0 +1,36 @@
+/* Base */
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #FBFBF8; }
+a { color: #2F5D46; }
+a:hover { color: #1F4031; }
+button { font: inherit; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+
+/* Keyboard focus */
+a:focus-visible,
+button:focus-visible { outline: 3px solid #F2D16B; outline-offset: 2px; }
+
+/* Tour cards: the whole card is one link */
+.tour-card { transition: box-shadow .2s ease, transform .2s ease; }
+.tour-card:hover { box-shadow: 0 10px 24px rgba(27,36,33,0.14); transform: translateY(-2px); }
+.tour-card:hover .tour-card__cta { background: #1F4031; }
+.tour-card:focus-within { outline: 3px solid #F2D16B; outline-offset: 2px; }
+.tour-card__link:focus-visible { outline: none; }
+
+/* Text blocks with a fixed pixel width must not overflow narrow screens */
+@media (max-width: 1200px) {
+  main p[style*="width:"] { width: auto !important; height: auto !important; max-width: 100% !important; }
+}
+
+/* Mobile (Google indexes the mobile version first) */
+@media (max-width: 640px) {
+  h1 { font-size: 32px !important; }
+  h2 { font-size: 26px !important; }
+  section th[scope="col"] { font-size: 16px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
