@@ -83,3 +83,49 @@
   if (galPrev) galPrev.addEventListener('click', function () { showGal(galIndex - 1); });
   if (galNext) galNext.addEventListener('click', function () { showGal(galIndex + 1); });
 })();
+
+// Insect gallery lightbox
+(function () {
+  'use strict';
+  var lb = document.querySelector('[data-lb]');
+  if (!lb) return;
+  var figs = Array.prototype.slice.call(document.querySelectorAll('[data-zoom]'));
+  var img = lb.querySelector('[data-lb-img]');
+  var cap = lb.querySelector('[data-lb-cap]');
+  var cnt = lb.querySelector('[data-lb-count]');
+  var cur = 0, last = null;
+  function show(i) {
+    var n = figs.length; cur = ((i % n) + n) % n;
+    var im = figs[cur].querySelector('img');
+    img.src = im.currentSrc || im.src; img.alt = im.alt;
+    cap.textContent = im.alt; cnt.textContent = (cur + 1) + ' / ' + n;
+  }
+  function open(i) {
+    last = document.activeElement; show(i); lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+    var c = lb.querySelector('button[data-lb-close]'); if (c) c.focus();
+  }
+  function close() {
+    lb.hidden = true; document.body.style.overflow = '';
+    if (last && last.focus) last.focus();
+  }
+  figs.forEach(function (f, i) {
+    f.addEventListener('click', function () { open(i); });
+    f.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
+    });
+  });
+  lb.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-lb-prev],[data-lb-next],[data-lb-close],[data-lb-stop]');
+    if (!t || t.hasAttribute('data-lb-stop')) return;
+    if (t.hasAttribute('data-lb-prev')) show(cur - 1);
+    else if (t.hasAttribute('data-lb-next')) show(cur + 1);
+    else close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') show(cur - 1);
+    else if (e.key === 'ArrowRight') show(cur + 1);
+  });
+})();
