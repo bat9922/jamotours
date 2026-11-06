@@ -1,0 +1,44 @@
+/* Base */
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #FBFBF8; }
+a { color: #2F5D46; }
+a:hover { color: #1F4031; }
+button { font: inherit; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+
+/* Blocks given a fixed pixel width in the design must still fit narrow screens */
+main ul, main ol, main li, main p, main div, main article, main section, main table, main h1, main h2, main h3 { max-width: 100%; }
+
+/* Keyboard focus */
+a:focus-visible,
+button:focus-visible { outline: 3px solid #F2D16B; outline-offset: 2px; }
+
+/* Cards that are clickable as a whole (overlay link) */
+article:has(> a[aria-hidden="true"]) { transition: border-color 200ms ease, box-shadow 200ms ease; }
+article:has(> a[aria-hidden="true"]):hover { border-color: #2F5D46; box-shadow: 0 8px 24px rgba(27, 36, 33, 0.14); }
+
+/* Text blocks with a fixed pixel width must not overflow narrow screens */
+@media (max-width: 1200px) {
+  main p[style*="width:"] { width: auto !important; height: auto !important; max-width: 100% !important; }
+}
+
+/* Mobile (Google indexes the mobile version first) */
+@media (max-width: 640px) {
+  h1 { font-size: 32px !important; text-align: left !important; }
+  h2 { font-size: 26px !important; }
+  section th[scope="col"] { font-size: 16px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+
+/* whole card clickable */
+.card-link::after { content: ''; position: absolute; inset: 0; z-index: 2; border-radius: 16px; }
+article:has(.card-link) { transition: box-shadow 200ms ease, transform 200ms ease; }
+article:has(.card-link):hover { box-shadow: 0 10px 28px rgba(27, 36, 33, 0.16); transform: translateY(-2px); }
+
+/* phone: keep hero text clear of the stacked hero buttons */
+@media (max-width: 640px) { section[aria-label] > div[style*="padding: 88px 24px 112px"] { padding-bottom: 250px !important; } }
