@@ -444,7 +444,7 @@ body .wp-site-blocks .is-style-overlay-dark :is(h1,h2,h3,h4,h5,h6,p,li,blockquot
 #hb .sec-head p{color:var(--mu);margin-top:10px}
 
 /* category overview */
-#hb .cats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+#hb .cats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
 #hb .cat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 20px;cursor:pointer;text-align:left;transition:border-color .15s,box-shadow .15s}
 #hb .cat:hover{border-color:var(--g);box-shadow:0 6px 18px rgba(47,93,70,.12)}
 #hb .cat .stars{color:#C99A2E;font-size:18px;letter-spacing:2px;min-height:27px}
@@ -481,6 +481,7 @@ body .wp-site-blocks .is-style-overlay-dark :is(h1,h2,h3,h4,h5,h6,p,li,blockquot
 #hb .badge.b5{background:#7A5A12}
 #hb .badge.b4{background:var(--br)}
 #hb .badge.bb{background:#2C5D7C}
+#hb .badge.br{background:#4A6B3A}
 
 #hb .body{padding:26px 28px;display:flex;flex-direction:column;gap:14px;min-width:0}
 #hb .top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
@@ -823,8 +824,10 @@ var CATS={
   biz:{label:'ビジネスホテル',stars:0,desc:'駅前・中心部の機能的なホテル。出張や乗り継ぎ、ツアー前後の短期滞在に。'},
   s3:{label:'3つ星ホテル',stars:3,desc:'手頃な料金で清潔・快適。観光の拠点として人気のクラス。'},
   s4:{label:'4つ星ホテル',stars:4,desc:'国際チェーン・老舗ホテル。立地と設備のバランスが良い。'},
-  s5:{label:'5つ星ホテル',stars:5,desc:'最高級の客室とサービス。記念日や特別な滞在に。'}
+  s5:{label:'5つ星ホテル',stars:5,desc:'最高級の客室とサービス。記念日や特別な滞在に。'},
+  resort:{label:'郊外リゾート',stars:0,tag:'RESORT',desc:'テレルジ国立公園など、市内から足をのばして大自然の中に泊まる。'}
 };
+CATS.biz.tag='BUSINESS';
 
 var HOTELS=[
  {id:'toyoko-inn',cat:'biz',stars:3,rec:1,name:'Toyoko Inn Ulaanbaatar',jp:'東横INNウランバートル',price:65,
@@ -836,13 +839,13 @@ var HOTELS=[
   map:'Toyoko Inn Ulaanbaatar',
   photos:[ty('Toyoko-inn-hotel-3-1','jpg'),ty('toyoko-inn-hotel-4','jpeg'),ty('toyoko-inn-hotel-5','jpeg'),ty('Toyoko-inn-hotel','jpeg'),ty('ToyokoInn-hotel-Room1','jpeg'),ty('Toyokoinn-hotel2','jpeg'),ty('ToyokoInn-Ulaanbaatar1','jpeg')]},
 
- {id:'ibis-styles',cat:'biz',stars:3,rec:6,name:'ibis Styles Ulaanbaatar Polaris',jp:'イビス・スタイルズ ウランバートル ポラリス',price:75,
-  area:'チンゲルテイ区・市中心部',access:'スフバートル広場・国営デパートへアクセス良好',
+ {id:'ibis-styles',cat:'s4',stars:4,rec:12,name:'ibis Styles Ulaanbaatar Polaris',jp:'イビス・スタイルズ ウランバートル ポラリス',price:75,
+  area:'ハンオール区20ホロー・チンギスハーン通り81',access:'チンギスハーン通り沿い（市南部）、空港方面へのアクセスが便利',
   checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語',
   desc:'アコーホテルズのカジュアルブランド。モダンでカラフルな客室とリーズナブルな料金で、ビジネス・観光どちらにも使いやすいホテルです。',
   features:['朝食付','無料Wi-Fi','レストラン','24時間フロント','ビジネス利用'],
   rooms:[['スタンダードダブル',75],['スタンダードツイン',80]],
-  map:'ibis Styles Ulaanbaatar Polaris',photos:[]},
+  map:'ibis Styles Ulaanbaatar Polaris',site:'https://all.accor.com/hotel/9808/index.en.shtml',photos:[]},
 
  {id:'flower-hotel',cat:'s3',stars:3,rec:3,name:'Flower Hotel',jp:'フラワーホテル',price:70,
   area:'バヤンズルフ区・市東部',access:'市中心部まで車で約10分',
@@ -850,7 +853,7 @@ var HOTELS=[
   desc:'日本人旅行者に長年親しまれてきたホテル。日本料理レストランやサウナを備え、和食が恋しくなったときにも安心です。',
   features:['日本料理レストラン','サウナ','朝食付','無料Wi-Fi','日本人に人気'],
   rooms:[['シングル',70],['ツイン',85]],
-  map:'Flower Hotel Ulaanbaatar',photos:[]},
+  map:'Flower Hotel Ulaanbaatar',site:'https://www.flower-hotel.mn/ja',photos:[]},
 
  {id:'bayangol',cat:'s3',stars:3,rec:7,name:'Bayangol Hotel',jp:'バヤンゴルホテル',price:80,
   area:'チンギスハーン通り・市中心部',access:'スフバートル広場まで徒歩約10分',
@@ -860,45 +863,133 @@ var HOTELS=[
   rooms:[['シングル',80],['ツイン',95]],
   map:'Bayangol Hotel Ulaanbaatar',photos:[]},
 
- {id:'khuvsgul-lake',cat:'s3',stars:3,rec:9,name:'Khuvsgul Lake Hotel',jp:'フブスグルレイクホテル',price:75,
-  area:'チンゲルテイ区・市中心部',access:'スフバートル広場まで徒歩約10分',
-  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語',
-  desc:'中心部にありながら手頃な料金で泊まれるホテル。レストランやショップが徒歩圏内にあり、観光・ビジネスの拠点に便利です。',
-  features:['朝食付','無料Wi-Fi','レストラン','サウナ'],
-  rooms:[['シングル',75],['ツイン',90]],
-  map:'Khuvsgul Lake Hotel Ulaanbaatar',photos:[]},
+ /* ---- 以下：各ホテル公式サイト（公式サイトがないホテルは予約サイト掲載情報）より 2026-11 作成 ---- */
+ {id:'j-hotel',cat:'biz',stars:3,rec:3,name:'J Hotel',jp:'Jホテル',price:70,
+  area:'スフバートル区1ホロー・パリ通り34',access:'各国大使館・官公庁が集まる市中心部「Aゾーン」',
+  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語（通訳対応可）',tel:'+976 7711 6996',
+  desc:'韓国・日本の投資により設立された、国際基準のビジネスクラスホテル。各国大使館や官公庁に近い中心部にあり、レストラン、朝食ラウンジ、マッサージセンター「ZEN」、コーヒーショップを備え、24時間体制でサービスを提供しています。',
+  features:['Jレストラン','朝食ラウンジ','マッサージ「ZEN」','コーヒーショップ','24時間対応','手荷物預かり','タクシー手配'],
+  rooms:[['スタンダードダブル',null],['スタンダードツイン',null],['スタンダードトリプル',null],['アパートメントダブル',null],['アパートメントツイン',null]],
+  map:'J Hotel Ulaanbaatar',site:'https://en.jhotel.mn/',
+  photos:[['https://cdn.greensoft.mn/uploads/site/377/photos/block/20180618142645_d8267d0e829bce660baf8fd94a3f8c8e.jpg'],['https://cdn.greensoft.mn/uploads/site/377/photos/block/20180619094707_2ac4efa3eb4254cbfd7e0e117d36de44.jpg'],['https://cdn.greensoft.mn/uploads/site/377/photos/block/20180619095224_e52c020f005b94cd5d5a6bed38444af9.JPG']]},
+
+ {id:'hotel-nine',cat:'biz',stars:3,rec:4,name:'H9 Hotel Nine Ulaanbaatar',jp:'H9 ホテルナイン ウランバートル',price:55,
+  area:'スフバートル区・首相アマル通り8',access:'市中心部、博物館などの観光スポットに近い',
+  checkin:'—',checkout:'—',floors:'—',roomsTotal:'57室',lang:'英語',tel:'+976 7711 4334',
+  desc:'モンゴルの3つ星ホテルチェーンの旗艦ホテル。シンプルでくつろげる雰囲気と手頃な料金が魅力で、レストラン「Modern Nomads」、カクテルラウンジ「Double-Shot」、3階のカフェ＆ワインラウンジ、最大30名のVIP会議室を備えています。',
+  features:['無料Wi-Fi','Modern Nomadsレストラン','カクテルラウンジ','カフェ＆ワインラウンジ','VIP会議室','ランドリー','タクシー手配','24時間フロント'],
+  rooms:[['バジェットダブル',null],['スタンダードダブル',null],['スタンダードツイン',null],['スタンダードトリプル',null],['デラックススイート',null],['ビジネススイート',null]],
+  map:'H9 Hotel Nine Ulaanbaatar',site:'https://www.hotelnine.mn/',
+  photos:[['https://www.hotelnine.mn/upload/resize_cache/iblock/b63/590_920_2619711fa078991f0a23d032687646b21/nxbgcyno5nyhh6px6katt61jfyulxo51.jpeg'],['https://www.hotelnine.mn/upload/resize_cache/iblock/4b7/560_300_2619711fa078991f0a23d032687646b21/iflih4rqe719ev4rkszf2nu7c09dxc5s.jpeg']]},
+
+ {id:'world-mongolia',cat:'s3',stars:3,rec:12,name:'World Mongolia Hotel',jp:'ワールド モンゴリア ホテル',price:60,
+  area:'バヤンズルフ区・ダムディンバータル通り',access:'将校会館（Officers\' Palace）の近く',
+  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語',tel:'+976 7716 6161',
+  desc:'市東部のバヤンズルフ区、将校会館の近くにある3つ星ホテル。手頃な料金で、観光・ビジネスの拠点として利用しやすいホテルです。',
+  features:['3つ星','手頃な料金','観光・ビジネス向け'],
+  rooms:[],
+  map:'World Mongolia Hotel Ulaanbaatar',site:'https://www.facebook.com/WorldMongoliaHotel/',siteLabel:'Facebook',photos:[]},
+
+ {id:'ub-city',cat:'s3',stars:3,rec:13,name:'UB City Hotel',jp:'UBシティホテル',price:70,
+  area:'チンギスハーン通り・トー・バン通り角（市中心部）',access:'市中心部のチンギスハーン通り沿い',
+  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語',tel:'+976 7013 7778',
+  desc:'市中心部、チンギスハーン通り沿いに建つホテル。レストランと24時間フロントを備え、観光・ビジネスの拠点に便利な立地です。',
+  features:['レストラン','24時間フロント','無料駐車場','ビュッフェ朝食（有料）'],
+  rooms:[],
+  map:'UB City Hotel Ulaanbaatar',photos:[]},
+
+ {id:'ub-grand',cat:'s3',stars:3,rec:11,name:'UB Grand Hotel',jp:'UBグランドホテル',price:95,
+  area:'スフバートル区8ホロー・バガトイロー（スフバートル広場通り20/02）',access:'スフバートル広場まで約300m、モンゴル国立大学の近く',
+  checkin:'14:00',checkout:'12:30',floors:'—',roomsTotal:'45室（デラックス5・スタンダード40）',lang:'英語',tel:'+976 7715 9595',
+  desc:'ヨーロッパ風のスタイルとミニマルなインテリアを組み合わせたホテル。スフバートル広場のすぐ近くにあり、17階のレストラン「Grand Square」から市街を眺めながら食事を楽しめます。',
+  features:['17階レストラン Grand Square','ラウンジ','朝食','高速インターネット','送迎サービス','ランドリー（有料）','エキストラベッド（有料）'],
+  rooms:[['デラックス シングル／ツイン（41㎡）',null],['スタンダードダブル（41㎡）',null],['スタンダードツイン（41㎡）',null],['スタンダードシングル（18㎡）',null]],
+  map:'UB Grand Hotel Ulaanbaatar',site:'https://en.ub-grand.com/',
+  photos:[['https://cdn.greensoft.mn/uploads/site/1633/photos/block/46003_46103_20240704102503_ad6cd8774ccaa2903fef91be7caacba7.jpeg'],['https://cdn.greensoft.mn/uploads/site/1633/photos/block/46003_46103_20240704102540_138b335572e02198a9a84c3da31c28b2.jpeg'],['https://cdn.greensoft.mn/uploads/site/1633/photos/block/46003_46103_20240704102527_b40c1d2717ef4776d52fb0244ad858fe.jpeg']]},
+
+ {id:'khuvsgul-lake',cat:'s4',stars:4,rec:14,name:'Khuvsgul Lake Hotel',jp:'フブスグルレイクホテル',price:80,
+  area:'シティタワー内（チンギスハーン広場5）',access:'セントラルタワーから徒歩約3分、外務省から徒歩約5分',
+  checkin:'—',checkout:'—',floors:'—',roomsTotal:'80室',lang:'英語',tel:'+976 7607 8888',
+  desc:'チンギスハーン広場そばのシティタワー内にある4つ星ホテル。全80室にミニバーと液晶テレビを備え、館内にレストラン2軒とジムがあります。',
+  features:['レストラン2軒','ジム','無料Wi-Fi','空港送迎（有料）'],
+  rooms:[],
+  map:'Khuvsgul Lake Hotel City Tower Ulaanbaatar',photos:[]},
+
+ {id:'grand-hill',cat:'s4',stars:4,rec:9,name:'The Grand Hill Hotel',jp:'ザ・グランドヒルホテル',price:85,
+  area:'バヤンゴル区・ダムディンバザル通り',access:'市中心部のビジネスエリア',
+  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'198室（2014年開業）',lang:'英語',tel:'+976 7711 5599',
+  desc:'2014年開業、バヤンゴル区のビジネスエリアに建つ大型ホテル。全198室に52インチ液晶テレビを備え、館内には3つのレストラン、スパ「Serenity Spa」、フィットネスセンターがあります。',
+  features:['レストラン3軒','Serenity Spa','フィットネス','空港送迎（有料）','無料Wi-Fi'],
+  rooms:[],
+  map:'The Grand Hill Hotel Ulaanbaatar',photos:[]},
+
+ {id:'aurora',cat:'s4',stars:4,rec:10,name:'Aurora Hotel',jp:'オーロラホテル',price:90,
+  area:'バヤンゴル区28ホロー・10番地区（平和大通り）',access:'ウランバートル駅から約9分、チンギスハーン国際空港から約28分（ホテル公表）',
+  checkin:'12:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語',tel:'+976 7007 0808',
+  desc:'オーロラ（北極光）をテーマにしたホテル。平和大通り沿いにあり、駅・空港へのアクセスが良好です。ビュッフェ朝食の「Khulan」レストラン、12階の「Aurora Lounge」、カフェ「Coffee Mekka」、フィットネス・サウナ、会議ホールを備えます。',
+  features:['ビュッフェ朝食','Khulanレストラン','12階 Aurora Lounge','Coffee Mekka','フィットネス','サウナ','会議ホール'],
+  rooms:[['スタンダードシングル',null],['スーペリアダブル',null],['スーペリアツイン',null],['ファミリービジネススイート',null]],
+  map:'Aurora Hotel Ulaanbaatar',site:'https://en.aurorahotel.mn/',
+  photos:[['https://cdn.greensoft.mn/uploads/site/1475/block/2023061412191756eb223581ab354b022e9327ba66a8.jpg'],['https://cdn.greensoft.mn/uploads/site/1475/photos/block/42540_20230529144025_3aaa79981e84ad216e0a4d4b1136113a.jpg']]},
+
+ {id:'amar',cat:'s4',stars:4,rec:11,name:'Amar Hotel',jp:'アマルホテル',price:85,
+  area:'バヤンズルフ区・平和大通り87-3',access:'平和大通り沿い、市中心部へ車でアクセス良好',
+  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'105室',lang:'英語',tel:'+976 7007 8188',
+  desc:'全105室、モダンなデザインと行き届いたサービスを兼ね備えたホテル。モンゴル料理の「Mongoljin」レストラン、アイリッシュパブ、カラオケ、サウナ＆スパ、マッサージ、イベントホールなど館内施設が充実しています。',
+  features:['Mongoljinレストラン','アイリッシュパブ','サウナ＆スパ','マッサージ','カラオケ','イベントホール','ルームサービス','ランドリー','無料Wi-Fi'],
+  rooms:[['スタンダードダブル',null],['デラックスダブル',null],['スタンダードツイン',null],['デラックスツイン',null],['デラックストリプル',null],['デラックススイート',null]],
+  map:'Amar Hotel Peace Avenue Ulaanbaatar',site:'https://www.amarhotel.mn/',
+  photos:[['https://amarhotel.mn/upload/resize_cache/iblock/4fd/560_300_2619711fa078991f0a23d032687646b21/qnd4a7pfzj64ij7pqwjf7uuda0720smu.jpeg'],['https://amarhotel.mn/upload/resize_cache/iblock/437/560_300_2619711fa078991f0a23d032687646b21/j9r3vd3qwykh0dwz9z6yqlmkqwi3goho.jpeg'],['https://amarhotel.mn/upload/resize_cache/iblock/7f6/560_300_2619711fa078991f0a23d032687646b21/1o9p3ahje0no8ibuauw7tswliqzenjtb.jpeg']]},
+
+ {id:'khubilai',cat:'s4',stars:4,rec:6,name:'Khubilai Hotel',jp:'フビライホテル',price:115,
+  area:'ハンオール区8ホロー・ヤルマグ（ナーダムチッド通り）',access:'チンギスハーン国際空港に最も近い高級ホテル（ホテル公表）',
+  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'86室',lang:'英語',tel:'+976 7777 2626',
+  desc:'新空港に最も近い高級ホテル。屋内プール、ウォーターパーク、キッズプール、サウナ、ジャグジー、スクリーンゴルフを備え、早朝便・深夜便の前後泊や家族旅行に最適です。',
+  features:['屋内プール','ウォーターパーク','キッズプール','サウナ','ジャグジー','スクリーンゴルフ','レストラン','会議ホール','空港至近','24時間フロント'],
+  rooms:[['スーペリアダブル',null],['スーペリアツイン',null],['スーペリアトリプル',null],['デラックス（ダブルベッド2台）',null],['デラックスキング',null],['デラックスファミリー',null],['エグゼクティブスイート',null],['プレジデンシャルスイート',null]],
+  map:'Khubilai Hotel Ulaanbaatar',site:'https://khubilaihotel.com/',
+  photos:[['https://khubilaihotel.com/upload/resize_cache/iblock/87c/365_210_2619711fa078991f0a23d032687646b21/1bxirdro4yvrwu7xo5iphv1ooubzjc0d.jpeg'],['https://khubilaihotel.com/upload/resize_cache/iblock/abf/365_210_2619711fa078991f0a23d032687646b21/tg55ve7st2dex0rs2o7ans4baichi2au.jpeg'],['https://khubilaihotel.com/upload/resize_cache/iblock/13e/365_210_2619711fa078991f0a23d032687646b21/csahj33jlt9zmtsqvexn52hahdrlv7da.jpeg']]},
+
+ {id:'terelj',cat:'resort',stars:5,rec:1,name:'Terelj Hotel & Spa',jp:'テレルジホテル＆スパ',price:250,
+  area:'ゴルヒ・テレルジ国立公園内',access:'ウランバートル市内から約60〜70km（車で約1時間半）',
+  checkin:'—',checkout:'—',floors:'—',roomsTotal:'—',lang:'英語',tel:'+976 9999 2233',
+  desc:'テレルジ国立公園の大自然に囲まれた5つ星リゾート（World Luxury Hotel Awards 2010受賞）。スパ「Tereljmaa Spa」、温水プールとジャグジー、キッズクラブ、レストラン＆ラウンジ、ウェディングガーデンを備え、遊牧民の文化と自然を満喫できます。',
+  features:['Tereljmaa Spa','温水プール','ジャグジー','キッズクラブ','レストラン・ラウンジ','会議施設','ウェディングガーデン','朝夕食付プランあり'],
+  rooms:[['エグゼクティブルーム',null],['スーペリアルーム',null],['デラックスジュニアスイート',null],['ファミリースイート',null],['ハネムーンスイート',null],['プレジデンシャルスイート',null]],
+  map:'Terelj Hotel Gorkhi-Terelj National Park',site:'https://tereljhotel.com/',
+  photos:[['https://tereljhotel.com/wp-content/themes/tereljhotel/images/home/hero-home-01.jpg'],['https://tereljhotel.com/wp-content/themes/tereljhotel/images/home/hero-home-02.jpg'],['https://tereljhotel.com/wp-content/themes/tereljhotel/images/home/hero-home-03.jpg']]},
 
  {id:'holiday-inn',cat:'s4',stars:4,rec:2,name:'Holiday Inn Ulaanbaatar',jp:'ホリデイ・イン ウランバートル',price:120,
-  area:'市中心部',access:'チンギスハーン広場（スフバートル広場）まで徒歩約15分',
+  area:'チンゲルテイ区・サンブー通り24',access:'政府庁舎・チンギスハーン広場の近く（徒歩約15分）',
   checkin:'14:00',checkout:'12:00',floors:'20階建て',roomsTotal:'169室',lang:'英語・中国語・韓国語・ロシア語',
   desc:'IHGグループの国際ブランド。ボグドハーン山を望む客室、広いワークスペースと高速Wi-Fiでビジネスにもレジャーにも最適です。レストラン「インジョイ」や「Titem Sports Bar」、最大300名収容のボールルームを備えます。',
   features:['バイキング朝食','SPA','フィットネス','ビジネスセンター','ミーティングルーム','バー','コーヒーショップ','山側ビュー'],
   rooms:[['スタンダード（シングル/ダブル）',120],['ツイン',130],['スーペリア',145],['デラックスツイン',160],['スイート',250]],
-  map:'Holiday Inn Ulaanbaatar',photos:hiPhotos},
+  map:'Holiday Inn Ulaanbaatar',site:'https://www.ihg.com/holidayinn/hotels/us/en/ulaanbaatar/ulnss/hoteldetail',tel:'+976 70 142424',photos:hiPhotos},
 
  {id:'novotel',cat:'s4',stars:4,rec:8,name:'Novotel Ulaanbaatar',jp:'ノボテル ウランバートル',price:120,
-  area:'スフバートル区・市中心部',access:'スフバートル広場まで徒歩圏',
+  area:'スフバートル区6ホロー・バガトイロー',access:'スフバートル広場まで徒歩圏',
   checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語',
   desc:'アコーホテルズの国際ブランド。シンプルでモダンな客室と充実した朝食、中心部の便利な立地でビジネス客にも観光客にも人気です。',
   features:['朝食付','フィットネス','レストラン','バー','ミーティングルーム','無料Wi-Fi'],
   rooms:[['スタンダード',120],['スーペリア',140]],
-  map:'Novotel Ulaanbaatar',photos:[]},
+  map:'Novotel Ulaanbaatar',site:'https://all.accor.com/hotel/B1D8/index.en.shtml',photos:[]},
 
  {id:'ramada',cat:'s4',stars:4,rec:11,name:'Ramada Ulaanbaatar Citycenter',jp:'ラマダ ウランバートル シティセンター',price:100,
-  area:'市中心部',access:'スフバートル広場まで車で約5分',
+  area:'バヤンゴル区17ホロー・平和大通り',access:'ガンダン寺など歴史的名所の近く、ショッピングセンター併設',
   checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語',
   desc:'ウィンダムグループの国際ブランド。屋内プールやスパを備え、中心部のホテルとしては比較的広い客室が特徴です。',
   features:['朝食付','屋内プール','SPA','フィットネス','レストラン','無料Wi-Fi'],
   rooms:[['スタンダード',100],['デラックス',125]],
-  map:'Ramada Ulaanbaatar Citycenter',photos:[]},
+  map:'Ramada Ulaanbaatar Citycenter',site:'https://www.wyndhamhotels.com/ramada/ulaanbaatar-mongolia/ramada-ulaanbaatar-citycenter/overview',photos:[]},
 
- {id:'ulaanbaatar-hotel',cat:'s4',stars:4,rec:5,name:'Ulaanbaatar Hotel',jp:'ウランバートルホテル',price:100,
-  area:'スフバートル広場東側',access:'スフバートル広場まで徒歩約3分',
+ {id:'ulaanbaatar-hotel',cat:'s5',stars:5,rec:5,name:'Ulaanbaatar Hotel',jp:'ウランバートルホテル',price:100,
+  area:'スフバートル区8ホロー・B.アルタンゲレル通り7（スフバートル広場東側）',access:'スフバートル広場まで徒歩約3分',
   checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語・ロシア語',
   desc:'1961年開業、モンゴルを代表する歴史あるホテル。スフバートル広場、国立オペラ劇場、博物館がすぐそばにあり、市内観光に抜群の立地です。',
   features:['朝食付','レストラン','バー','サウナ','会議場','歴史的建築'],
   rooms:[['スタンダード',100],['デラックス',130],['スイート',200]],
-  map:'Ulaanbaatar Hotel',photos:[]},
+  map:'Ulaanbaatar Hotel',site:'https://ubhotel.mn/en',photos:[]},
 
  {id:'chinggis-khaan',cat:'s4',stars:4,rec:10,name:'Chinggis Khaan Hotel',jp:'チンギスハーンホテル',price:90,
   area:'バヤンズルフ区・東京通り',access:'スフバートル広場まで車で約5分',
@@ -961,7 +1052,7 @@ Object.keys(CATS).forEach(function(k){
   var c=CATS[k],list=HOTELS.filter(function(h){return h.cat===k;});
   var min=Math.min.apply(null,list.map(function(h){return h.price;}));
   var b=document.createElement('button');b.type='button';b.className='cat';
-  b.innerHTML='<div class="stars">'+(c.stars?starStr(c.stars):'<span style="color:#2C5D7C;font-size:14px;letter-spacing:.1em;font-weight:700">BUSINESS</span>')+'</div><h3>'+c.label+'</h3><p>'+c.desc+'</p><p class="from">'+list.length+'軒 ／ '+usd(min)+'〜</p>';
+  b.innerHTML='<div class="stars">'+(c.stars?starStr(c.stars):'<span style="color:'+(k==='resort'?'#4A6B3A':'#2C5D7C')+';font-size:14px;letter-spacing:.1em;font-weight:700">'+c.tag+'</span>')+'</div><h3>'+c.label+'</h3><p>'+c.desc+'</p><p class="from">'+list.length+'軒 ／ '+usd(min)+'〜</p>';
   b.addEventListener('click',function(){setCat(k);$('#hotels').scrollIntoView({behavior:'smooth'});});
   catBox.appendChild(b);
 });
@@ -981,7 +1072,7 @@ $('#hb-sort').addEventListener('change',function(e){state.sort=e.target.value;re
 
 /* cards */
 function cardHTML(h){
-  var c=CATS[h.cat],bcls={biz:'bb',s3:'',s4:'b4',s5:'b5'}[h.cat];
+  var c=CATS[h.cat],bcls={biz:'bb',s3:'',s4:'b4',s5:'b5',resort:'br'}[h.cat];
   var media;
   if(h.photos.length){
     var thumbs=h.photos.length>1?'<div class="thumbs">'+h.photos.map(function(p,i){return '<button type="button" data-i="'+i+'" aria-label="写真'+(i+1)+'を拡大"><img loading="lazy" src="'+esc(p[1]||p[0])+'" alt=""></button>';}).join('')+'</div>':'';
@@ -989,8 +1080,9 @@ function cardHTML(h){
   }else{
     media='<div class="cover"><div class="ph"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M10 21v-4h4v4"/></svg><b>'+esc(h.name)+'</b><span>写真は準備中です</span></div></div>';
   }
-  var rows=h.rooms.map(function(r){return '<tr><td>'+esc(r[0])+'</td><td class="p">'+usd(r[1])+'〜</td></tr>';}).join('');
-  var info=[['エリア',h.area,1],['アクセス',h.access,1],['チェックイン',h.checkin],['チェックアウト',h.checkout],['規模',[h.floors,h.roomsTotal].filter(function(x){return x&&x!=='—';}).join('・')||'—'],['対応言語',h.lang]];
+  var rows=h.rooms.map(function(r){return '<tr><td>'+esc(r[0])+'</td><td class="p">'+(r[1]?usd(r[1])+'〜':'お見積り')+'</td></tr>';}).join('');
+  var info=[['エリア',h.area,1],['アクセス',h.access,1],['チェックイン',h.checkin||'—'],['チェックアウト',h.checkout||'—'],['規模',[h.floors,h.roomsTotal].filter(function(x){return x&&x!=='—';}).join('・')||'—'],['対応言語',h.lang||'—']];
+  if(h.tel)info.push(['電話',h.tel]);
   return '<article class="card" id="hotel-'+h.id+'">'+
     '<div class="media"><span class="badge '+bcls+'">'+c.label+'</span>'+media+'</div>'+
     '<div class="body">'+
@@ -999,8 +1091,8 @@ function cardHTML(h){
       '<p class="desc">'+esc(h.desc)+'</p>'+
       '<dl class="info">'+info.map(function(r){return '<div'+(r[2]?' class="full"':'')+'><dt>'+r[0]+'</dt><dd>'+esc(r[1])+'</dd></div>';}).join('')+'</dl>'+
       '<ul class="chips">'+h.features.map(function(f){return '<li>'+esc(f)+'</li>';}).join('')+'</ul>'+
-      '<details class="more"><summary>お部屋タイプ別の料金目安</summary><table class="rooms"><thead><tr><th>お部屋タイプ</th><th class="p">1室1泊</th></tr></thead><tbody>'+rows+'</tbody></table></details>'+
-      '<div class="actions"><button type="button" class="btn btn-green" data-book="'+h.id+'">このホテルを予約</button><button type="button" class="btn btn-outline" data-map="'+h.id+'" aria-expanded="false">地図を見る</button><a class="btn btn-outline" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(h.map)+'">Googleマップ</a></div>'+
+      (h.rooms.length?'<details class="more"><summary>お部屋タイプと料金目安</summary><table class="rooms"><thead><tr><th>お部屋タイプ</th><th class="p">1室1泊</th></tr></thead><tbody>'+rows+'</tbody></table></details>':'')+
+      '<div class="actions"><button type="button" class="btn btn-green" data-book="'+h.id+'">このホテルを予約</button><button type="button" class="btn btn-outline" data-map="'+h.id+'" aria-expanded="false">地図を見る</button><a class="btn btn-outline" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(h.map)+'">Googleマップ</a>'+(h.site?'<a class="btn btn-outline" target="_blank" rel="noopener" href="'+esc(h.site)+'">'+(h.siteLabel||'公式サイト')+'</a>':'')+'</div>'+
     '</div>'+
   '</article>';
 }
@@ -1012,12 +1104,18 @@ function render(){
     if(s==='low')return a.price-b.price||a.rec-b.rec;
     if(s==='high')return b.price-a.price||a.rec-b.rec;
     if(s==='star')return (b.stars+(b.cat==='s5'?2:b.cat==='s4'?1:0))-(a.stars+(a.cat==='s5'?2:a.cat==='s4'?1:0))||a.rec-b.rec;
-    if(state.cat==='all'){var o=['biz','s3','s4','s5'];return o.indexOf(a.cat)-o.indexOf(b.cat)||a.rec-b.rec;}
+    if(state.cat==='all'){var o=['biz','s3','s4','s5','resort'];return o.indexOf(a.cat)-o.indexOf(b.cat)||a.rec-b.rec;}
     return a.rec-b.rec;
   });
   $('#hb-list').innerHTML=list.map(cardHTML).join('');
   Array.prototype.forEach.call(document.querySelectorAll('#hb-list img[data-fallback]'),function(img){
-    img.addEventListener('error',function f(){if(img.dataset.fallback){img.removeEventListener('error',f);img.src=img.dataset.fallback;img.dataset.fallback='';}});
+    img.addEventListener('error',function f(){
+      if(img.dataset.fallback){img.src=img.dataset.fallback;img.dataset.fallback='';return;}
+      img.removeEventListener('error',f);
+      var cv=img.closest('.cover');if(!cv)return;
+      cv.removeAttribute('data-i');cv.removeAttribute('role');cv.removeAttribute('tabindex');
+      cv.innerHTML='<div class="ph"><b>'+esc(img.alt)+'</b><span>写真は準備中です</span></div>';
+    });
   });
 }
 
