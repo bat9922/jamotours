@@ -2541,3 +2541,123 @@ body:is(.page-id-394,.page-id-2339) :is(.elementor-394,.elementor-2339) .element
 		height: 150px;
 	}
 }
+
+
+/* ── Header: "ツアーを探す" dropdown as a tidy 3-column panel (desktop main nav only) ── */
+@media (min-width:1025px){
+	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-37 > ul.sub-menu{
+		width:580px !important;
+		min-width:580px !important;
+		max-width:calc(100vw - 48px) !important;
+		columns:2;
+		column-gap:8px;
+		padding:18px 18px !important;
+		background:#fff !important;
+		border:1px solid #E3E6E0 !important;
+		border-top:3px solid #2F5D46 !important;
+		border-radius:0 0 14px 14px;
+		box-shadow:0 24px 48px -20px rgba(27,36,33,.35);
+		z-index:9999;
+	}
+	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-37 > ul.sub-menu > li{
+		break-inside:avoid;
+		-webkit-column-break-inside:avoid;
+		display:block;
+		border:0 !important;
+	}
+	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-37 > ul.sub-menu > li > a.elementor-sub-item{
+		display:flex !important;
+		align-items:center;
+		gap:10px;
+		padding:10px 12px !important;
+		border-radius:8px;
+		border:0 !important;
+		background:transparent !important;
+		color:#1B2421 !important;
+		font-family:'Noto Sans JP',sans-serif;
+		font-size:14px !important;
+		font-weight:500 !important;
+		line-height:1.45 !important;
+		white-space:normal !important;
+		transition:background .15s,color .15s;
+	}
+	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-37 > ul.sub-menu > li > a.elementor-sub-item::before{
+		content:"";
+		flex:0 0 6px;
+		width:6px;
+		height:6px;
+		border-radius:50%;
+		background:#C9A75A;
+		transition:background .15s;
+	}
+	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-37 > ul.sub-menu > li > a.elementor-sub-item:hover,
+	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-37 > ul.sub-menu > li > a.elementor-sub-item:focus{
+		background:#EEF3EF !important;
+		color:#2F5D46 !important;
+	}
+	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-37 > ul.sub-menu > li > a.elementor-sub-item:hover::before{
+		background:#2F5D46;
+	}
+}
+@media (min-width:1400px){
+	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-37 > ul.sub-menu{
+		width:860px !important;
+		min-width:860px !important;
+		columns:3;
+	}
+}
+/* ── Header dropdowns (ツアーを探す / 各種手配): faint dotted separators between items ── */
+@media (min-width:1025px){
+	.elementor-nav-menu--main .elementor-nav-menu > li:is(.menu-item-37,.menu-item-38) > ul.sub-menu > li{
+		border-bottom:1px dotted #CFd6D0 !important;
+	}
+	.elementor-nav-menu--main .elementor-nav-menu > li:is(.menu-item-37,.menu-item-38) > ul.sub-menu > li:last-child{
+		border-bottom:0 !important;
+	}
+	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-37 > ul.sub-menu > li > a.elementor-sub-item{
+		border-radius:6px;
+	}
+}
+/* ── Header: "各種手配" dropdown in the same panel style as ツアーを探す ── */
+@media (min-width:1025px){
+	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-38 > ul.sub-menu{
+		width:300px !important;
+		min-width:300px !important;
+		padding:12px 16px !important;
+		background:#fff !important;
+		border:1px solid #E3E6E0 !important;
+		border-top:3px solid #2F5D46 !important;
+		border-radius:0 0 14px 14px;
+		box-shadow:0 24px 48px -20px rgba(27,36,33,.35);
+		z-index:9999;
+	}
+	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-38 > ul.sub-menu > li > a.elementor-sub-item{
+		display:flex !important;
+		align-items:center;
+		gap:10px;
+		padding:11px 10px !important;
+		border:0 !important;
+		border-radius:6px;
+		background:transparent !important;
+		color:#1B2421 !important;
+		font-family:'Noto Sans JP',sans-serif;
+		font-size:14px !important;
+		font-weight:500 !important;
+		line-height:1.45 !important;
+		white-space:normal !important;
+		transition:background .15s,color .15s;
+	}
+	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-38 > ul.sub-menu > li > a.elementor-sub-item::before{
+		content:"";
+		flex:0 0 6px;
+		width:6px;
+		height:6px;
+		border-radius:50%;
+		background:#C9A75A;
+	}
+	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-38 > ul.sub-menu > li > a.elementor-sub-item:hover,
+	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-38 > ul.sub-menu > li > a.elementor-sub-item:focus{
+		background:#EEF3EF !important;
+		color:#2F5D46 !important;
+	}
+}
