@@ -2661,3 +2661,34 @@ body:is(.page-id-394,.page-id-2339) :is(.elementor-394,.elementor-2339) .element
 		color:#2F5D46 !important;
 	}
 }
+
+/* =================================================================
+   SEO: the document outline.
+   ================================================================= */
+
+/* Twelve pages had no h1 at all - Elementor had rendered every title as an
+   h2 - so the page title heading was promoted in place. The generated rules
+   key on .elementor-heading-title, not on the tag, so the type carries over;
+   this only covers the headings Elementor leaves unsized, where the theme
+   would otherwise jump them from its h2 (2rem) to its h1 (2.5rem). */
+h1.elementor-heading-title {
+	font-size: 2rem;
+}
+
+/* Two tour pages (plus one duplicate) were authored without the title
+   heading every sibling tour page carries - the name existed only in
+   <title>. This is that heading, put back on the site's measure. */
+.jamo-title-con {
+	width: 100%;
+	max-width: 1140px;
+	margin: 30px auto 0;
+	padding: 0 20px;
+	box-sizing: border-box;
+}
+.jamo-page-title {
+	margin: 0;
+	font-size: clamp(1.4rem, 3vw, 2rem);
+	line-height: 1.35;
+	font-weight: 700;
+	color: #1F2D11;
+}
