@@ -1791,3 +1791,749 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 	padding-inline-start: 10px;
 	padding-inline-end: 10px;
 }
+/* =================================================================
+   「モンゴルを知る」 - the country guide at /mongolia-info/ (page 394).
+
+   The page is thirteen Elementor containers of raw WordPress output:
+   an anchor grid of fourteen icon boxes, four floated photos, eight
+   bordered <table>s and three dead carousels. Everything here is a
+   restyle of that markup - the only HTML touched was a handful of
+   defects (a dead link, a duplicated id, a duplicated paragraph, an
+   icon that is not loaded, spacer cells and &nbsp; paragraphs).
+
+   The generated rules it overrides are all
+   `.elementor-394 .elementor-element.elementor-element-XXXX ...`,
+   specificity (0,3,0), so every selector below is prefixed with
+   `body.page-id-394 .elementor-394` to clear it.
+   ================================================================= */
+
+/* --- Page shell. The sections become white cards on the cream the rest
+   of the site already uses, which is what gives the eight tables and the
+   four photo blocks a common edge. --- */
+body.page-id-394 .elementor-394 {
+	background: #FAF7F0;
+	padding-bottom: 64px;
+}
+
+/* The source carried ad-hoc top margins of 13, 64, 100 and 106px and two
+   142px bottom paddings, so the gaps between sections were never equal.
+   One rhythm instead, set on the container; the hero keeps its own. */
+body.page-id-394 .elementor-394 > .e-con:not(.elementor-element-59999a7) {
+	--margin-top: 0px;
+	--margin-bottom: 26px;
+	--margin-left: 0px;
+	--margin-right: 0px;
+	--padding-top: 0px;
+	--padding-bottom: 0px;
+	--padding-left: 0px;
+	--padding-right: 0px;
+	--min-height: 0px;
+	--content-width: 1140px;
+	scroll-margin-top: 20px;
+}
+body.page-id-394 .elementor-394 > .e-con.elementor-element-8dd0e4d {
+	--margin-top: 34px;
+	--margin-bottom: 34px;
+}
+body.page-id-394 .elementor-394 > .e-con:last-child {
+	--margin-bottom: 0px;
+}
+
+/* The card itself. .e-con-inner is the boxed container's content box, so
+   it is both the 1140px measure and the card. */
+body.page-id-394 .elementor-394 > .e-con.e-con-boxed > .e-con-inner {
+	width: 100%;
+	max-width: 1140px;
+	margin-inline: auto;
+	box-sizing: border-box;
+	padding: 34px 40px 38px;
+	background: #FFFFFF;
+	border: 1px solid #EBE3D5;
+	border-radius: 18px;
+	box-shadow: 0 2px 14px rgba(31, 45, 17, .05);
+}
+/* The anchor grid is a nav, not a section: its tiles are the cards. */
+body.page-id-394 .elementor-394 > .e-con.elementor-element-8dd0e4d > .e-con-inner {
+	padding: 0 20px;
+	background: none;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+}
+/* 「モンゴル基本情報」 and the map below it are one block, so they share a
+   single card outline rather than sitting in two. */
+body.page-id-394 .elementor-394 > .e-con.elementor-element-4ebbd7b {
+	--margin-bottom: 0px;
+}
+body.page-id-394 .elementor-394 > .e-con.elementor-element-4ebbd7b > .e-con-inner {
+	padding-bottom: 26px;
+	border-bottom: 0;
+	border-radius: 18px 18px 0 0;
+}
+body.page-id-394 .elementor-394 > .e-con.elementor-element-bf9a8b1 > .e-con-inner {
+	padding: 0 26px 26px;
+	border-top: 0;
+	border-radius: 0 0 18px 18px;
+}
+
+/* Widgets carry generated container margins - one of them 100px, two of
+   them the invalid `0100px` - so spacing is taken back here and handed
+   out per widget type below. */
+body.page-id-394 .elementor-394 > .e-con .elementor-widget > .elementor-widget-container {
+	margin: 0;
+}
+body.page-id-394 .elementor-394 > .e-con .elementor-widget {
+	margin-bottom: 0;
+}
+
+/* --- Hero. The title was placed with a 490px top margin and a 180px left
+   margin, so it neither sat on the content measure nor moved with the
+   container; it is now the last line of a flex column, on the grid, over a
+   scrim that keeps white legible against the sunlit half of the photo. --- */
+body.page-id-394 .elementor-394 > .elementor-element-59999a7 {
+	--min-height: 460px;
+	--justify-content: flex-end;
+	--padding-bottom: 54px;
+	position: relative;
+	overflow: hidden;
+}
+body.page-id-394 .elementor-394 > .elementor-element-59999a7::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, .55) 100%);
+	pointer-events: none;
+}
+body.page-id-394 .elementor-394 .elementor-element-d8dbf45 {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+}
+body.page-id-394 .elementor-394 .elementor-element-d8dbf45 > .elementor-widget-container {
+	width: 100%;
+	max-width: 1140px;
+	margin: 0 auto;
+	padding: 0 20px;
+	box-sizing: border-box;
+}
+body.page-id-394 .elementor-394 .elementor-element-d8dbf45 .elementor-heading-title {
+	font-size: clamp(1.85rem, 4.2vw, 2.7rem);
+	line-height: 1.3;
+	font-weight: 700;
+	letter-spacing: .02em;
+	color: #FFFFFF;
+	text-shadow: 0 2px 16px rgba(0, 0, 0, .5);
+}
+
+/* --- The anchor grid. Fourteen items were laid out on a fixed three
+   columns declared with two rows, in #888888 with a yellow (#E2D425)
+   hover, and one tile - 「モンゴル博物館情報」 - showed an empty box where
+   its icon font should have been. They are tiles now, on auto-fit so the
+   count follows the width instead of a breakpoint list. --- */
+body.page-id-394 .elementor-394 .elementor-element-0a96482 {
+	--e-con-grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+	--e-con-grid-template-rows: auto;
+	--gap: 12px;
+	--row-gap: 12px;
+	--column-gap: 12px;
+	width: 100%;
+}
+body.page-id-394 .elementor-394 .elementor-element-0a96482 > .elementor-widget-icon-box {
+	background: #FFFFFF;
+	border: 1px solid #E7DFD0;
+	border-radius: 12px;
+	transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+body.page-id-394 .elementor-394 .elementor-element-0a96482 > .elementor-widget-icon-box > .elementor-widget-container {
+	padding: 13px 15px;
+}
+/* flex-direction too: the source marks every tile
+   .elementor-mobile-position-block-start, which stacks the icon over the
+   label on a phone and made the list of fourteen twice as long. */
+body.page-id-394 .elementor-394 .elementor-element-0a96482 .elementor-icon-box-wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 12px;
+	text-align: start;
+}
+body.page-id-394 .elementor-394 .elementor-element-0a96482 .elementor-icon-box-icon {
+	flex: 0 0 auto;
+	margin: 0;
+}
+body.page-id-394 .elementor-394 .elementor-element-0a96482 .elementor-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	padding: 0;
+	background: #EEF4E6;
+	border: 0;
+	border-radius: 10px;
+	font-size: 17px;
+	color: var(--jamo-green);
+	fill: var(--jamo-green);
+	transition: background-color .18s ease, color .18s ease, fill .18s ease;
+}
+body.page-id-394 .elementor-394 .elementor-element-0a96482 .elementor-icon svg {
+	width: 17px;
+	height: 17px;
+}
+body.page-id-394 .elementor-394 .elementor-element-0a96482 .elementor-icon-box-content {
+	min-width: 0;
+}
+body.page-id-394 .elementor-394 .elementor-element-0a96482 .elementor-icon-box-title {
+	margin: 0;
+	font-size: 15px;
+	line-height: 1.5;
+	font-weight: 600;
+	color: #1F2D11;
+	text-shadow: none;
+}
+body.page-id-394 .elementor-394 .elementor-element-0a96482 .elementor-icon-box-title a {
+	color: inherit;
+	text-decoration: none;
+}
+/* The generated hover rules are (0,5,0) - `:has(:hover)` counts as a class -
+   so these need the extra component the widget class supplies. */
+@media (hover: hover) {
+	body.page-id-394 .elementor-394 .elementor-element-0a96482 > .elementor-widget-icon-box:hover {
+		border-color: var(--jamo-green);
+		box-shadow: 0 6px 16px rgba(47, 94, 4, .14);
+		transform: translateY(-2px);
+	}
+	body.page-id-394 .elementor-394 .elementor-element-0a96482 .elementor-widget-icon-box:has(:hover) .elementor-icon-box-title,
+	body.page-id-394 .elementor-394 .elementor-element-0a96482 .elementor-widget-icon-box:has(:focus) .elementor-icon-box-title {
+		color: var(--jamo-green);
+	}
+	body.page-id-394 .elementor-394 .elementor-element-0a96482 .elementor-widget-icon-box:has(:hover) .elementor-icon,
+	body.page-id-394 .elementor-394 .elementor-element-0a96482 .elementor-widget-icon-box:has(:focus) .elementor-icon {
+		background: var(--jamo-green);
+		color: #FFFFFF;
+		fill: #FFFFFF;
+	}
+}
+
+/* --- Headings. Twelve section titles and five sub-headings were all the
+   same 20-25px #707070, so nothing told them apart. The titles take a rule
+   with a green tab; the sub-headings a green left bar. --- */
+body.page-id-394 .elementor-394 .elementor-element-8a1df5f .elementor-heading-title,
+body.page-id-394 .elementor-394 .elementor-element-af69bc5 .elementor-heading-title,
+body.page-id-394 .elementor-394 .elementor-element-f530c4a .elementor-heading-title,
+body.page-id-394 .elementor-394 .elementor-element-1c8bd20 .elementor-heading-title,
+body.page-id-394 .elementor-394 .elementor-element-49e6135 .elementor-heading-title,
+body.page-id-394 .elementor-394 .elementor-element-1193048 .elementor-heading-title,
+body.page-id-394 .elementor-394 .elementor-element-3084139 .elementor-heading-title,
+body.page-id-394 .elementor-394 .elementor-element-7cfb6da .elementor-heading-title,
+body.page-id-394 .elementor-394 .elementor-element-0929bd7 .elementor-heading-title,
+body.page-id-394 .elementor-394 .elementor-element-58e42b9 .elementor-heading-title,
+body.page-id-394 .elementor-394 .elementor-element-97a10c4 .elementor-heading-title,
+body.page-id-394 .elementor-394 .elementor-element-60ffc9f .elementor-heading-title {
+	position: relative;
+	display: block;
+	margin: 0 0 24px;
+	padding: 0 0 13px;
+	font-size: clamp(1.3rem, 2.3vw, 1.7rem);
+	line-height: 1.4;
+	font-weight: 700;
+	color: #1F2D11;
+	border-bottom: 1px solid #EBE3D5;
+}
+body.page-id-394 .elementor-394 .elementor-element-8a1df5f .elementor-heading-title::after,
+body.page-id-394 .elementor-394 .elementor-element-af69bc5 .elementor-heading-title::after,
+body.page-id-394 .elementor-394 .elementor-element-f530c4a .elementor-heading-title::after,
+body.page-id-394 .elementor-394 .elementor-element-1c8bd20 .elementor-heading-title::after,
+body.page-id-394 .elementor-394 .elementor-element-49e6135 .elementor-heading-title::after,
+body.page-id-394 .elementor-394 .elementor-element-1193048 .elementor-heading-title::after,
+body.page-id-394 .elementor-394 .elementor-element-3084139 .elementor-heading-title::after,
+body.page-id-394 .elementor-394 .elementor-element-7cfb6da .elementor-heading-title::after,
+body.page-id-394 .elementor-394 .elementor-element-0929bd7 .elementor-heading-title::after,
+body.page-id-394 .elementor-394 .elementor-element-58e42b9 .elementor-heading-title::after,
+body.page-id-394 .elementor-394 .elementor-element-97a10c4 .elementor-heading-title::after,
+body.page-id-394 .elementor-394 .elementor-element-60ffc9f .elementor-heading-title::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: -1px;
+	width: 68px;
+	height: 3px;
+	background: var(--jamo-green);
+	border-radius: 2px;
+}
+/* The four sub-headings inside 「モンゴルの料理・グルメ」. */
+body.page-id-394 .elementor-394 .elementor-element-15f46fd .elementor-heading-title,
+body.page-id-394 .elementor-394 .elementor-element-97d0482 .elementor-heading-title,
+body.page-id-394 .elementor-394 .elementor-element-527a5f1 .elementor-heading-title,
+body.page-id-394 .elementor-394 .elementor-element-ee0b672 .elementor-heading-title {
+	display: block;
+	margin: 36px 0 16px;
+	padding-left: 13px;
+	border-left: 4px solid var(--jamo-green);
+	font-size: clamp(1.05rem, 1.7vw, 1.2rem);
+	line-height: 1.5;
+	font-weight: 700;
+	color: #1F2D11;
+}
+/* 「日本から5時間で着く大草原…」 is the page's one piece of ad copy, so it
+   reads as a lead line under the heading rather than a second title. */
+body.page-id-394 .elementor-394 .elementor-element-c7ee794 .elementor-heading-title {
+	display: block;
+	margin: -6px 0 22px;
+	font-size: clamp(1rem, 1.6vw, 1.12rem);
+	line-height: 1.7;
+	font-weight: 600;
+	color: var(--jamo-green);
+}
+
+/* --- Body copy. --- */
+body.page-id-394 .elementor-394 .elementor-widget-text-editor {
+	font-size: clamp(.94rem, 1.05vw, 1rem);
+	line-height: 2;
+	color: #2E2E2E;
+}
+body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > p {
+	margin: 0 0 1.5em;
+}
+body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > p:last-child {
+	margin-bottom: 0;
+}
+body.page-id-394 .elementor-394 .elementor-widget-text-editor strong {
+	color: #1F2D11;
+}
+
+/* --- 「モンゴル概要」. Four photos floated left at 300px against unbroken
+   paragraphs, with the section's four bold labels indistinguishable from
+   the 19 other <strong> runs on the page. The labels become sub-headings,
+   and the four blocks are separated by clearing each photo. --- */
+body.page-id-394 .elementor-394 .elementor-element-7ee4d49 > .elementor-widget-container {
+	display: flow-root;
+}
+body.page-id-394 .elementor-394 .elementor-element-7ee4d49 img {
+	border-radius: 14px;
+	box-shadow: 0 4px 18px rgba(31, 45, 17, .13);
+}
+body.page-id-394 .elementor-394 .elementor-element-7ee4d49 img.alignleft {
+	float: left;
+	width: 340px;
+	height: auto;
+	margin: 6px 28px 16px 0;
+}
+/* Each block opens with its photo, so the clear belongs on the photo's
+   paragraph - putting it on the sub-heading dropped the heading below the
+   float and left the text running full width under an isolated picture. */
+body.page-id-394 .elementor-394 .elementor-element-7ee4d49 > .elementor-widget-container > p:has(> img.alignleft) {
+	clear: both;
+	margin: 30px 0 0;
+}
+body.page-id-394 .elementor-394 .elementor-element-7ee4d49 > .elementor-widget-container > p:has(> img.alignleft):first-child {
+	margin-top: 0;
+}
+/* flow-root so the sub-heading forms its own block beside the float: as a
+   plain block its box starts at the container edge, which put the green
+   bar behind the photo instead of in front of the words. */
+body.page-id-394 .elementor-394 .elementor-element-7ee4d49 > .elementor-widget-container > p:has(> strong:only-child) {
+	display: flow-root;
+	margin: 0 0 14px;
+	padding-left: 13px;
+	border-left: 4px solid var(--jamo-green);
+	font-size: clamp(1.05rem, 1.7vw, 1.2rem);
+	line-height: 1.5;
+	color: #1F2D11;
+}
+
+/* --- Tables. Eight of them, every cell outlined in the browser default
+   hairline, with the label column padded by runs of up to fourteen <br>
+   to fake vertical centring. The borders go; the label column carries a
+   tint instead, and the <br> padding is hidden rather than deleted so the
+   cells still match what WordPress holds. --- */
+body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: separate;
+	border-spacing: 0;
+	border: 1px solid #EBE3D5;
+	border-radius: 14px;
+	background: #FFFFFF;
+	font-size: clamp(.9rem, 1vw, .96rem);
+}
+body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr > td {
+	padding: 17px 22px;
+	border: 0;
+	border-top: 1px solid #EFE9DD;
+	text-align: left;
+	vertical-align: top;
+	line-height: 1.9;
+	color: #2E2E2E;
+	overflow-wrap: anywhere;
+}
+body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr:first-child > td {
+	border-top: 0;
+}
+body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr > td:first-child {
+	width: 186px;
+	background: #F7F4EC;
+	border-right: 1px solid #EFE9DD;
+	font-weight: 700;
+	color: #27500F;
+}
+/* The <br> runs that padded the label cells. */
+body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr > td:first-child br {
+	display: none;
+}
+/* border-collapse:separate is what lets the corner cells round, since
+   overflow does not clip a table box. */
+body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr:first-child > td:first-child {
+	border-top-left-radius: 13px;
+}
+body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr:first-child > td:last-child {
+	border-top-right-radius: 13px;
+}
+body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr:last-child > td:first-child {
+	border-bottom-left-radius: 13px;
+}
+body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr:last-child > td:last-child {
+	border-bottom-right-radius: 13px;
+}
+body.page-id-394 .elementor-394 .elementor-widget-text-editor table p {
+	margin: 0 0 .75em;
+}
+body.page-id-394 .elementor-394 .elementor-widget-text-editor table p:last-child {
+	margin-bottom: 0;
+}
+
+/* The two nested tables - 略史 inside 「モンゴルの国情報」 and the festival
+   list inside 「祝日・祭日」 - were a second set of hairlines inside the
+   first. They keep a header row and lose the box. */
+body.page-id-394 .elementor-394 .elementor-widget-text-editor td > table {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+	border: 0;
+	background: transparent;
+	margin: 0;
+	font-size: .94em;
+}
+body.page-id-394 .elementor-394 .elementor-widget-text-editor td > table td {
+	padding: 10px 14px;
+	border: 0;
+	border-bottom: 1px solid #EFE9DD;
+	background: transparent;
+	vertical-align: top;
+	line-height: 1.75;
+	color: #2E2E2E;
+	font-weight: 400;
+}
+body.page-id-394 .elementor-394 .elementor-widget-text-editor td > table > tbody > tr:first-child > td {
+	background: #F3F7EC;
+	border-bottom: 1px solid #DCE6CC;
+	color: #27500F;
+	font-weight: 700;
+}
+body.page-id-394 .elementor-394 .elementor-widget-text-editor td > table > tbody > tr:last-child > td {
+	border-bottom: 0;
+}
+body.page-id-394 .elementor-394 .elementor-widget-text-editor td > table > tbody > tr > td:first-child {
+	width: 8.5em;
+	white-space: nowrap;
+}
+
+/* --- The map. Elementor sizes the iframe but never widens it, so it sat
+   as a narrow box in the middle of its container. --- */
+body.page-id-394 .elementor-394 .elementor-element-5854924 {
+	width: 100%;
+}
+body.page-id-394 .elementor-394 .elementor-element-5854924 .elementor-custom-embed {
+	width: 100%;
+	border-radius: 12px;
+	overflow: hidden;
+	line-height: 0;
+}
+body.page-id-394 .elementor-394 .elementor-element-5854924 iframe {
+	display: block;
+	width: 100%;
+	height: clamp(300px, 34vw, 430px);
+	border: 0;
+}
+
+/* --- Carousels. Three of them, each declared at seven slides over three,
+   six and nine 150px thumbnails - so every photo was already on screen and
+   the arrows only shuffled them. A grid is what the strip was: it holds
+   its shape at any width, where seven-across does not fit a phone. --- */
+body.page-id-394 .elementor-394 .elementor-widget-image-carousel {
+	margin-bottom: 6px;
+}
+body.page-id-394 .elementor-394 .elementor-image-carousel-wrapper {
+	direction: ltr;
+	overflow: visible;
+	/* room Elementor reserves below the strip for the dots, which are gone */
+	padding-bottom: 0;
+}
+body.page-id-394 .elementor-394 .elementor-image-carousel {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+	gap: 12px;
+	width: 100% !important;
+	transform: none !important;
+}
+body.page-id-394 .elementor-394 .elementor-image-carousel .swiper-slide {
+	width: auto !important;
+	height: auto;
+	margin: 0 !important;
+	flex: none;
+}
+/* All three carousels are set to loop, and Swiper clones the whole strip
+   to do it - six photos became eighteen tiles once the grid stopped the
+   clones from being scrolled out of view. */
+body.page-id-394 .elementor-394 .elementor-image-carousel .swiper-slide-duplicate {
+	display: none;
+}
+body.page-id-394 .elementor-394 .elementor-image-carousel .swiper-slide-inner {
+	display: block;
+	margin: 0;
+}
+body.page-id-394 .elementor-394 .elementor-image-carousel .swiper-slide-image {
+	display: block;
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+	border-radius: 12px;
+	transition: transform .3s ease;
+}
+body.page-id-394 .elementor-394 .elementor-image-carousel .swiper-slide-inner {
+	border-radius: 12px;
+	overflow: hidden;
+}
+@media (hover: hover) {
+	body.page-id-394 .elementor-394 .elementor-image-carousel .swiper-slide:hover .swiper-slide-image {
+		transform: scale(1.06);
+	}
+}
+body.page-id-394 .elementor-394 .elementor-image-carousel-caption {
+	margin-top: 8px;
+	font-size: .8rem;
+	line-height: 1.5;
+	color: #5A5A5A;
+	text-align: center;
+}
+/* The arrows and dots drive a carousel that cannot advance. */
+body.page-id-394 .elementor-394 .elementor-widget-image-carousel .elementor-swiper-button,
+body.page-id-394 .elementor-394 .elementor-widget-image-carousel .swiper-pagination {
+	display: none;
+}
+
+/* --- The five dairy entries. Each was a 16%-wide photo cropped to 100px
+   against a justified block of text, so the photo read as a bullet. --- */
+body.page-id-394 .elementor-394 .elementor-widget-image-box > .elementor-widget-container {
+	margin: 0 0 18px;
+	padding: 20px;
+	background: #FBF8F2;
+	border: 1px solid #EBE3D5;
+	border-radius: 16px;
+}
+body.page-id-394 .elementor-394 .elementor-widget-image-box .elementor-image-box-wrapper {
+	display: flex;
+	align-items: flex-start;
+	gap: 22px;
+	text-align: left;
+}
+body.page-id-394 .elementor-394 .elementor-widget-image-box .elementor-image-box-wrapper .elementor-image-box-img {
+	flex: 0 0 240px;
+	width: 240px;
+	margin: 0;
+}
+body.page-id-394 .elementor-394 .elementor-widget-image-box .elementor-image-box-img img {
+	display: block;
+	width: 100%;
+	height: 168px;
+	object-fit: cover;
+	border-radius: 12px;
+}
+body.page-id-394 .elementor-394 .elementor-widget-image-box .elementor-image-box-content {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+body.page-id-394 .elementor-394 .elementor-widget-image-box .elementor-image-box-title {
+	margin: 0 0 10px;
+	font-size: clamp(1.02rem, 1.5vw, 1.14rem);
+	line-height: 1.5;
+	font-weight: 700;
+	color: #1F2D11;
+}
+body.page-id-394 .elementor-394 .elementor-widget-image-box .elementor-image-box-description {
+	margin: 0;
+	font-size: .94rem;
+	line-height: 1.95;
+	color: #2E2E2E;
+	text-align: left;
+}
+
+/* --- 「モンゴルのお土産」. A WordPress three-column float gallery of eleven
+   portrait and landscape shots, so every row stepped. One grid, one crop,
+   captions on a common baseline. --- */
+/* The widget was set to --align-self:center, which in a flex column sizes
+   it to its content instead of the column: the grid below then resolved
+   against max-content and came out two columns wide, centred. */
+body.page-id-394 .elementor-394 .elementor-element.elementor-element-1187068 {
+	--align-self: stretch;
+	--flex-grow: 0;
+	align-self: stretch;
+	width: 100%;
+}
+body.page-id-394 .elementor-394 .elementor-widget-image-gallery {
+	margin-top: 22px;
+}
+body.page-id-394 .elementor-394 .elementor-widget-image-gallery .gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+	gap: 18px;
+	margin: 0;
+}
+body.page-id-394 .elementor-394 .elementor-widget-image-gallery .gallery-item {
+	display: flex;
+	flex-direction: column;
+	float: none;
+	width: auto;
+	max-width: none;
+	margin: 0;
+	padding: 0;
+}
+body.page-id-394 .elementor-394 .elementor-widget-image-gallery .gallery-icon {
+	width: 100%;
+}
+body.page-id-394 .elementor-394 .elementor-widget-image-gallery .gallery-icon a {
+	display: block;
+	overflow: hidden;
+	border-radius: 12px;
+}
+body.page-id-394 .elementor-394 .elementor-widget-image-gallery .gallery-item img {
+	display: block;
+	width: 100%;
+	height: 215px;
+	object-fit: cover;
+	border: 0;
+	transition: transform .3s ease;
+}
+@media (hover: hover) {
+	body.page-id-394 .elementor-394 .elementor-widget-image-gallery .gallery-icon a:hover img {
+		transform: scale(1.05);
+	}
+}
+body.page-id-394 .elementor-394 .elementor-widget-image-gallery .gallery-caption {
+	margin: 10px 0 0;
+	font-size: .84rem;
+	line-height: 1.5;
+	color: #5A5A5A;
+	text-align: center;
+}
+
+/* --- Tablets. --- */
+@media (max-width: 1024px) {
+	body.page-id-394 .elementor-394 > .e-con.e-con-boxed > .e-con-inner {
+		padding: 28px 26px 30px;
+	}
+	body.page-id-394 .elementor-394 .elementor-element-7ee4d49 img.alignleft {
+		width: 280px;
+		margin-right: 22px;
+	}
+	body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr > td:first-child {
+		width: 150px;
+	}
+	body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr > td {
+		padding: 14px 16px;
+	}
+}
+
+/* --- Phones. The tables stack: a 2-column table inside a 320px card
+   leaves the value column about 20 characters wide, and several of these
+   values run to a full paragraph. --- */
+@media (max-width: 767px) {
+	body.page-id-394 .elementor-394 > .e-con.e-con-boxed > .e-con-inner {
+		padding: 22px 18px 26px;
+		border-radius: 14px;
+	}
+	body.page-id-394 .elementor-394 > .e-con.elementor-element-4ebbd7b > .e-con-inner {
+		border-radius: 14px 14px 0 0;
+	}
+	body.page-id-394 .elementor-394 > .e-con.elementor-element-bf9a8b1 > .e-con-inner {
+		padding: 0 18px 18px;
+		border-radius: 0 0 14px 14px;
+	}
+	body.page-id-394 .elementor-394 > .e-con.elementor-element-8dd0e4d > .e-con-inner {
+		padding: 0 16px;
+	}
+	body.page-id-394 .elementor-394 > .elementor-element-59999a7 {
+		--min-height: 320px;
+		--padding-bottom: 32px;
+	}
+
+	/* the photos in 「モンゴル概要」 stop floating */
+	body.page-id-394 .elementor-394 .elementor-element-7ee4d49 img.alignleft {
+		float: none;
+		width: 100%;
+		margin: 0 0 16px;
+	}
+
+	/* tables stack into label / value pairs */
+	body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table,
+	body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody,
+	body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr,
+	body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr > td {
+		display: block;
+		width: auto;
+	}
+	body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr {
+		border-top: 1px solid #EFE9DD;
+	}
+	body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr:first-child {
+		border-top: 0;
+	}
+	body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr > td {
+		border-top: 0;
+		padding: 14px 16px;
+	}
+	body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr > td:first-child {
+		width: auto;
+		padding: 11px 16px;
+		border-right: 0;
+		border-radius: 0;
+	}
+	body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr:first-child > td:first-child {
+		border-radius: 13px 13px 0 0;
+	}
+	body.page-id-394 .elementor-394 .elementor-widget-text-editor > .elementor-widget-container > table > tbody > tr:last-child > td:last-child {
+		border-radius: 0 0 13px 13px;
+	}
+	body.page-id-394 .elementor-394 .elementor-widget-text-editor td > table > tbody > tr > td:first-child {
+		width: 6.5em;
+		white-space: normal;
+	}
+	body.page-id-394 .elementor-394 .elementor-widget-text-editor td > table td {
+		padding: 9px 10px;
+	}
+
+	/* the dairy entries stack */
+	body.page-id-394 .elementor-394 .elementor-widget-image-box .elementor-image-box-wrapper {
+		flex-direction: column;
+		gap: 14px;
+	}
+	body.page-id-394 .elementor-394 .elementor-widget-image-box .elementor-image-box-wrapper .elementor-image-box-img {
+		flex: 0 0 auto;
+		width: 100%;
+	}
+	body.page-id-394 .elementor-394 .elementor-widget-image-box .elementor-image-box-img img {
+		height: 190px;
+	}
+
+	body.page-id-394 .elementor-394 .elementor-image-carousel {
+		grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+		gap: 8px;
+	}
+	body.page-id-394 .elementor-394 .elementor-widget-image-gallery .gallery {
+		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+		gap: 12px;
+	}
+	body.page-id-394 .elementor-394 .elementor-widget-image-gallery .gallery-item img {
+		height: 150px;
+	}
+}
