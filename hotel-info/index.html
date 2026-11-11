@@ -480,7 +480,7 @@ body .wp-site-blocks .is-style-overlay-dark :is(h1,h2,h3,h4,h5,h6,p,li,blockquot
 #hb .list{display:flex;flex-direction:column;gap:28px}
 #hb .card{display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;scroll-margin-top:110px}
 #hb .media{position:relative;background:var(--gl);display:flex;flex-direction:column}
-#hb .cover{position:relative;aspect-ratio:4/3;flex:1 1 auto;min-height:0;overflow:hidden;cursor:zoom-in;background:var(--gl)}
+#hb .cover{position:relative;aspect-ratio:4/3;flex:1 1 auto;min-height:0;overflow:hidden;cursor:pointer;background:var(--gl)}
 #hb .cover img{width:100%;height:100%;object-fit:cover}
 #hb .cover .count{position:absolute;right:12px;bottom:12px;background:rgba(0,0,0,.6);color:#fff;font-size:13px;padding:3px 10px;border-radius:999px}
 #hb .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:24px;color:var(--g);background:linear-gradient(135deg,#E8F0EB 0%,#D3E2D9 100%);cursor:default}
@@ -489,7 +489,7 @@ body .wp-site-blocks .is-style-overlay-dark :is(h1,h2,h3,h4,h5,h6,p,li,blockquot
 #hb .ph span{font-size:13px;color:var(--mu)}
 #hb .thumbs{display:flex;gap:6px;padding:8px;overflow-x:auto;scrollbar-width:thin;background:#fff;border-top:1px solid var(--line)}
 #hb .thumbs button{flex:0 0 64px;height:52px;padding:0;border:2px solid transparent;border-radius:8px;overflow:hidden;cursor:pointer;background:var(--gl)}
-#hb .thumbs button:hover,#hb .thumbs button:focus-visible{border-color:var(--g)}
+#hb .thumbs button:hover,#hb .thumbs button:focus-visible,#hb .thumbs button.on{border-color:var(--g)}
 #hb .thumbs img{width:100%;height:100%;object-fit:cover}
 #hb .badge{position:absolute;left:12px;top:12px;z-index:2;background:var(--g);color:#fff;font-size:13px;font-weight:700;padding:4px 12px;border-radius:999px}
 #hb .badge.b5{background:#7A5A12}
@@ -855,7 +855,7 @@ var HOTELS=[
 
  {id:'ibis-styles',cat:'s4',stars:4,rec:11,name:'ibis Styles Ulaanbaatar Polaris',jp:'イビス・スタイルズ ウランバートル ポラリス',price:75,
   area:'ハンオール区20ホロー・チンギスハーン通り81',access:'チンギスハーン通り沿い（市南部）、空港方面へのアクセスが便利',
-  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語',
+  checkin:'14:00',checkout:'12:00',floors:'12階建て',roomsTotal:'95室',lang:'英語',
   desc:'アコーホテルズのカジュアルブランド。モダンでカラフルな客室とリーズナブルな料金で、ビジネス・観光どちらにも使いやすいホテルです。',
   features:['朝食付','無料Wi-Fi','レストラン','24時間フロント','ビジネス利用'],
   rooms:[['スタンダードダブル',75],['スタンダードツイン',80]],
@@ -871,7 +871,7 @@ var HOTELS=[
 
  {id:'bayangol',cat:'s3',stars:3,rec:14,name:'Bayangol Hotel',jp:'バヤンゴルホテル',price:80,
   area:'チンギスハーン通り・市中心部',access:'スフバートル広場まで徒歩約10分',
-  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語',
+  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'205室',lang:'英語',
   desc:'市中心部のチンギスハーン通りに建つ老舗ホテル。団体ツアーの利用も多く、観光の拠点として便利な立地です。',
   features:['朝食付','レストラン','無料Wi-Fi','団体利用可','両替'],
   rooms:[['シングル',80],['ツイン',95]],
@@ -880,7 +880,7 @@ var HOTELS=[
  /* ---- 以下：各ホテル公式サイト（公式サイトがないホテルは予約サイト掲載情報）より 2026-11 作成 ---- */
  {id:'j-hotel',cat:'s3',stars:3,rec:5,name:'J Hotel',jp:'Jホテル',price:70,
   area:'スフバートル区1ホロー・パリ通り34',access:'各国大使館・官公庁が集まる市中心部「Aゾーン」',
-  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語（通訳対応可）',tel:'+976 7711 6996',
+  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'42室',lang:'英語（通訳対応可）',tel:'+976 7711 6996',
   desc:'韓国・日本の投資により設立された、国際基準のビジネスクラスホテル。各国大使館や官公庁に近い中心部にあり、レストラン、朝食ラウンジ、マッサージセンター「ZEN」、コーヒーショップを備え、24時間体制でサービスを提供しています。',
   features:['Jレストラン','朝食ラウンジ','マッサージ「ZEN」','コーヒーショップ','24時間対応','手荷物預かり','タクシー手配'],
   rooms:[['スタンダードダブル',null],['スタンダードツイン',null],['スタンダードトリプル',null],['アパートメントダブル',null],['アパートメントツイン',null]],
@@ -1014,7 +1014,7 @@ var HOTELS=[
 
  {id:'aurora',cat:'s4',stars:4,rec:6,name:'Aurora Hotel',jp:'オーロラホテル',price:90,
   area:'バヤンゴル区28ホロー・10番地区（平和大通り）',access:'ウランバートル駅から約9分、チンギスハーン国際空港から約28分（ホテル公表）',
-  checkin:'12:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語',tel:'+976 7007 0808',
+  checkin:'12:00',checkout:'12:00',floors:'—',roomsTotal:'62室',lang:'英語',tel:'+976 7007 0808',
   desc:'オーロラ（北極光）をテーマにしたホテル。平和大通り沿いにあり、駅・空港へのアクセスが良好です。ビュッフェ朝食の「Khulan」レストラン、12階の「Aurora Lounge」、カフェ「Coffee Mekka」、フィットネス・サウナ、会議ホールを備えます。',
   features:['ビュッフェ朝食','Khulanレストラン','12階 Aurora Lounge','Coffee Mekka','フィットネス','サウナ','会議ホール'],
   rooms:[['スタンダードシングル',null],['スーペリアダブル',null],['スーペリアツイン',null],['ファミリービジネススイート',null]],
@@ -1041,7 +1041,7 @@ var HOTELS=[
 
  {id:'terelj',cat:'resort',stars:5,rec:1,name:'Terelj Hotel & Spa',jp:'テレルジホテル＆スパ',price:250,
   area:'ゴルヒ・テレルジ国立公園内',access:'ウランバートル市内から約60〜70km（車で約1時間半）',
-  checkin:'—',checkout:'—',floors:'—',roomsTotal:'—',lang:'英語',tel:'+976 9999 2233',
+  checkin:'—',checkout:'—',floors:'—',roomsTotal:'52室',lang:'英語',tel:'+976 9999 2233',
   desc:'テレルジ国立公園の大自然に囲まれた5つ星リゾート（World Luxury Hotel Awards 2010受賞）。スパ「Tereljmaa Spa」、温水プールとジャグジー、キッズクラブ、レストラン＆ラウンジ、ウェディングガーデンを備え、遊牧民の文化と自然を満喫できます。',
   features:['Tereljmaa Spa','温水プール','ジャグジー','キッズクラブ','レストラン・ラウンジ','会議施設','ウェディングガーデン','朝夕食付プランあり'],
   rooms:[['エグゼクティブルーム',null],['スーペリアルーム',null],['デラックスジュニアスイート',null],['ファミリースイート',null],['ハネムーンスイート',null],['プレジデンシャルスイート',null]],
@@ -1058,7 +1058,7 @@ var HOTELS=[
 
  {id:'novotel',cat:'s4',stars:4,rec:10,name:'Novotel Ulaanbaatar',jp:'ノボテル ウランバートル',price:120,
   area:'スフバートル区6ホロー・バガトイロー',access:'スフバートル広場まで徒歩圏',
-  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語',
+  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'192室（スイート6室含む）',lang:'英語',
   desc:'アコーホテルズの国際ブランド。シンプルでモダンな客室と充実した朝食、中心部の便利な立地でビジネス客にも観光客にも人気です。',
   features:['朝食付','フィットネス','レストラン','バー','ミーティングルーム','無料Wi-Fi'],
   rooms:[['スタンダード',120],['スーペリア',140]],
@@ -1066,7 +1066,7 @@ var HOTELS=[
 
  {id:'ramada',cat:'s4',stars:4,rec:1,name:'Ramada Ulaanbaatar Citycenter',jp:'ラマダ ウランバートル シティセンター',price:100,
   area:'バヤンゴル区17ホロー・平和大通り',access:'ガンダン寺など歴史的名所の近く、ショッピングセンター併設',
-  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語',
+  checkin:'14:00',checkout:'12:00',floors:'17階建て',roomsTotal:'124室',lang:'英語',
   desc:'ウィンダムグループの国際ブランド。屋内プールやスパを備え、中心部のホテルとしては比較的広い客室が特徴です。',
   features:['朝食付','屋内プール','SPA','フィットネス','レストラン','無料Wi-Fi'],
   rooms:[['スタンダード',100],['デラックス',125]],
@@ -1074,7 +1074,7 @@ var HOTELS=[
 
  {id:'ulaanbaatar-hotel',cat:'s5',stars:5,rec:5,name:'Ulaanbaatar Hotel',jp:'ウランバートルホテル',price:100,
   area:'スフバートル区8ホロー・B.アルタンゲレル通り7（スフバートル広場東側）',access:'スフバートル広場まで徒歩約3分',
-  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語・ロシア語',
+  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'106室',lang:'英語・ロシア語',
   desc:'1961年開業、モンゴルを代表する歴史あるホテル。スフバートル広場、国立オペラ劇場、博物館がすぐそばにあり、市内観光に抜群の立地です。',
   features:['朝食付','レストラン','バー','サウナ','会議場','歴史的建築'],
   rooms:[['スタンダード',100],['デラックス',130],['スイート',200]],
@@ -1082,7 +1082,7 @@ var HOTELS=[
 
  {id:'chinggis-khaan',cat:'s4',stars:4,rec:2,name:'Chinggis Khaan Hotel',jp:'チンギスハーンホテル',price:90,
   area:'バヤンズルフ区・東京通り',access:'スフバートル広場まで車で約5分',
-  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語',
+  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'約116室',lang:'英語',
   desc:'大型の会議施設を持つ伝統的なホテル。カジノ、ナイトクラブ、ショップも館内にあり、団体旅行や会議・イベント利用に適しています。',
   features:['朝食付','会議場','フィットネス','サウナ','レストラン','ショップ'],
   rooms:[['スタンダード',90],['デラックス',120]],
@@ -1090,7 +1090,7 @@ var HOTELS=[
 
  {id:'corporate',cat:'s4',stars:4,rec:5,name:'Corporate Hotel & Convention Centre',jp:'コーポレートホテル＆コンベンションセンター',price:110,
   area:'チンギスハーン通り・市中心部',access:'スフバートル広場まで徒歩約10分',
-  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語',
+  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'94室',lang:'英語',
   desc:'コンベンションセンターを併設したビジネス向けホテル。国際会議・展示会での利用が多く、中心部の幹線道路沿いで移動にも便利です。',
   features:['朝食付','コンベンションセンター','フィットネス','レストラン','無料Wi-Fi'],
   rooms:[['スタンダード',110],['デラックス',135]],
@@ -1114,7 +1114,7 @@ var HOTELS=[
 
  {id:'kempinski',cat:'s5',stars:5,rec:14,name:'Kempinski Hotel Khan Palace',jp:'ケンピンスキー ホテル ハーンパレス',price:150,
   area:'バヤンズルフ区・東十字路',access:'スフバートル広場まで車で約10分',
-  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語・ドイツ語',
+  checkin:'14:00',checkout:'12:00',floors:'9階建て',roomsTotal:'99室',lang:'英語・ドイツ語',
   desc:'ヨーロッパの名門ケンピンスキーが運営するホテル。落ち着いた雰囲気と行き届いたサービスで、日本料理レストランも評判です。',
   features:['朝食付','日本料理レストラン','フィットネス','サウナ','ビジネスセンター'],
   rooms:[['デラックス',150],['エグゼクティブ',190],['スイート',320]],
@@ -1122,7 +1122,7 @@ var HOTELS=[
 
  {id:'tuushin',cat:'s5',stars:5,rec:15,name:'Best Western Premier Tuushin Hotel',jp:'ベストウェスタン プレミア トゥーシンホテル',price:150,
   area:'スフバートル広場北東',access:'スフバートル広場まで徒歩約3分',
-  checkin:'14:00',checkout:'12:00',floors:'—',roomsTotal:'—',lang:'英語',
+  checkin:'14:00',checkout:'12:00',floors:'25階建て',roomsTotal:'198室',lang:'英語',
   desc:'政府庁舎・広場のすぐそばに建つ高層ホテル。モダンな客室、屋内プールとスパを備え、ビジネスにも観光にも最高の立地です。',
   features:['朝食付','屋内プール','SPA','フィットネス','レストラン','ビジネスセンター'],
   rooms:[['デラックス',150],['エグゼクティブ',190],['スイート',300]],
@@ -1164,8 +1164,8 @@ function cardHTML(h){
   var c=CATS[h.cat],bcls={biz:'bb',s3:'',s4:'b4',s5:'b5',resort:'br'}[h.cat];
   var media;
   if(h.photos.length){
-    var thumbs=h.photos.length>1?'<div class="thumbs">'+h.photos.map(function(p,i){return '<button type="button" data-i="'+i+'" aria-label="写真'+(i+1)+'を拡大"><img loading="lazy" src="'+esc(p[1]||p[0])+'" alt=""></button>';}).join('')+'</div>':'';
-    media='<div class="cover" data-i="0" role="button" tabindex="0" aria-label="'+esc(h.jp)+'の写真を拡大"><img loading="lazy" src="'+esc(h.photos[0][0])+'" data-fallback="'+esc(h.photos[0][1]||'')+'" alt="'+esc(h.jp)+'"><span class="count">📷 '+h.photos.length+'枚</span></div>'+thumbs;
+    var thumbs=h.photos.length>1?'<div class="thumbs">'+h.photos.map(function(p,i){return '<button type="button" data-i="'+i+'"'+(i===0?' class="on"':'')+' aria-label="写真'+(i+1)+'を表示"><img loading="lazy" src="'+esc(p[1]||p[0])+'" alt=""></button>';}).join('')+'</div>':'';
+    media='<div class="cover" data-i="0" role="button" tabindex="0" aria-label="'+esc(h.jp)+'の次の写真を表示"><img loading="lazy" src="'+esc(h.photos[0][0])+'" data-fallback="'+esc(h.photos[0][1]||'')+'" alt="'+esc(h.jp)+'"><span class="count">📷 1 / '+h.photos.length+'</span></div>'+thumbs;
   }else{
     media='<div class="cover"><div class="ph"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M10 21v-4h4v4"/></svg><b>'+esc(h.name)+'</b><span>写真は準備中です</span></div></div>';
   }
@@ -1181,7 +1181,7 @@ function cardHTML(h){
       '<dl class="info">'+info.map(function(r){return '<div'+(r[2]?' class="full"':'')+'><dt>'+r[0]+'</dt><dd>'+esc(r[1])+'</dd></div>';}).join('')+'</dl>'+
       '<ul class="chips">'+h.features.map(function(f){return '<li>'+esc(f)+'</li>';}).join('')+'</ul>'+
       (h.rooms.length?'<details class="more"><summary>お部屋タイプと料金目安</summary><table class="rooms"><thead><tr><th>お部屋タイプ</th><th class="p">1室1泊</th></tr></thead><tbody>'+rows+'</tbody></table></details>':'')+
-      '<div class="actions"><button type="button" class="btn btn-green" data-book="'+h.id+'">このホテルを予約</button><button type="button" class="btn btn-outline" data-map="'+h.id+'" aria-expanded="false">地図を見る</button><a class="btn btn-outline" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(h.map)+'">Googleマップ</a>'+(h.site?'<a class="btn btn-outline" target="_blank" rel="noopener" href="'+esc(h.site)+'">'+(h.siteLabel||'公式サイト')+'</a>':'')+'</div>'+
+      '<div class="actions"><button type="button" class="btn btn-green" data-book="'+h.id+'">このホテルを予約</button><button type="button" class="btn btn-outline" data-map="'+h.id+'" aria-expanded="false">地図を見る</button></div>'+
     '</div>'+
   '</article>';
 }
@@ -1220,7 +1220,13 @@ $('#hb-list').addEventListener('click',function(e){
     m.innerHTML='<iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="'+esc(h.jp)+'の地図" src="https://www.google.com/maps?q='+encodeURIComponent(h.map)+'&hl=ja&z=15&output=embed"></iframe>';
     card.appendChild(m);t.setAttribute('aria-expanded','true');t.textContent='地図を閉じる';return;
   }
-  openLb(h,+t.dataset.i||0);
+  /* 写真は全画面にせず、カード上部の大きい枠の中で切り替える（サムネイル＝その写真、大きい写真＝次の写真） */
+  var cv=card.querySelector('.cover[data-i]');if(!cv||!h.photos.length)return;
+  var n=h.photos.length,i=t.closest('.thumbs')?(+t.dataset.i||0):((+cv.dataset.i||0)+1)%n;
+  var im=cv.querySelector('img'),p=h.photos[i];
+  im.dataset.fallback=p[1]||'';im.src=p[0];cv.dataset.i=i;
+  var cnt=cv.querySelector('.count');if(cnt)cnt.textContent='📷 '+(i+1)+' / '+n;
+  Array.prototype.forEach.call(card.querySelectorAll('.thumbs button'),function(b){b.classList.toggle('on',+b.dataset.i===i);});
 });
 $('#hb-list').addEventListener('keydown',function(e){
   var t=e.target.closest('.cover[data-i]');if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();t.click();}
