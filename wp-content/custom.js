@@ -1,4 +1,4 @@
-/* Slideshow for jamotours.
+/* Slideshow for mongoru.
    Elementor's frontend bundle does not initialise in this static copy, so its
    Slides widgets never start their swiper and every slide renders in the same
    spot at once. This drives them directly: one slide visible at a time, a
