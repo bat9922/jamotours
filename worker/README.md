@@ -104,6 +104,39 @@ if (data.conversationId) conversationId = data.conversationId; // 覚える
 **ツアーページを追加・削除・改名したら、この一覧も直してください。**
 直さないと、AIが存在しないページを案内したり、新しいツアーを知らないままになります。
 
+直したあと、ページ側のツアー名表も作り直します（下の「参考リンク」で使います）。
+
+```powershell
+cd <リポジトリのルート>
+powershell -File worker\gen-tourmap.ps1
+```
+
+`TOUR_CATALOG` を読んで `wp-content/ai-chat.js` の
+`/* TOUR-MAP-START */ 〜 /* TOUR-MAP-END */` の間を書き換えます。
+実在しないページを指しているURLがあれば警告が出ます。
+
+> `gen-tourmap.ps1` は **BOM 付き UTF-8** で保存してください。
+> BOM がないと Windows PowerShell 5.1 が cp932 として読み、日本語が壊れます。
+
+---
+
+## チャットの「参考リンク」
+
+AIの回答に出てきた `https://mongoru.jp/...` を本文から抜き出し、
+回答の下に「参考リンク」としてボタン状のリンクで並べます。
+処理は `wp-content/ai-chat.js` の `renderReply()` にあります。
+
+| リンクの見出し | どこから取るか |
+|---|---|
+| ツアー名 | `TOURS` 表（`gen-tourmap.ps1` が作る） |
+| 一覧にないページ | 直前の「・〜」の行をそのまま使う |
+| 外部サイト | ホスト名 |
+
+- URLだけの行は本文から消えます（リンク側に移るため）。
+- 文中に混ざったURLはその場でリンクになります。
+- リンクは別タブで開きます。チャットの会話が消えないようにするためです。
+- 表示は最大6件（`ai-chat.js` の `MAX_REFS`）。
+
 ---
 
 ## つまずきやすい点
