@@ -74,19 +74,35 @@ curl -i https://mongol.bzorig9922.workers.dev \
 `status` が `incomplete` のときは出力が上限で切れているので、
 レスポンスに `truncated: true` を付けて返します。
 
-### 会話の継続
+### 会話の継続（実装済み）
 
 このエンドポイントは Gemini 側が会話履歴を持ちます。
-レスポンスの `conversationId` を次のリクエストにそのまま送り返すと、
-前のやり取りを踏まえた返答になります（履歴を組み立てる必要はありません）。
+レスポンスの `conversationId` を次のリクエストに送り返すと、
+前のやり取りを踏まえた返答になります。履歴を自分で組み立てる必要はありません。
+
+`index.html` のチャットは実装済みです。
 
 ```js
-// クライアント側の例
-body: JSON.stringify({ message: text, conversationId: lastConversationId })
+let conversationId = null;                                  // ページを開いた時点では空
+body: JSON.stringify({ message: text, conversationId })      // 送る
+if (data.conversationId) conversationId = data.conversationId; // 覚える
 ```
 
-現在の `index.html` はまだこれを送っていないので、チャットは毎回独立した
-やり取りになります。会話を覚えさせたい場合は追加してください。
+ページを再読み込みすると会話は最初からになります。
+
+会話IDが古くなって使えなくなった場合、Worker は履歴なしで一度だけ
+自動的にやり直します（会話は続かないが、エラーにはならない）。
+
+---
+
+## ツアー情報の更新
+
+`worker.js` の `TOUR_CATALOG` に、サイトに実在するツアーの
+「名前 ・ 日数 ・ URL」を一覧で持たせています。AIはこの一覧にあるツアーだけを
+案内し、ここにないものは「オーダーメイド」として案内します。
+
+**ツアーページを追加・削除・改名したら、この一覧も直してください。**
+直さないと、AIが存在しないページを案内したり、新しいツアーを知らないままになります。
 
 ---
 

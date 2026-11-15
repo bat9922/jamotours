@@ -1641,6 +1641,7 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
 
 <script>
 	const WORKER_URL = "https://mongol.bzorig9922.workers.dev";
+  let conversationId = null;   // Gemini が会話履歴を保持するためのID
    function toggleChat() {
     const box = document.getElementById('ai-chat-box');
     box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
@@ -1664,10 +1665,12 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
       const response = await fetch(WORKER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text })
+        body: JSON.stringify({ message: text, conversationId: conversationId })
       });
       const data = await response.json();
-      document.getElementById(loadingId).innerText = data.reply;
+      if (data.conversationId) conversationId = data.conversationId;
+      document.getElementById(loadingId).innerText = data.reply
+        || '恐れ入りますが、うまくお答えできませんでした。お手数ですが日本窓口（070-9181-9922）までお問い合わせください。';
     } catch (e) {
       document.getElementById(loadingId).innerText = '申し訳ありません、通信エラーが発生しました。お急ぎの場合は日本窓口（070-9181-9922）までお問い合わせください。';
     }
