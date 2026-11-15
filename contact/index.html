@@ -293,6 +293,16 @@ body .wp-site-blocks .is-style-overlay-dark :is(h1,h2,h3,h4,h5,h6,p,li,blockquot
 .ct .frm_forms input[aria-invalid="true"],.ct .frm_forms textarea[aria-invalid="true"]{border-color:#C0392B !important;background:#FFFBFA !important}
 .ct .frm_forms .frm_button_submit:disabled{opacity:.55;cursor:not-allowed}
 </style>
+<style id="ct-line-qr-css">
+.ct-qr{background:#fff;border:1px solid var(--ct-line);border-radius:20px;padding:28px 32px;text-align:center}
+.ct-qr h3{font-size:17px;font-weight:900;margin-bottom:10px}
+.ct-qr__lead{font-size:13px;color:var(--ct-muted);line-height:1.8;margin-bottom:16px}
+.ct-qr__img{display:inline-block;border:1px solid var(--ct-line);border-radius:16px;padding:12px;background:#fff;line-height:0;transition:border-color .2s,box-shadow .2s}
+.ct-qr__img:hover,.ct-qr__img:focus{border-color:#06C755;box-shadow:0 6px 18px -10px rgba(6,199,85,.6)}
+.ct-qr__img img{display:block;width:200px;height:200px;max-width:100%}
+.ct-qr__note{font-size:12px;color:var(--ct-muted);line-height:1.8;margin-top:14px}
+@media (max-width:640px){.ct-qr{padding:28px 22px}}
+</style>
 </head>
 <body class="wp-singular page-template-default page page-id-501 wp-embed-responsive wp-theme-hello-elementor tribe-no-js tec-no-tickets-on-recurring tec-no-rsvp-on-recurring ehf-template-hello-elementor ehf-stylesheet-hello-elementor hello-elementor-default elementor-default elementor-kit-7 elementor-page elementor-page-501 tribe-theme-hello-elementor">
 
@@ -860,7 +870,15 @@ body .wp-site-blocks .is-style-overlay-dark :is(h1,h2,h3,h4,h5,h6,p,li,blockquot
 						</ul>
 						<p class="ct-note">※ モンゴルのツアーならお手伝いします。</p>
 					</div>
-				</aside>
+				<div class="ct-qr">
+	<h3>LINEで友だち追加</h3>
+	<p class="ct-qr__lead">QRコードを読み取ると、LINEでそのままご相談いただけます。</p>
+	<a class="ct-qr__img" href="https://line.me/ti/p/MYQYoL2_ZD" target="_blank" rel="noopener">
+		<img src="/wp-content/uploads/2026/01/line-qr.png" width="360" height="360" alt="LINE友だち追加用QRコード" loading="lazy" decoding="async">
+	</a>
+	<p class="ct-qr__note">スマートフォンでご覧の方は、QRコードをタップしてもLINEが開きます。</p>
+</div>
+			</aside>
 			</div>
 		</div>
 	</section>
