@@ -1585,5 +1585,91 @@ var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof H
 		<script>window.addEventListener('click', function (elem) { var _elem$target, _elem$target$dataset, _window, _window$_trfq; return (elem === null || elem === void 0 ? void 0 : (_elem$target = elem.target) === null || _elem$target === void 0 ? void 0 : (_elem$target$dataset = _elem$target.dataset) === null || _elem$target$dataset === void 0 ? void 0 : _elem$target$dataset.eid) && ((_window = window) === null || _window === void 0 ? void 0 : (_window$_trfq = _window._trfq) === null || _window$_trfq === void 0 ? void 0 : _window$_trfq.push(["cmdLogEvent", "click", elem.target.dataset.eid]));});</script>
 		<script src='https://img1.wsimg.com/traffic-assets/js/tccl-tti.min.js' onload="window.tti.calculateTTI()"></script>
 						<script id="mongoru-custom-js" src="/wp-content/custom.js" defer></script>
+<!-- AI ЧАТ ВИДЖЕТ ЭХЛЭХ ХЭСЭГ -->
+<style>
+  #ai-chat-btn { position: fixed; bottom: 20px; right: 20px; background: #1e7e34; color: white; border: none; border-radius: 50px; padding: 14px 22px; font-size: 15px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 9999; }
+  #ai-chat-box { display: none; position: fixed; bottom: 80px; right: 20px; width: 350px; max-width: 90vw; height: 480px; background: white; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); flex-direction: column; overflow: hidden; font-family: sans-serif; z-index: 9999; border: 1px solid #ddd; }
+  #ai-chat-header { background: #1e7e34; color: white; padding: 14px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+  #ai-chat-messages { flex: 1; padding: 12px; overflow-y: auto; background: #f8f9fa; font-size: 14px; line-height: 1.5; }
+  .msg-ai { background: white; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #e0e0e0; color: #333; }
+  .msg-user { background: #1e7e34; color: white; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; margin-left: auto; max-width: 80%; }
+  .quick-btns { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .quick-btn { background: #e8f5e9; color: #1e7e34; border: 1px solid #1e7e34; border-radius: 15px; padding: 5px 10px; font-size: 12px; cursor: pointer; }
+  .quick-btn:hover { background: #1e7e34; color: white; }
+  #ai-chat-input-area { display: flex; border-top: 1px solid #ddd; padding: 8px; background: white; }
+  #ai-chat-input { flex: 1; border: 1px solid #ccc; border-radius: 20px; padding: 8px 14px; outline: none; font-size: 14px; }
+  #ai-chat-send { background: #1e7e34; color: white; border: none; border-radius: 20px; padding: 8px 16px; margin-left: 6px; cursor: pointer; font-weight: bold; }
+</style>
+
+<button id="ai-chat-btn" onclick="toggleChat()">💬 AI Ассистент</button>
+
+<div id="ai-chat-box">
+  <div id="ai-chat-header">
+    <span>AI Чат Ассистент</span>
+    <span style="cursor:pointer;" onclick="toggleChat()">✕</span>
+  </div>
+  <div id="ai-chat-messages">
+    <div class="msg-ai">Сайн байна уу! Аялал болон үйлчилгээний талаар сонирхсон зүйлээ асуугаарай.</div>
+    <div class="quick-btns">
+      <button class="quick-btn" onclick="sendQuick('Үнийн мэдээлэл?')">Үнийн мэдээлэл?</button>
+      <button class="quick-btn" onclick="sendQuick('Хэрхэн захиалах вэ?')">Хэрхэн захиалах вэ?</button>
+      <button class="quick-btn" onclick="sendQuick('Онгоцны буудлаас тосох уу?')">Онгоцны буудлаас тосох уу?</button>
+    </div>
+  </div>
+  <div id="ai-chat-input-area">
+    <input type="text" id="ai-chat-input" placeholder="Асуултаа бичнэ үү..." onkeypress="if(event.key==='Enter') sendMessage()">
+    <button id="ai-chat-send" onclick="sendMessage()">Илгээх</button>
+  </div>
+</div>
+
+<script>
+  const WORKER_URL = "mongol.bzorig9922.workers.dev"; 
+
+  function toggleChat() {
+    const box = document.getElementById('ai-chat-box');
+    box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+  }
+
+  function sendQuick(text) {
+    document.getElementById('ai-chat-input').value = text;
+    sendMessage();
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById('ai-chat-input');
+    const text = input.value.trim();
+    if (!text) return;
+
+    addMessage(text, 'msg-user');
+    input.value = '';
+    const loadingId = addMessage('Хариулт бэлтгэж байна...', 'msg-ai');
+
+    try {
+      const response = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text })
+      });
+      const data = await response.json();
+      document.getElementById(loadingId).innerText = data.reply;
+    } catch (e) {
+      document.getElementById(loadingId).innerText = 'Уучлаарай, холболтын алдаа гарлаа.';
+    }
+  }
+
+  function addMessage(text, className) {
+    const container = document.getElementById('ai-chat-messages');
+    const div = document.createElement('div');
+    const id = 'msg-' + Date.now();
+    div.id = id;
+    div.className = className;
+    div.innerText = text;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+    return id;
+  }
+</script>
+<!-- AI ЧАТ ВИДЖЕТ ДУУСАХ ХЭСЭГ -->
+
 </body>
 </html>
