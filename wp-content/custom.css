@@ -2606,21 +2606,21 @@ body:is(.page-id-394,.page-id-2339) :is(.elementor-394,.elementor-2339) .element
 		columns:3;
 	}
 }
-/* ── Header dropdowns (ツアーを探す / 各種手配): faint dotted separators between items ── */
+/* ── Header dropdowns (ツアーを探す / 各種手配 / ご利用案内): faint dotted separators between items ── */
 @media (min-width:1025px){
-	.elementor-nav-menu--main .elementor-nav-menu > li:is(.menu-item-37,.menu-item-38) > ul.sub-menu > li{
+	.elementor-nav-menu--main .elementor-nav-menu > li:is(.menu-item-37,.menu-item-38,.menu-item-40) > ul.sub-menu > li{
 		border-bottom:1px dotted #CFd6D0 !important;
 	}
-	.elementor-nav-menu--main .elementor-nav-menu > li:is(.menu-item-37,.menu-item-38) > ul.sub-menu > li:last-child{
+	.elementor-nav-menu--main .elementor-nav-menu > li:is(.menu-item-37,.menu-item-38,.menu-item-40) > ul.sub-menu > li:last-child{
 		border-bottom:0 !important;
 	}
 	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-37 > ul.sub-menu > li > a.elementor-sub-item{
 		border-radius:6px;
 	}
 }
-/* ── Header: "各種手配" dropdown in the same panel style as ツアーを探す ── */
+/* ── Header: "各種手配" and "ご利用案内" dropdowns in the same panel style as ツアーを探す ── */
 @media (min-width:1025px){
-	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-38 > ul.sub-menu{
+	.elementor-nav-menu--main .elementor-nav-menu > li:is(.menu-item-38,.menu-item-40) > ul.sub-menu{
 		width:300px !important;
 		min-width:300px !important;
 		padding:12px 16px !important;
@@ -2631,7 +2631,7 @@ body:is(.page-id-394,.page-id-2339) :is(.elementor-394,.elementor-2339) .element
 		box-shadow:0 24px 48px -20px rgba(27,36,33,.35);
 		z-index:9999;
 	}
-	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-38 > ul.sub-menu > li > a.elementor-sub-item{
+	.elementor-nav-menu--main .elementor-nav-menu > li:is(.menu-item-38,.menu-item-40) > ul.sub-menu > li > a.elementor-sub-item{
 		display:flex !important;
 		align-items:center;
 		gap:10px;
@@ -2647,7 +2647,7 @@ body:is(.page-id-394,.page-id-2339) :is(.elementor-394,.elementor-2339) .element
 		white-space:normal !important;
 		transition:background .15s,color .15s;
 	}
-	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-38 > ul.sub-menu > li > a.elementor-sub-item::before{
+	.elementor-nav-menu--main .elementor-nav-menu > li:is(.menu-item-38,.menu-item-40) > ul.sub-menu > li > a.elementor-sub-item::before{
 		content:"";
 		flex:0 0 6px;
 		width:6px;
@@ -2655,8 +2655,8 @@ body:is(.page-id-394,.page-id-2339) :is(.elementor-394,.elementor-2339) .element
 		border-radius:50%;
 		background:#C9A75A;
 	}
-	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-38 > ul.sub-menu > li > a.elementor-sub-item:hover,
-	.elementor-nav-menu--main .elementor-nav-menu > li.menu-item-38 > ul.sub-menu > li > a.elementor-sub-item:focus{
+	.elementor-nav-menu--main .elementor-nav-menu > li:is(.menu-item-38,.menu-item-40) > ul.sub-menu > li > a.elementor-sub-item:hover,
+	.elementor-nav-menu--main .elementor-nav-menu > li:is(.menu-item-38,.menu-item-40) > ul.sub-menu > li > a.elementor-sub-item:focus{
 		background:#EEF3EF !important;
 		color:#2F5D46 !important;
 	}
