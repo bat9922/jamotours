@@ -1,20 +1,22 @@
 /**
  * mongoru.jp - AI チャットアシスタント用 Cloudflare Worker
  *
+ * 送信先: Google Gemini API（Interactions エンドポイント）
  * 依存パッケージなし。Cloudflare のダッシュボードに貼り付けても、
  * wrangler で deploy しても、そのまま動きます。
  *
  * 必要な設定（1つだけ）:
- *   wrangler secret put ANTHROPIC_API_KEY
+ *   wrangler secret put GEMINI_API_KEY
  *   （ダッシュボードの場合: Settings → Variables and Secrets → Add → Secret）
  *
  * 注意: API キーは必ず Secret として保存してください。
- *       このファイルに直接書き込まないこと。
+ *       このファイルに直接書き込まないこと（このリポジトリは公開されています）。
  */
 
-const API_URL = "https://api.anthropic.com/v1/messages";
-const API_VERSION = "2026-10-21";
-const MODEL = "claude-opus-5-5";
+const API_URL = "https://generativelanguage.googleapis.com/v1beta/interactions";
+const API_REVISION = "2026-05-20";
+const MODEL = "gemini-3.5-flash-lite";
+const MAX_OUTPUT_TOKENS = 500;
 
 /** このオリジンからのリクエストだけ受け付ける */
 const ALLOWED_ORIGINS = new Set([
@@ -22,12 +24,12 @@ const ALLOWED_ORIGINS = new Set([
   "https://www.mongoru.jp",
 ]);
 
-const SYSTEM_PROMPT = `あなたはモンゴル現地旅行社アルタンツアー（https://mongoru.jp）の
+const SYSTEM_INSTRUCTION = `あなたはモンゴル現地旅行社アルタンツアー（https://mongoru.jp）の
 日本語カスタマーサポートAIアシスタントです。
 
 【回答のしかた】
 - 必ず日本語で、200字程度までの簡潔な文章で答えてください。
-- 箇条書きは3つまで。マークダウン記法は使わないでください（チャット欄で崩れます）。
+- 箇条書きは3つまで。マークダウン記法（**や#）は使わないでください。チャット欄で崩れます。
 
 【答えてよいこと】
 モンゴルのツアー内容、航空券、鉄道、ホテル、空港送迎・専用車、ビザ、気候、
@@ -44,7 +46,6 @@ const SYSTEM_PROMPT = `あなたはモンゴル現地旅行社アルタンツア
 - ウランバートル本社: 976-8510-9922`;
 
 function corsHeaders(origin) {
-  // 許可リストにあればそのオリジンを返す。なければ既定のサイトを返す。
   const allow = ALLOWED_ORIGINS.has(origin) ? origin : "https://mongoru.jp";
   return {
     "Access-Control-Allow-Origin": allow,
@@ -62,12 +63,31 @@ function json(body, status, cors) {
   });
 }
 
+/**
+ * 返答の本文は steps[] の中の model_output、その content[] の中の text。
+ * 複数に分かれている場合があるので全部つなげる。
+ */
+function extractText(data) {
+  const steps = Array.isArray(data?.steps) ? data.steps : [];
+  const parts = [];
+  for (const step of steps) {
+    if (step?.type !== "model_output") continue;
+    const content = Array.isArray(step.content) ? step.content : [];
+    for (const block of content) {
+      if (block?.type === "text" && typeof block.text === "string") {
+        parts.push(block.text);
+      }
+    }
+  }
+  return parts.join("").trim();
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") ?? "";
     const cors = corsHeaders(origin);
 
-    // ブラウザは本番のPOSTの前にこのOPTIONSを送ります
+    // ブラウザは本番の POST の前にこの OPTIONS を送ります
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: cors });
     }
@@ -76,8 +96,8 @@ export default {
       return json({ error: "method_not_allowed" }, 405, cors);
     }
 
-    if (!env.ANTHROPIC_API_KEY) {
-      console.error("ANTHROPIC_API_KEY secret is not set");
+    if (!env.GEMINI_API_KEY) {
+      console.error("GEMINI_API_KEY secret is not set");
       return json({ error: "server_misconfigured" }, 500, cors);
     }
 
@@ -92,19 +112,20 @@ export default {
     if (!message) return json({ error: "message_required" }, 400, cors);
     if (message.length > 2000) return json({ error: "message_too_long" }, 400, cors);
 
-    // 直前の会話だけ引き継ぐ（クライアントが送ってきた場合のみ）
-    const history = Array.isArray(body?.history)
-      ? body.history
-          .filter(
-            (m) =>
-              m &&
-              (m.role === "user" || m.role === "assistant") &&
-              typeof m.content === "string" &&
-              m.content.trim(),
-          )
-          .slice(-10)
-          .map((m) => ({ role: m.role, content: m.content }))
-      : [];
+    // 会話を続ける場合、クライアントは前回の conversationId を送り返します。
+    // Gemini 側が履歴を保持するので、こちらで会話を組み立てる必要はありません。
+    const previousId =
+      typeof body?.conversationId === "string" && body.conversationId.trim()
+        ? body.conversationId.trim()
+        : null;
+
+    const payload = {
+      model: MODEL,
+      system_instruction: SYSTEM_INSTRUCTION,
+      input: message,
+      generation_config: { max_output_tokens: MAX_OUTPUT_TOKENS },
+    };
+    if (previousId) payload.previous_interaction_id = previousId;
 
     let upstream;
     try {
@@ -112,21 +133,13 @@ export default {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": env.ANTHROPIC_API_KEY,
-          "anthropic-version": API_VERSION,
-          // 安全性の判定で断られた場合に別モデルで自動的に再実行する
-          "anthropic-beta": "server-side-fallback-2026-07-01",
+          "x-goog-api-key": env.GEMINI_API_KEY,
+          "Api-Revision": API_REVISION,
         },
-        body: JSON.stringify({
-          model: MODEL,
-          max_tokens: 2000,
-          system: SYSTEM_PROMPT,
-          fallbacks: "default",
-          messages: [...history, { role: "user", content: message }],
-        }),
+        body: JSON.stringify(payload),
       });
     } catch (err) {
-      // ここに来るのはネットワーク到達不能のとき
+      // ここに来るのは送信先に到達できなかったとき（DNS、ネットワーク）
       console.error("upstream fetch failed:", err);
       return json({ error: "upstream_unreachable" }, 502, cors);
     }
@@ -134,7 +147,7 @@ export default {
     const raw = await upstream.text();
 
     if (!upstream.ok) {
-      // 本文はJSONとは限らない（Cloudflareのエラーページなど）のでそのまま記録する
+      // 本文が JSON とは限らない（エラーページが返ることがある）のでそのまま記録する
       console.error("upstream error", upstream.status, raw.slice(0, 500));
       const status = upstream.status === 429 ? 429 : 502;
       return json({ error: "upstream_error", status: upstream.status }, status, cors);
@@ -148,28 +161,37 @@ export default {
       return json({ error: "upstream_bad_payload" }, 502, cors);
     }
 
-    if (data.stop_reason === "refusal") {
+    if (data.status === "failed" || data.status === "cancelled") {
+      console.error("interaction", data.status, raw.slice(0, 500));
+      return json({ error: "generation_failed", status: data.status }, 502, cors);
+    }
+
+    const reply = extractText(data);
+
+    if (!reply) {
+      // 安全性フィルタで止められた場合もここに来ます
+      console.error("empty reply, status:", data.status, raw.slice(0, 500));
       return json(
         {
           reply:
-            "恐れ入りますが、その内容にはお答えできません。お手数ですが日本窓口（070-9181-9922）までお問い合わせください。",
+            "恐れ入りますが、その内容にはお答えできませんでした。お手数ですが日本窓口（070-9181-9922）またはお問い合わせフォームよりご連絡ください。",
         },
         200,
         cors,
       );
     }
 
-    const reply = (data.content ?? [])
-      .filter((b) => b.type === "text")
-      .map((b) => b.text)
-      .join("\n")
-      .trim();
+    // status が incomplete のときは max_output_tokens で切れています
+    const truncated = data.status === "incomplete";
 
-    if (!reply) {
-      console.error("empty reply, stop_reason:", data.stop_reason);
-      return json({ error: "empty_reply" }, 502, cors);
-    }
-
-    return json({ reply }, 200, cors);
+    return json(
+      {
+        reply,
+        conversationId: typeof data.id === "string" ? data.id : null,
+        truncated,
+      },
+      200,
+      cors,
+    );
   },
 };
