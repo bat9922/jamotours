@@ -2606,6 +2606,18 @@ body:is(.page-id-394,.page-id-2339) :is(.elementor-394,.elementor-2339) .element
 		columns:3;
 	}
 }
+/* ── Footer: the e-mail address is shown as a "メールでお問い合わせ" link.
+      It sits on the dark footer background, so it must keep the surrounding
+      text colour instead of the default green link colour. ── */
+.elementor-location-footer a[href^="mailto:"]{
+	color:inherit !important;
+	text-decoration:none;
+}
+.elementor-location-footer a[href^="mailto:"]:hover,
+.elementor-location-footer a[href^="mailto:"]:focus{
+	text-decoration:underline;
+}
+
 /* ── Header dropdowns (ツアーを探す / 各種手配 / ご利用案内): faint dotted separators between items ── */
 @media (min-width:1025px){
 	.elementor-nav-menu--main .elementor-nav-menu > li:is(.menu-item-37,.menu-item-38,.menu-item-40) > ul.sub-menu > li{
