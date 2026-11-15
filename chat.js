@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const WORKER_URL = "https://workers.dev";
+const WORKER_URL = "https://workers.dev";
+https://workers.dev";
 
   const chatHTML = `
   <style>
