@@ -1,0 +1,6 @@
+name = "mongol"
+main = "worker.js"
+compatibility_date = "2026-11-15"
+
+# ANTHROPIC_API_KEY is NOT set here on purpose.
+# It is a secret:  npx wrangler secret put ANTHROPIC_API_KEY
