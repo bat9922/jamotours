@@ -22,6 +22,11 @@
 	/* The grey of the contact bar above the home footer. The whole footer
 	   body is now this one grey, on every page. */
 	--jamo-footer-grey: #6D6D6D;
+	/* メールでお問い合わせ, the only link in the footer body, carried no colour
+	   at all and fell back to the browser's default link red. --jamo-green
+	   would be the obvious answer but it scores 1.02:1 on the grey and
+	   disappears; this is the same hue lifted until it reads (3.71:1). */
+	--jamo-footer-link: #B8E986;
 }
 /* =================================================================
    「注目！おすすめツアー」slider (container d1e8b1c)
@@ -1414,6 +1419,35 @@ body.single-post .elementor-element.elementor-widget-button .elementor-button .e
 	/* 19px put the UB street line over the width of its column */
 	font-size: 17px;
 	line-height: 1.75;
+}
+
+/* --- メールでお問い合わせ. Four widgets carry this link - the heading in the
+       contact column (d26b7ed / 23d5e9b) and the two addresses inside the
+       text widget (0006fa0 / 9c793d8) - and not one of them set a link
+       colour, so all four rendered in the browser's default red on the
+       grey. They take the lifted green, and white on hover: the rest of the
+       footer is already white, so the hover state reads as "this is live"
+       rather than as a new colour. :visited is included because a mailto
+       the visitor has already used otherwise turns purple. --- */
+.elementor-211 .elementor-element.elementor-element-d26b7ed .elementor-heading-title a:link,
+.elementor-211 .elementor-element.elementor-element-d26b7ed .elementor-heading-title a:visited,
+.elementor-8 .elementor-element.elementor-element-23d5e9b .elementor-heading-title a:link,
+.elementor-8 .elementor-element.elementor-element-23d5e9b .elementor-heading-title a:visited,
+.elementor-211 .elementor-element.elementor-element-0006fa0 a:link,
+.elementor-211 .elementor-element.elementor-element-0006fa0 a:visited,
+.elementor-8 .elementor-element.elementor-element-9c793d8 a:link,
+.elementor-8 .elementor-element.elementor-element-9c793d8 a:visited {
+	color: var(--jamo-footer-link);
+}
+.elementor-211 .elementor-element.elementor-element-d26b7ed .elementor-heading-title a:hover,
+.elementor-211 .elementor-element.elementor-element-d26b7ed .elementor-heading-title a:focus-visible,
+.elementor-8 .elementor-element.elementor-element-23d5e9b .elementor-heading-title a:hover,
+.elementor-8 .elementor-element.elementor-element-23d5e9b .elementor-heading-title a:focus-visible,
+.elementor-211 .elementor-element.elementor-element-0006fa0 a:hover,
+.elementor-211 .elementor-element.elementor-element-0006fa0 a:focus-visible,
+.elementor-8 .elementor-element.elementor-element-9c793d8 a:hover,
+.elementor-8 .elementor-element.elementor-element-9c793d8 a:focus-visible {
+	color: #FFFFFF;
 }
 
 /* --- "Follow us" over its icons, with the logo filling the space left
