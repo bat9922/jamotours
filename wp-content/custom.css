@@ -2794,3 +2794,58 @@ h1.elementor-heading-title {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+/* =================================================================
+   HERO PHOTOS — let them actually be seen
+
+   The design-system block stacks three layers in .jg__hero: the green
+   base, the photo at `opacity:.28`, and then a near-flat green gradient
+   at .88–.94 alpha on top. Multiplied out, about 3% of the photograph
+   survived, so every hero read as a plain green panel and the picture
+   chosen for each page was invisible.
+
+   Two things changed. The photo runs at full opacity, and the lid
+   becomes a directional scrim: strong on the left, where the breadcrumb,
+   H1, lead and buttons sit, and opening up towards the right so the
+   image is simply the image. The scrim is also near-neutral rather than
+   green — a heavy green wash tints the whole photograph and is what made
+   the skies and grass read as one flat colour.
+
+   Contrast: measured against the worst case, a pure-white patch of
+   photo directly under text, white on the scrim holds about 5:1 across
+   the whole band the text occupies, and ~9:1 at the left edge where the
+   headline sits. The text-shadow below is insurance for bright photos,
+   not the thing carrying contrast.
+
+   custom.css is linked BEFORE the inline design-system block, so these
+   need two classes (0,2,0) to outrank its (0,1,0) rules. Only `opacity`
+   and `background` are set: `background-image` and `background-position`
+   are left alone, because each page overrides those with its own photo
+   and crop further down the document.
+   ================================================================= */
+.jg .jg__hero::before {
+	opacity: 1;
+}
+.jg .jg__hero::after {
+	background: linear-gradient(100deg,
+		rgba(10, 24, 17, .80) 0%,
+		rgba(12, 28, 20, .66) 55%,
+		rgba(14, 34, 24, .30) 85%,
+		rgba(16, 38, 27, .14) 100%);
+}
+.jg .jg__hero .jg__crumb,
+.jg .jg__hero .jg__h1,
+.jg .jg__hero .jg__lead,
+.jg .jg__hero .jg__eyebrow {
+	text-shadow: 0 2px 10px rgba(0, 0, 0, .55);
+}
+/* Narrow screens put the text across the full width, so the scrim has to
+   be even rather than directional. */
+@media (max-width: 820px) {
+	.jg .jg__hero::after {
+		background: linear-gradient(168deg,
+			rgba(10, 24, 17, .80) 0%,
+			rgba(12, 30, 21, .70) 55%,
+			rgba(14, 34, 24, .78) 100%);
+	}
+}
