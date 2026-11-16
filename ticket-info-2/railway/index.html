@@ -626,7 +626,37 @@ body .wp-site-blocks .is-style-overlay-dark :is(h1,h2,h3,h4,h5,h6,p,li,blockquot
 		<span>モンゴルシベリア鉄道情報、予約</span>
 	</nav>
 
-	<section class="ti-hero ti-hero--sm" aria-labelledby="ti-title">
+	<style>
+/* The hero was a flat navy gradient with a decorative SVG sky. It now
+   carries a photograph of the train, layered as two backgrounds on the
+   section itself: the scrim gradient on top, the photo underneath. Doing
+   it this way leaves the existing pseudo-elements and the markup alone.
+
+   The scrim keeps the page's navy palette rather than the green used on
+   the .jg pages, and is weighted to the left where the eyebrow, H1 and
+   lead sit: white on it measures about 8.6:1 there even against a bright
+   patch of photo, and opens up towards the right so the locomotive shows.
+
+   The decorative sky SVG is hidden: it draws an aeroplane and a flight
+   path, which belonged to the air-ticket section this page's styling came
+   from and reads as a mistake over a railway photograph. */
+.ti-hero {
+	background-image:
+		linear-gradient(100deg,
+			rgba(6, 20, 36, .90) 0%,
+			rgba(8, 28, 48, .80) 50%,
+			rgba(10, 40, 68, .60) 80%,
+			rgba(14, 56, 92, .48) 100%),
+		url('/wp-content/uploads/2026/01/trans-mongolian-train.jpg');
+	background-size: cover, cover;
+	background-position: center, center 58%;
+	background-repeat: no-repeat, no-repeat;
+}
+.ti-hero__sky {
+	display: none;
+}
+</style>
+<section class="ti-hero ti-hero--sm" aria-labelledby="ti-title">
 		<svg class="ti-hero__sky" viewBox="0 0 1000 420" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
 			<path d="M520 360 C 640 250, 760 150, 960 70" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="2" stroke-dasharray="6 9"/>
 			<circle cx="960" cy="70" r="5" fill="rgba(255,255,255,.6)"/>
