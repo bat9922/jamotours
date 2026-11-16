@@ -488,6 +488,44 @@ body .wp-site-blocks .is-style-overlay-dark :is(h1,h2,h3,h4,h5,h6,p,li,blockquot
 .om-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 28px}
 .om-plan__ttl{display:flex;align-items:flex-end;justify-content:center;min-height:3.4em;margin:0 0 12px;font-size:15px;font-weight:700;line-height:1.7;text-align:center;color:var(--om-ink)}
 .om-plan img{width:100%;aspect-ratio:3/2;object-fit:cover}
+/* Each model-plan card now carries a link to the matching tour, laid over
+   the bottom of its photo. The card is the positioning context: the image
+   is its last child and sits flush, so `bottom:0` lands on the photo's
+   lower edge rather than below the card. `display:block` on the image
+   removes the inline baseline gap that would otherwise leave a 4px strip
+   of card showing under the overlay. The gradient keeps the label legible
+   over whatever the photo happens to be bright or dark at that point. */
+.om-plan{position:relative}
+.om-plan img{display:block}
+.om-plan__go{
+	position:absolute;
+	left:0; right:0; bottom:0;
+	display:flex;
+	align-items:center;
+	justify-content:space-between;
+	gap:10px;
+	padding:26px 14px 11px;
+	background:linear-gradient(to top, rgba(10,22,16,.90) 0%, rgba(10,22,16,.68) 55%, rgba(10,22,16,0) 100%);
+	color:#fff;
+	text-decoration:none;
+	font-size:13.5px;
+	font-weight:700;
+	line-height:1.45;
+	transition:background .2s ease
+}
+.om-plan__go i{font-style:normal;flex:0 0 auto;font-size:17px;line-height:1;transition:transform .2s ease}
+.om-plan__go:hover,
+.om-plan__go:focus-visible{
+	background:linear-gradient(to top, rgba(10,22,16,.96) 0%, rgba(10,22,16,.82) 55%, rgba(10,22,16,.22) 100%);
+	color:#fff
+}
+.om-plan__go:hover i,
+.om-plan__go:focus-visible i{transform:translateX(4px)}
+.om-plan__go:focus-visible{outline:3px solid #F3BD09;outline-offset:-3px}
+@media (prefers-reduced-motion:reduce){
+	.om-plan__go,.om-plan__go i{transition:none}
+	.om-plan__go:hover i{transform:none}
+}
 /* reasons */
 .om-reason{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin:0 0 56px}
 .om-reason:last-child{margin-bottom:0}
@@ -554,18 +592,18 @@ body .wp-site-blocks .is-style-overlay-dark :is(h1,h2,h3,h4,h5,h6,p,li,blockquot
 			<h2 class="om-ttl"><span>オーダーメイドツアー モデルプラン</span></h2>
 			<p class="om-lead">プランを考える際のポイント等を記載した、モデルプランをご紹介します。</p>
 			<div class="om-plans">
-				<div class="om-plan"><h3 class="om-plan__ttl">鉄道、国境、田舎町</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/列車1-768x399.jpg" alt="シベリア鉄道の旅"></div>
-				<div class="om-plan"><h3 class="om-plan__ttl">国立公園・保護地での各種ツアー</h3><img loading="lazy" decoding="async" width="206" height="206" src="/wp-content/uploads/2026/01/horse-riding-children.jpg" alt="国立公園で乗馬を体験する子どもたち"></div>
-				<div class="om-plan"><h3 class="om-plan__ttl">奥テレルジゲル滞在・各体験、各種ツアー</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/Tumenkhaan-resort-Terelj_n-2-768x576.jpg" alt="テレルジ国立公園 毎日乗馬ツアーと遊牧民宅訪問"></div>
-				<div class="om-plan"><h3 class="om-plan__ttl">モンゴルノマディックキャンプの旅</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/Багийн-наадам-Б.Баатарсүрэн-768x512.jpg" alt="ナーダム祭り観戦"></div>
-				<div class="om-plan"><h3 class="om-plan__ttl">ゴビ砂漠・星天、恐竜遺跡</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/Хонгорын-элс.jpg" alt="ゴビ砂漠観光とラクダに乗る体験"></div>
-				<div class="om-plan"><h3 class="om-plan__ttl">各地の登山、高山動植物調査</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/Mounting-Climbing-Altantour-LLC-768x576.jpg" alt="アルタイ山脈の登山ツアー"></div>
-				<div class="om-plan"><h3 class="om-plan__ttl">出張の空いた時間に参加</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/Ulaanbaatar-city-photo.jpeg" alt="ウランバートル市内観光"></div>
-				<div class="om-plan"><h3 class="om-plan__ttl">帝国首都・世界遺産お寺・遺跡</h3><img loading="lazy" decoding="async" width="960" height="638" src="/wp-content/uploads/2026/01/erdene-zuu-aerial.jpg" alt="上空から見た世界遺産エルデネゾー寺院と気球"></div>
-				<div class="om-plan"><h3 class="om-plan__ttl">フラワー観察、遊牧民宅、乗馬etc</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/Flower-Mongolia-1-768x1024.jpeg" alt="モンゴルフラワーハイキング"></div>
-				<div class="om-plan"><h3 class="om-plan__ttl">釣り、カヤック、カヌー</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/Дэгнэ-жигнэ-Баясал-768x431.jpg" alt="イトウ釣り"></div>
-				<div class="om-plan"><h3 class="om-plan__ttl">本格的星空観察・乗馬・花</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/DSC3609-Ц.Наранбат-768x588.jpg" alt="モンゴル本格的星空観察"></div>
-				<div class="om-plan"><h3 class="om-plan__ttl">特殊なツアー手配</h3><img loading="lazy" decoding="async" width="525" height="380" src="/wp-content/uploads/2026/01/demoiselle-crane.jpg" alt="草原を歩くアネハヅル"></div>
+				<div class="om-plan"><h3 class="om-plan__ttl">鉄道、国境、田舎町</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/列車1-768x399.jpg" alt="シベリア鉄道の旅"><a class="om-plan__go" href="/railway-tour-site/">シベリア鉄道の旅<i aria-hidden="true">&#8594;</i></a></div>
+				<div class="om-plan"><h3 class="om-plan__ttl">国立公園・保護地での各種ツアー</h3><img loading="lazy" decoding="async" width="206" height="206" src="/wp-content/uploads/2026/01/horse-riding-children.jpg" alt="国立公園で乗馬を体験する子どもたち"><a class="om-plan__go" href="/national-park-tour-site/">国立公園ツアー<i aria-hidden="true">&#8594;</i></a></div>
+				<div class="om-plan"><h3 class="om-plan__ttl">奥テレルジゲル滞在・各体験、各種ツアー</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/Tumenkhaan-resort-Terelj_n-2-768x576.jpg" alt="テレルジ国立公園 毎日乗馬ツアーと遊牧民宅訪問"><a class="om-plan__go" href="/mongolia-horse-tour/">乗馬ツアー<i aria-hidden="true">&#8594;</i></a></div>
+				<div class="om-plan"><h3 class="om-plan__ttl">モンゴルノマディックキャンプの旅</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/Багийн-наадам-Б.Баатарсүрэн-768x512.jpg" alt="ナーダム祭り観戦"><a class="om-plan__go" href="/burd-sand-and-mongol-nomadic-tours/">ノマディックショー観戦ツアー<i aria-hidden="true">&#8594;</i></a></div>
+				<div class="om-plan"><h3 class="om-plan__ttl">ゴビ砂漠・星天、恐竜遺跡</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/Хонгорын-элс.jpg" alt="ゴビ砂漠観光とラクダに乗る体験"><a class="om-plan__go" href="/gobi-tours-6-days/">ゴビ砂漠6日間ツアー<i aria-hidden="true">&#8594;</i></a></div>
+				<div class="om-plan"><h3 class="om-plan__ttl">各地の登山、高山動植物調査</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/Mounting-Climbing-Altantour-LLC-768x576.jpg" alt="アルタイ山脈の登山ツアー"><a class="om-plan__go" href="/mountain-tour-site/">モンゴル登山ツアー<i aria-hidden="true">&#8594;</i></a></div>
+				<div class="om-plan"><h3 class="om-plan__ttl">出張の空いた時間に参加</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/Ulaanbaatar-city-photo.jpeg" alt="ウランバートル市内観光"><a class="om-plan__go" href="/optional-tour-site/">オプショナルツアー<i aria-hidden="true">&#8594;</i></a></div>
+				<div class="om-plan"><h3 class="om-plan__ttl">帝国首都・世界遺産お寺・遺跡</h3><img loading="lazy" decoding="async" width="960" height="638" src="/wp-content/uploads/2026/01/erdene-zuu-aerial.jpg" alt="上空から見た世界遺産エルデネゾー寺院と気球"><a class="om-plan__go" href="/world-heritage-tour-site/">世界遺産ツアー<i aria-hidden="true">&#8594;</i></a></div>
+				<div class="om-plan"><h3 class="om-plan__ttl">フラワー観察、遊牧民宅、乗馬etc</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/Flower-Mongolia-1-768x1024.jpeg" alt="モンゴルフラワーハイキング"><a class="om-plan__go" href="/flower-hiking-site/">フラワーハイキングツアー<i aria-hidden="true">&#8594;</i></a></div>
+				<div class="om-plan"><h3 class="om-plan__ttl">釣り、カヤック、カヌー</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/Дэгнэ-жигнэ-Баясал-768x431.jpg" alt="イトウ釣り"><a class="om-plan__go" href="/taimen-fishing-site/">イトウ釣りツアー<i aria-hidden="true">&#8594;</i></a></div>
+				<div class="om-plan"><h3 class="om-plan__ttl">本格的星空観察・乗馬・花</h3><img loading="lazy" decoding="async" src="/wp-content/uploads/2025/12/DSC3609-Ц.Наранбат-768x588.jpg" alt="モンゴル本格的星空観察"><a class="om-plan__go" href="/stargazing-tour-site/">星空観察ツアー<i aria-hidden="true">&#8594;</i></a></div>
+				<div class="om-plan"><h3 class="om-plan__ttl">特殊なツアー手配</h3><img loading="lazy" decoding="async" width="525" height="380" src="/wp-content/uploads/2026/01/demoiselle-crane.jpg" alt="草原を歩くアネハヅル"><a class="om-plan__go" href="/birdwatching-tour-site/">野鳥観察ツアー<i aria-hidden="true">&#8594;</i></a></div>
 			</div>
 			<div class="om-cta"><a class="om-btn" href="/contact/">オーダーメイドツアーのお問い合わせ</a></div>
 		</div>
