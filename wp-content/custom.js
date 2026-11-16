@@ -113,6 +113,43 @@
 	}
 })();
 
+/* A shared, accessible return-to-top button for the static site. */
+(function () {
+	'use strict';
+
+	function init() {
+		if (document.getElementById('jamo-scroll-to-top')) { return; }
+
+		var style = document.createElement('style');
+		style.textContent = '#jamo-scroll-to-top{position:fixed;right:24px;bottom:24px;width:48px;height:48px;border:0;border-radius:50%;background:#f3bd09;color:#1b1b1b;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .2s,transform .2s,visibility .2s;z-index:9999;font-size:25px;line-height:48px}#jamo-scroll-to-top.jamo-scroll-visible{opacity:1;visibility:visible;transform:translateY(0)}#jamo-scroll-to-top:hover{background:#e0aa00}#jamo-scroll-to-top:focus-visible{outline:3px solid #1b1b1b;outline-offset:3px}@media (max-width:767px){#jamo-scroll-to-top{right:16px;bottom:16px;width:44px;height:44px;line-height:44px}}';
+		document.head.appendChild(style);
+
+		var button = document.createElement('button');
+		button.id = 'jamo-scroll-to-top';
+		button.type = 'button';
+		button.setAttribute('aria-label', 'ページ上部へ戻る');
+		button.title = 'ページ上部へ戻る';
+		button.textContent = '↑';
+		document.body.appendChild(button);
+
+		function updateVisibility() {
+			button.classList.toggle('jamo-scroll-visible', window.scrollY > 400);
+		}
+
+		window.addEventListener('scroll', updateVisibility, { passive: true });
+		button.addEventListener('click', function () {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		});
+		updateVisibility();
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', init);
+	} else {
+		init();
+	}
+})();
+
 /* Dots for the three card sliders (「モンゴルを知る」, 「モンゴル旅行の準備」,
    「選ばれる理由」).
 
