@@ -2849,3 +2849,124 @@ h1.elementor-heading-title {
 			rgba(14, 34, 24, .78) 100%);
 	}
 }
+
+
+/* =================================================================
+   STICKY HEADER
+
+   The menu now stays pinned at the top of the window on every page.
+
+   Two selectors, because the site has two header shells. 103 pages pull
+   the Elementor header template (.elementor-location-header); the home
+   page and its /page/2/ duplicate are built on the Elementor canvas
+   template and have no header template at all - there the menu lives in
+   container 2570894 inside the page itself. Both are direct children of
+   their scrolling root, so `position:sticky` holds without any JS.
+
+   The background is restated here: on the template pages the cream is
+   painted on the inner container, not on this wrapper, and a sticky box
+   with no background of its own lets the page show through as it slides
+   under. z-index 500 puts the header over page content while staying
+   below the AI chat button (9999) and the back-to-top arrow (9998).
+
+   `scroll-padding-top` is the companion fix: without it every in-page
+   anchor would land with its heading hidden behind the pinned header.
+   The header measures 120px wide-screen and 116px once the nav
+   collapses to the burger.
+
+   Four tour pages carry their own Elementor sticky button bar
+   (burd-sand, gobi-tours and the two legacy ブルド folders). Elementor
+   pins those with an inline top:0, which would park them underneath the
+   header, so they are pushed down by the header's height; the inline
+   style is why this one needs !important.
+   ================================================================= */
+.elementor-location-header,
+.elementor-8 .elementor-element.elementor-element-2570894 {
+	position: sticky;
+	top: 0;
+	z-index: 500;
+	background-color: #FAF7F0;
+}
+
+html {
+	scroll-padding-top: 132px;
+}
+
+.elementor-sticky--active {
+	top: 120px !important;
+}
+
+@media (max-width: 767px) {
+	html {
+		scroll-padding-top: 128px;
+	}
+	.elementor-sticky--active {
+		top: 116px !important;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+
+/* =================================================================
+   STICKY HEADER — COMPACT STATE
+
+   At rest the header is 120px, which is a sixth of a laptop viewport to
+   give up permanently once it is pinned. custom.js adds
+   `.jamo-header-compact` to <html> past 120px of scroll and takes it off
+   again below 108px; this is the shrink that class drives.
+
+   Two shells again: the Elementor header template (logo widget 5567940
+   inside container 7130cb8) and the home page's own header row (logo
+   6620536 inside container 2570894). The logo is what sets the height -
+   137x80 in the template, a percentage width on the home page - so the
+   compact rule caps its height and lets the width follow, and drops the
+   container padding to match.
+
+   The padding lives in Elementor's custom properties rather than real
+   padding, so it is those that have to be overridden.
+   ================================================================= */
+.elementor-location-header,
+.elementor-8 .elementor-element.elementor-element-2570894 {
+	transition: box-shadow .22s ease;
+}
+.elementor-location-header .elementor-element.elementor-element-7130cb8,
+.elementor-8 .elementor-element.elementor-element-2570894 {
+	transition: padding .22s ease, min-height .22s ease;
+}
+.elementor-location-header .elementor-element.elementor-element-5567940 img,
+.elementor-8 .elementor-element.elementor-element-6620536 img {
+	transition: max-height .22s ease, width .22s ease;
+}
+
+html.jamo-header-compact .elementor-location-header .elementor-element.elementor-element-5567940 img,
+html.jamo-header-compact .elementor-8 .elementor-element.elementor-element-6620536 img {
+	max-height: 40px;
+	width: auto;
+}
+html.jamo-header-compact .elementor-location-header .elementor-element.elementor-element-7130cb8,
+html.jamo-header-compact .elementor-8 .elementor-element.elementor-element-2570894 {
+	--min-height: 0px;
+	--padding-top: 2px;
+	--padding-bottom: 2px;
+}
+/* A soft edge once it is floating over the content, so the header reads
+   as a layer rather than as part of the page. */
+html.jamo-header-compact .elementor-location-header,
+html.jamo-header-compact .elementor-8 .elementor-element.elementor-element-2570894 {
+	box-shadow: 0 2px 12px rgba(0, 0, 0, .10);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.elementor-location-header,
+	.elementor-8 .elementor-element.elementor-element-2570894,
+	.elementor-location-header .elementor-element.elementor-element-7130cb8,
+	.elementor-location-header .elementor-element.elementor-element-5567940 img,
+	.elementor-8 .elementor-element.elementor-element-6620536 img {
+		transition: none;
+	}
+}

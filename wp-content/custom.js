@@ -121,7 +121,13 @@
 		if (document.getElementById('jamo-scroll-to-top')) { return; }
 
 		var style = document.createElement('style');
-		style.textContent = '#jamo-scroll-to-top{position:fixed;right:24px;bottom:24px;width:48px;height:48px;border:0;border-radius:50%;background:#f3bd09;color:#1b1b1b;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .2s,transform .2s,visibility .2s;z-index:9999;font-size:25px;line-height:48px}#jamo-scroll-to-top.jamo-scroll-visible{opacity:1;visibility:visible;transform:translateY(0)}#jamo-scroll-to-top:hover{background:#e0aa00}#jamo-scroll-to-top:focus-visible{outline:3px solid #1b1b1b;outline-offset:3px}@media (max-width:767px){#jamo-scroll-to-top{right:16px;bottom:16px;width:44px;height:44px;line-height:44px}}';
+		/* The AI chat button also sits bottom-right (#ai-chat-btn: bottom:20px,
+		   right:20px, about 46px tall) at the same z-index, and being later in
+		   the DOM it covered this one completely. The arrow now stacks above it
+		   with a gap, and sits one step below it on z so that the chat panel -
+		   which opens upward from bottom:80px - hides the arrow instead of
+		   having it float on top of the conversation. */
+		style.textContent = '#jamo-scroll-to-top{position:fixed;right:24px;bottom:84px;width:48px;height:48px;border:0;border-radius:50%;background:#f3bd09;color:#1b1b1b;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .2s,transform .2s,visibility .2s;z-index:9998;font-size:25px;line-height:48px}#jamo-scroll-to-top.jamo-scroll-visible{opacity:1;visibility:visible;transform:translateY(0)}#jamo-scroll-to-top:hover{background:#e0aa00}#jamo-scroll-to-top:focus-visible{outline:3px solid #1b1b1b;outline-offset:3px}@media (max-width:767px){#jamo-scroll-to-top{right:16px;bottom:74px;width:44px;height:44px;line-height:44px}}';
 		document.head.appendChild(style);
 
 		var button = document.createElement('button');
@@ -281,6 +287,55 @@
 	function init() {
 		var roots = document.querySelectorAll('[data-jamo-slider]');
 		for (var i = 0; i < roots.length; i++) { setUp(roots[i]); }
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', init);
+	} else {
+		init();
+	}
+})();
+
+/* The sticky header shrinks once the page is scrolled, so it stops eating
+   a sixth of the viewport. Everything visual lives in custom.css under
+   `.jamo-header-compact`; this only flips the class on <html>.
+
+   The flag goes on <html> rather than on the header because the site has
+   two header shells - the Elementor header template on most pages and a
+   plain container on the home page - and one ancestor selector reaches
+   both. A 12px gap between the on and off thresholds keeps the header
+   from flickering when a scroll comes to rest right on the boundary. */
+(function () {
+	'use strict';
+
+	var ON = 120;
+	var OFF = 108;
+
+	function init() {
+		var root = document.documentElement;
+		var compact = false;
+		var ticking = false;
+
+		function apply() {
+			ticking = false;
+			var y = window.scrollY || window.pageYOffset || 0;
+			if (!compact && y > ON) {
+				compact = true;
+				root.classList.add('jamo-header-compact');
+			} else if (compact && y < OFF) {
+				compact = false;
+				root.classList.remove('jamo-header-compact');
+			}
+		}
+
+		window.addEventListener('scroll', function () {
+			if (!ticking) {
+				ticking = true;
+				window.requestAnimationFrame(apply);
+			}
+		}, { passive: true });
+
+		apply();
 	}
 
 	if (document.readyState === 'loading') {
