@@ -2738,3 +2738,59 @@ h1.elementor-heading-title {
 	font-weight: 700;
 	color: #1F2D11;
 }
+
+/* =================================================================
+   JAPANESE LINE BREAKING — the .jg pages
+
+   Japanese is written without spaces, so by default the browser may
+   break between any two characters. That split 「…すぐツアーの準備 /
+   を始めましょう。」 mid-phrase, and left a lone 「す。」 on a line of its
+   own at the end of the centred paragraphs in .jg__askD / .jg__endP.
+
+   `word-break: auto-phrase` makes the browser break at phrase
+   boundaries instead of anywhere, and `text-wrap: pretty` stops the
+   last line being a single orphan character. Both are progressive:
+   where they are not supported the text simply wraps as it does now,
+   so nothing regresses. `line-break: strict` matches what the tour
+   card rules above already use.
+   ================================================================= */
+.jg p,
+.jg li,
+.jg h1,
+.jg h2,
+.jg h3,
+.jg h4,
+.jg .jg__check,
+.jg .jg__stepD,
+.jg .jg__cardD,
+.jg .jg__warnT,
+.jg .gd__t,
+.jg .gd__d,
+.jg .tc__pitchI,
+.jg .sp__d,
+.jg .sp__name {
+	word-break: auto-phrase;
+	line-break: strict;
+	text-wrap: pretty;
+}
+
+
+/* -----------------------------------------------------------------
+   .jg__askD never centred itself.
+
+   The inline design-system block resets paragraphs with `.jg p{margin:0}`.
+   That selector is one class plus one element (0,1,1), so it outranks
+   `.jg__askD` (0,1,0) and wiped the paragraph's own
+   `margin-left:auto; margin-right:auto`. The 620px measure still applied,
+   so the block sat flush against the left edge of the centred ask box
+   while its heading and button stayed centred above and below it.
+
+   Two classes (0,2,0) win the margins back. margin-top is restored here
+   too, for the same reason - the reset had removed the 16px the design
+   system asks for under the heading.
+   ----------------------------------------------------------------- */
+.jg .jg__askD {
+	margin-top: 16px;
+	margin-left: auto;
+	margin-right: auto;
+}
