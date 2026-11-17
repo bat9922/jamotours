@@ -296,24 +296,32 @@ body .wp-site-blocks .is-style-overlay-dark :is(h1,h2,h3,h4,h5,h6,p,li,blockquot
 <style id="jgmap-css">
 /* "Find tours on the map" overlay. The map is an <img> so every pin can be a
    percentage of the picture itself; the old background-size:cover cropped the
-   top and bottom and made the percentages meaningless. */
-/* The tab panel is a flex row, so without these the block is stretched to the
-   panel's full height (image 269px tall inside a 910px box) and never claims
-   the free width. */
-.jgmap{position:relative;max-width:1000px;margin:0 auto;width:100%;flex:1 1 auto;align-self:center}
+   top and bottom and made the percentages meaningless.
+   The scroll wrapper keeps the labels legible below ~1000px: 22 names cannot
+   fit side by side on a phone-width map, so the map keeps its width and pans. */
+.jgmap-scroll{width:100%;flex:1 1 auto;align-self:center;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.jgmap{position:relative;max-width:1000px;margin:0 auto;width:100%}
 .jgmap__img{display:block;width:100%;height:auto}
 .jgmap__lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .jgmap__lines line{stroke:#2F5D46;stroke-width:1;opacity:.55;vector-effect:non-scaling-stroke}
+/* One wrapper per place, stretched over the map but transparent to the pointer;
+   only the dot and the name take events, so hovering either one can style the
+   other through the shared parent. */
+.jgmap__pin{position:absolute;inset:0;display:block;pointer-events:none;text-decoration:none}
 .jgmap__dot{position:absolute;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;
-  background:#C0392B;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.3);pointer-events:none}
+  background:#C0392B;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.3);
+  pointer-events:auto;transition:background .15s,transform .15s,box-shadow .15s}
 .jgmap__name{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;
   font-size:12px;line-height:1.2;font-weight:700;color:#1B2421;text-decoration:none;
-  background:rgba(255,255,255,.88);border:1px solid #CFC7B5;border-radius:4px;padding:2px 6px}
-a.jgmap__name:hover,a.jgmap__name:focus{background:#2F5D46;color:#fff;border-color:#2F5D46}
+  background:rgba(255,255,255,.88);border:1px solid #CFC7B5;border-radius:4px;padding:2px 6px;
+  pointer-events:auto;transition:background .15s,color .15s,border-color .15s}
+.jgmap__pin:hover .jgmap__dot,.jgmap__pin:focus-visible .jgmap__dot{
+  background:#F3BD09;transform:scale(1.55);box-shadow:0 0 0 1px rgba(0,0,0,.45),0 0 0 6px rgba(243,189,9,.35)}
+a.jgmap__pin:hover .jgmap__name,a.jgmap__pin:focus-visible .jgmap__name{
+  background:#2F5D46;color:#fff;border-color:#2F5D46}
+.jgmap__pin--plain:hover .jgmap__name{border-color:#9A5B2C;color:#1B2421}
 .jgmap__name--plain{color:#5C6660;background:rgba(255,255,255,.7)}
-@media (max-width:1024px){.jgmap__name{font-size:10px;padding:1px 4px}}
-@media (max-width:767px){.jgmap__name{font-size:8px;padding:1px 3px;border-radius:3px}
-  .jgmap__dot{width:7px;height:7px;margin:-3.5px 0 0 -3.5px}}
+@media (max-width:1000px){.jgmap{min-width:920px}}
 </style><style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
 .jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
@@ -1007,6 +1015,7 @@ a.jgmap__name:hover,a.jgmap__name:focus{background:#2F5D46;color:#fff;border-col
 				</div>
 				</div>
 		<div id="e-n-tab-content-2434507353" role="tabpanel" aria-labelledby="e-n-tab-title-2434507353" data-tab-index="3" style="--n-tabs-title-order: 3;" class=" elementor-element elementor-element-f87f2c5 e-con-full e-flex e-con e-child" data-id="f87f2c5" data-element_type="container" data-e-type="container">
+<div class="jgmap-scroll">
 <div class="jgmap">
 <img class="jgmap__img" src="/wp-content/uploads/2025/12/Map-mongolia.jpg" alt="モンゴルの観光地マップ｜テレルジ・カラコルム・ゴビ砂漠・フブスグル湖などツアー目的地の位置" width="629" height="360" loading="lazy" decoding="async">
 <svg class="jgmap__lines" viewBox="0 0 629 360" preserveAspectRatio="none" aria-hidden="true" focusable="false">
@@ -1033,50 +1042,29 @@ a.jgmap__name:hover,a.jgmap__name:focus{background:#2F5D46;color:#fff;border-col
 <line x1="310.2" y1="116.1" x2="261" y2="102.6"></line>
 <line x1="512.1" y1="153.9" x2="528.4" y2="181.8"></line>
 </svg>
-<span class="jgmap__dot" style="left:57.4%;top:41.37%"></span>
-<span class="jgmap__dot" style="left:59%;top:40.98%"></span>
-<span class="jgmap__dot" style="left:57.32%;top:42.7%"></span>
-<span class="jgmap__dot" style="left:54.41%;top:42.95%"></span>
-<span class="jgmap__dot" style="left:45.41%;top:46.5%"></span>
-<span class="jgmap__dot" style="left:48.12%;top:46.4%"></span>
-<span class="jgmap__dot" style="left:42.04%;top:45.31%"></span>
-<span class="jgmap__dot" style="left:59.15%;top:42.32%"></span>
-<span class="jgmap__dot" style="left:60.09%;top:41.98%"></span>
-<span class="jgmap__dot" style="left:58.17%;top:43.92%"></span>
-<span class="jgmap__dot" style="left:45.29%;top:41.94%"></span>
-<span class="jgmap__dot" style="left:43.58%;top:48.69%"></span>
-<span class="jgmap__dot" style="left:66.76%;top:67.92%"></span>
-<span class="jgmap__dot" style="left:61.25%;top:68.03%"></span>
-<span class="jgmap__dot" style="left:39.19%;top:16.27%"></span>
-<span class="jgmap__dot" style="left:43.45%;top:73.42%"></span>
-<span class="jgmap__dot" style="left:7.8%;top:33%"></span>
-<span class="jgmap__dot" style="left:13.1%;top:38.44%"></span>
-<span class="jgmap__dot" style="left:70.83%;top:33.57%"></span>
-<span class="jgmap__dot" style="left:54.8%;top:28.91%"></span>
-<span class="jgmap__dot" style="left:49.31%;top:32.25%"></span>
-<span class="jgmap__dot" style="left:81.41%;top:42.74%"></span>
-<a class="jgmap__name" style="left:50.5%;top:35%" href="/optional-tour-site/">ウランバートル首都</a>
-<a class="jgmap__name" style="left:71%;top:13.5%" href="/national-park-tour-site/">テレルジ国立公園</a>
-<a class="jgmap__name" style="left:62.5%;top:56.5%" href="/national-park-tour-site/bogd-khan-terelj-national-park-tour-3n4d.html">ボグドハーン山国立公園</a>
-<a class="jgmap__name" style="left:48%;top:50.5%" href="/khustai-takhi-bulgan-dunes-horse-5-day/">ホスタイ国立公園・野生馬タヒ</a>
-<a class="jgmap__name" style="left:33.5%;top:57%" href="/world-heritage-tour-site/">カラコルム遺跡・世界遺産</a>
-<a class="jgmap__name" style="left:51%;top:62.5%" href="/burd-sand-and-mongol-nomadic-tours/">ブルド砂丘</a>
-<a class="jgmap__name" style="left:31%;top:50%" href="/insect-collecting-tour-site/tsenkher-hot-spring-terelj-insect-collecting-tour-7n8d.html">ツェンケル温泉</a>
-<a class="jgmap__name" style="left:71%;top:23.5%" href="/chinggiskhaan-complex-terelj-3-day/">チンギスハーン騎馬像</a>
-<a class="jgmap__name" style="left:71%;top:18.5%" href="/chinggis-13th-century-home-stay-4-day/">13世紀村</a>
-<a class="jgmap__name" style="left:67.5%;top:62%" href="/terelj-nomadic-show-horse-5-day/">モンゴルノマディック</a>
-<a class="jgmap__name" style="left:38%;top:37.5%" href="/kharkhorin-5-day-tour/">ウギー湖</a>
-<a class="jgmap__name" style="left:37%;top:64%" href="/world-heritage-tour-site/orkhon-valley-world-heritage-tour-5n6d.html">世界遺産オルホン渓谷</a>
-<a class="jgmap__name" style="left:75.5%;top:79.5%" href="/buddhism-tour-site/">ハマリーン寺・エネルギースポット</a>
-<a class="jgmap__name" style="left:53%;top:74.5%" href="/vivant-location-tour-site/">中央ゴビ・草原・白い仏塔</a>
-<a class="jgmap__name" style="left:32%;top:11%" href="/insect-collecting-tour-site/khuvsgul-lake-insect-collecting-tour-9n10d.html">フブスグル湖</a>
-<a class="jgmap__name" style="left:40%;top:81%" href="/gobi-tours-6-days/">南ゴビ砂漠・ホンゴル砂丘</a>
-<a class="jgmap__name" style="left:9%;top:25%" href="/mountain-tour-site/khuiten-peak-altai-tavan-bogd-9n10d.html">アルタイ山脈</a>
-<span class="jgmap__name jgmap__name--plain" style="left:13%;top:46.5%">ホブド県多数少数民族</span>
-<a class="jgmap__name" style="left:81%;top:29%" href="/taimen-fishing-site/onon-balj-taimen-fishing-7n8d.html">ヘンティ山脈</a>
-<a class="jgmap__name" style="left:48.5%;top:24%" href="/railway-tour-site/sukhbaatar-russian-border-railway-4n5d.html">第2の都市ダルハン・鉄道</a>
-<a class="jgmap__name" style="left:41.5%;top:28.5%" href="/railway-tour-site/">第3の都市エルデネト観光</a>
-<a class="jgmap__name" style="left:84%;top:50.5%" href="/steppe-tour-site/">モンゴル東部　大平原</a>
+<a class="jgmap__pin" href="/optional-tour-site/"><span class="jgmap__dot" style="left:57.4%;top:41.37%"></span><span class="jgmap__name" style="left:50.5%;top:35%">ウランバートル首都</span></a>
+<a class="jgmap__pin" href="/national-park-tour-site/"><span class="jgmap__dot" style="left:59%;top:40.98%"></span><span class="jgmap__name" style="left:71%;top:13.5%">テレルジ国立公園</span></a>
+<a class="jgmap__pin" href="/national-park-tour-site/bogd-khan-terelj-national-park-tour-3n4d.html"><span class="jgmap__dot" style="left:57.32%;top:42.7%"></span><span class="jgmap__name" style="left:62.5%;top:56.5%">ボグドハーン山国立公園</span></a>
+<a class="jgmap__pin" href="/khustai-takhi-bulgan-dunes-horse-5-day/"><span class="jgmap__dot" style="left:54.41%;top:42.95%"></span><span class="jgmap__name" style="left:48%;top:50.5%">ホスタイ国立公園・野生馬タヒ</span></a>
+<a class="jgmap__pin" href="/world-heritage-tour-site/"><span class="jgmap__dot" style="left:45.41%;top:46.5%"></span><span class="jgmap__name" style="left:33.5%;top:57%">カラコルム遺跡・世界遺産</span></a>
+<a class="jgmap__pin" href="/burd-sand-and-mongol-nomadic-tours/"><span class="jgmap__dot" style="left:48.12%;top:46.4%"></span><span class="jgmap__name" style="left:51%;top:62.5%">ブルド砂丘</span></a>
+<a class="jgmap__pin" href="/insect-collecting-tour-site/tsenkher-hot-spring-terelj-insect-collecting-tour-7n8d.html"><span class="jgmap__dot" style="left:42.04%;top:45.31%"></span><span class="jgmap__name" style="left:31%;top:50%">ツェンケル温泉</span></a>
+<a class="jgmap__pin" href="/chinggiskhaan-complex-terelj-3-day/"><span class="jgmap__dot" style="left:59.15%;top:42.32%"></span><span class="jgmap__name" style="left:71%;top:23.5%">チンギスハーン騎馬像</span></a>
+<a class="jgmap__pin" href="/chinggis-13th-century-home-stay-4-day/"><span class="jgmap__dot" style="left:60.09%;top:41.98%"></span><span class="jgmap__name" style="left:71%;top:18.5%">13世紀村</span></a>
+<a class="jgmap__pin" href="/terelj-nomadic-show-horse-5-day/"><span class="jgmap__dot" style="left:58.17%;top:43.92%"></span><span class="jgmap__name" style="left:67.5%;top:62%">モンゴルノマディック</span></a>
+<a class="jgmap__pin" href="/kharkhorin-5-day-tour/"><span class="jgmap__dot" style="left:45.29%;top:41.94%"></span><span class="jgmap__name" style="left:38%;top:37.5%">ウギー湖</span></a>
+<a class="jgmap__pin" href="/world-heritage-tour-site/orkhon-valley-world-heritage-tour-5n6d.html"><span class="jgmap__dot" style="left:43.58%;top:48.69%"></span><span class="jgmap__name" style="left:37%;top:64%">世界遺産オルホン渓谷</span></a>
+<a class="jgmap__pin" href="/buddhism-tour-site/"><span class="jgmap__dot" style="left:66.76%;top:67.92%"></span><span class="jgmap__name" style="left:75.5%;top:79.5%">ハマリーン寺・エネルギースポット</span></a>
+<a class="jgmap__pin" href="/vivant-location-tour-site/"><span class="jgmap__dot" style="left:61.25%;top:68.03%"></span><span class="jgmap__name" style="left:53%;top:74.5%">中央ゴビ・草原・白い仏塔</span></a>
+<a class="jgmap__pin" href="/insect-collecting-tour-site/khuvsgul-lake-insect-collecting-tour-9n10d.html"><span class="jgmap__dot" style="left:39.19%;top:16.27%"></span><span class="jgmap__name" style="left:32%;top:11%">フブスグル湖</span></a>
+<a class="jgmap__pin" href="/gobi-tours-6-days/"><span class="jgmap__dot" style="left:43.45%;top:73.42%"></span><span class="jgmap__name" style="left:40%;top:81%">南ゴビ砂漠・ホンゴル砂丘</span></a>
+<a class="jgmap__pin" href="/mountain-tour-site/khuiten-peak-altai-tavan-bogd-9n10d.html"><span class="jgmap__dot" style="left:7.8%;top:33%"></span><span class="jgmap__name" style="left:9%;top:25%">アルタイ山脈</span></a>
+<span class="jgmap__pin jgmap__pin--plain"><span class="jgmap__dot" style="left:13.1%;top:38.44%"></span><span class="jgmap__name jgmap__name--plain" style="left:13%;top:46.5%">ホブド県多数少数民族</span></span>
+<a class="jgmap__pin" href="/taimen-fishing-site/onon-balj-taimen-fishing-7n8d.html"><span class="jgmap__dot" style="left:70.83%;top:33.57%"></span><span class="jgmap__name" style="left:81%;top:29%">ヘンティ山脈</span></a>
+<a class="jgmap__pin" href="/railway-tour-site/sukhbaatar-russian-border-railway-4n5d.html"><span class="jgmap__dot" style="left:54.8%;top:28.91%"></span><span class="jgmap__name" style="left:48.5%;top:24%">第2の都市ダルハン・鉄道</span></a>
+<a class="jgmap__pin" href="/railway-tour-site/"><span class="jgmap__dot" style="left:49.31%;top:32.25%"></span><span class="jgmap__name" style="left:41.5%;top:28.5%">第3の都市エルデネト観光</span></a>
+<a class="jgmap__pin" href="/steppe-tour-site/"><span class="jgmap__dot" style="left:81.41%;top:42.74%"></span><span class="jgmap__name" style="left:84%;top:50.5%">モンゴル東部　大平原</span></a>
+</div>
 </div>
 </div>
 					</div>
