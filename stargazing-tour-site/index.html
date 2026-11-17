@@ -99,12 +99,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"星空観察にベストな時期はいつですか？","acceptedAnswer":{"@type":"Answer","text":"天の川がよく見えるのは6月〜9月です。月明かりの少ない新月前後がおすすめで、ご希望に合わせて日程をご提案します。8月中旬のペルセウス座流星群、12月中旬のふたご座流星群の時期も人気です。"}},{"@type":"Question","name":"天体望遠鏡はありますか？","acceptedAnswer":{"@type":"Answer","text":"ご希望に応じて、国立天文台に行って望遠鏡や双眼鏡を使っての観察は可能です。肉眼でも天の川や流れ星を十分に楽しめます。"}},{"@type":"Question","name":"天気が悪かったらどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"雲が多い夜は星が見えにくくなります。晴れ間を待って観察時間を調整したり、翌晩に観察したりして、できるだけ星空を楽しめるようにします。"}},{"@type":"Question","name":"夜はどのくらい寒いですか？","acceptedAnswer":{"@type":"Answer","text":"草原や砂丘の夜は、夏でも10℃前後まで下がることがあります。星空観察の時間は長くなるので、防寒着をご用意ください。"}},{"@type":"Question","name":"1人でも参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい、お一人様でもご参加いただけます。人数により追加料金がかかる場合があります。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

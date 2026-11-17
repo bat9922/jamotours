@@ -283,12 +283,13 @@ body .wp-site-blocks .is-style-overlay-dark :is(h1,h2,h3,h4,h5,h6,p,li,blockquot
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"ContactPage","@id":"https://mongoru.jp/contact/#webpage","url":"https://mongoru.jp/contact/","name":"連絡先・お問い合わせ｜モンゴル現地旅行会社アルタンツアー","description":"モンゴル現地旅行会社アルタンツアーへのお問い合わせ窓口。日本連絡先 070-9181-9922、ウランバートル本社 976-8510-9922、メール info@mongoru.jp。","inLanguage":"ja","isPartOf":{"@id":"https://mongoru.jp/#website"},"about":{"@id":"https://mongoru.jp/#organization"},"publisher":{"@id":"https://mongoru.jp/#organization"},"breadcrumb":{"@id":"https://mongoru.jp/contact/#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://mongoru.jp/contact/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"トップ","item":"https://mongoru.jp/"},{"@type":"ListItem","position":2,"name":"連絡先","item":"https://mongoru.jp/contact/"}]},{"@type":"TravelAgency","@id":"https://mongoru.jp/#organization","name":"モンゴル現地旅行社アルタンツアー","legalName":"ALTANTOUR Co., Ltd","url":"https://mongoru.jp/","email":"info@mongoru.jp","telephone":"+976-8510-9922","address":{"@type":"PostalAddress","streetAddress":"MN TOWER 10F, #1004","addressLocality":"Ulaanbaatar","addressCountry":"MN"},"contactPoint":[{"@type":"ContactPoint","contactType":"customer service","name":"ウランバートル本社","telephone":"+976-8510-9922","email":"info@mongoru.jp","availableLanguage":["ja","mn","en"]},{"@type":"ContactPoint","contactType":"customer service","name":"日本窓口","telephone":"+81-70-9181-9922","email":"info@mongoru.jp","availableLanguage":["ja"]}]}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

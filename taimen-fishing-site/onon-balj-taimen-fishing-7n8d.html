@@ -100,12 +100,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"釣りの初心者でも参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい、ご参加いただけます。現地フィッシングガイドがポイントや釣り方をご案内します。フライまたはルアーの基本的な経験があると、より楽しめます。"}},{"@type":"Question","name":"イトウは必ず釣れますか？","acceptedAnswer":{"@type":"Answer","text":"自然相手のため釣果はお約束できません。4日間の釣り日数を確保し、実績のあるポイントへガイドがご案内します。"}},{"@type":"Question","name":"移動は大変ですか？","acceptedAnswer":{"@type":"Answer","text":"ウランバートルから片道約550キロ、約８時間の車移動です。殆どの道路が整備されている国道ですが、未舗装の道も含まれますので、途中で休憩を取りながら進みます。"}},{"@type":"Question","name":"釣りの許可証は自分で用意しますか？","acceptedAnswer":{"@type":"Answer","text":"いいえ、当社で手配します。手続きに日数がかかるため、ご出発の90日前までにお申し込みください。"}},{"@type":"Question","name":"1人でも参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい、お一人様でもご参加いただけます。人数により追加料金がかかる場合があります。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

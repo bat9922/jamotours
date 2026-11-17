@@ -99,12 +99,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"大会へのエントリーも代行してもらえますか？","acceptedAnswer":{"@type":"Answer","text":"はい。大会へのエントリー、ゼッケンの受け取り、会場への送迎まで当社が代行します。ご希望の種目をお知らせください。"}},{"@type":"Question","name":"高地でも走れますか？","acceptedAnswer":{"@type":"Answer","text":"ウランバートルは標高約1,350mで、普段より少し息が上がりやすく感じる方もいます。ペースを抑えめにし、こまめに水分をとれば多くの方が問題なく完走しています。"}},{"@type":"Question","name":"家族や走らない同行者も参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい。応援のみのご同行者も歓迎です。5kmや10kmなど短い種目もあるので、ご家族での参加もおすすめです。"}},{"@type":"Question","name":"レース後に観光を追加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい。テレルジ国立公園での乗馬やゲル泊、チンギスハーン騎馬像など、レース後の観光を自由に組み合わせられます。"}},{"@type":"Question","name":"1人でも参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい、お一人様でもご参加いただけます。人数により追加料金がかかる場合があります。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

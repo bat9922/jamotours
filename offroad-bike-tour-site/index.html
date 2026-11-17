@@ -100,12 +100,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"どんな免許が必要ですか？","acceptedAnswer":{"@type":"Answer","text":"日本の普通自動二輪または大型自動二輪の運転免許と、国際運転免許証が必要です。必要な書類はお申し込み時にご案内します。"}},{"@type":"Question","name":"オフロードの経験がなくても参加できますか？","acceptedAnswer":{"@type":"Answer","text":"オンロードでの運転経験がある方なら、比較的走りやすいテレルジのコースから参加できます。ゴビや長距離のコースは、オフロード経験のある方におすすめです。"}},{"@type":"Question","name":"バイクや装備はレンタルできますか？","acceptedAnswer":{"@type":"Answer","text":"オフロードバイクとヘルメット・プロテクターなどの装備をご用意します。車種やサイズはお問い合わせください。ご自分のグローブやブーツをお持ちいただくと安心です。"}},{"@type":"Question","name":"バイクに乗らない同行者も参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい。サポートカーに同乗して、同じルートを一緒に旅することができます。"}},{"@type":"Question","name":"ベストシーズンはいつですか？","acceptedAnswer":{"@type":"Answer","text":"草原が緑に輝き、道のコンディションも良い6月〜9月がおすすめです。雨の後はぬかるむ道もあるため、天候に合わせてルートを調整します。４月～５月も開催致します。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

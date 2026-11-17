@@ -101,12 +101,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"どのような企業・政府機関を訪問できますか？","acceptedAnswer":{"@type":"Answer","text":"業種やご関心のテーマをうかがい、モンゴル企業や政府機関、商工会議所などとの面談を調整します。お早めにご相談ください。"}},{"@type":"Question","name":"通訳はつきますか？","acceptedAnswer":{"@type":"Answer","text":"日本語ガイド・通訳が全行程同行します。専門的な商談や会議には、専門分野に対応した通訳の手配も可能です（別途お見積もり）。"}},{"@type":"Question","name":"ゲルにシャワーやトイレはありますか？","acceptedAnswer":{"@type":"Answer","text":"ゲルの中にはシャワーやトイレはありません。ゲルキャンプの敷地内の別棟に、シャワーやトイレなどがあります。"}},{"@type":"Question","name":"何名から参加できますか？","acceptedAnswer":{"@type":"Answer","text":"お一人様から少人数の視察、数十名規模の社員旅行まで対応します。人数に合わせて車両や宿泊施設を手配します。"}},{"@type":"Question","name":"日程を延ばしたり、訪問先を増やしたりできますか？","acceptedAnswer":{"@type":"Answer","text":"はい。訪問する企業・機関を増やしたり、乗馬や地方視察を加えたり、ご希望に合わせて日程をアレンジできます。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

@@ -101,12 +101,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"移動時間はどのくらいですか？","acceptedAnswer":{"@type":"Answer","text":"ウランバートルからハルホリンまでは車で約6〜7時間です。途中、ブルド砂丘で休憩と観光をはさみながら移動します。"}},{"@type":"Question","name":"ゲルにシャワーやトイレはありますか？","acceptedAnswer":{"@type":"Answer","text":"いいえ。ゲルの中にはシャワーやトイレはありません。ゲルキャンプの敷地内の別棟に、温水シャワーや洋式トイレなどがあります。"}},{"@type":"Question","name":"ベストシーズンはいつですか？","acceptedAnswer":{"@type":"Answer","text":"通年開催していますが、草原が緑に輝く6月〜9月がおすすめです。朝晩は冷え込むため、防寒着をご用意ください。"}},{"@type":"Question","name":"ラクダに乗ったことがなくても大丈夫ですか？","acceptedAnswer":{"@type":"Answer","text":"はい。ラクダ使いが手綱を引いてくれるので、初めての方やお子様も安心して乗ることができます。"}},{"@type":"Question","name":"他の世界遺産と組み合わせることはできますか？","acceptedAnswer":{"@type":"Answer","text":"はい。鹿石や匈奴の墓地遺跡群など、ほかの世界遺産と組み合わせたオーダーメイドの旅もご提案します。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

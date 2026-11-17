@@ -99,12 +99,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"バードウォッチングが初めてでも参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい。専門ガイドが鳥の見つけ方や見分け方から丁寧にご案内します。初めての方には、移動が少ないNo.6（3泊4日）やNo.1がおすすめです。"}},{"@type":"Question","name":"1回のツアーで何種類くらい見られますか？","acceptedAnswer":{"@type":"Answer","text":"時期とコースにより異なります。渡りの時期には多くの種が見られ、環境の多いコースほど種数が増えます。ツアー終了後に観察記録（バードリスト）をお渡しします。"}},{"@type":"Question","name":"撮影目的でも参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい。鳥の撮影を中心にした行程や撮影ポイントでの待ち時間を長く取るプライベートツアーも手配できます。機材の重量制限（国内線）にご注意ください。"}},{"@type":"Question","name":"早朝の観察はありますか？","acceptedAnswer":{"@type":"Answer","text":"鳥が最も活発な早朝（5〜7時頃）と夕方に観察時間を設けています。早朝の観察は自由参加で、日中は休憩を取りながら進みます。"}},{"@type":"Question","name":"1人でも参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい、お一人様でもご参加いただけます。人数により追加料金がかかる場合があります。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

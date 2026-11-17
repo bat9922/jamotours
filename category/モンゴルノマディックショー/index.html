@@ -273,12 +273,13 @@ body .wp-site-blocks .is-style-overlay-dark :is(h1,h2,h3,h4,h5,h6,p,li,blockquot
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://mongoru.jp/category/%E3%83%A2%E3%83%B3%E3%82%B4%E3%83%AB%E3%83%8E%E3%83%9E%E3%83%87%E3%82%A3%E3%83%83%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%BC/#webpage","url":"https://mongoru.jp/category/%E3%83%A2%E3%83%B3%E3%82%B4%E3%83%AB%E3%83%8E%E3%83%9E%E3%83%87%E3%82%A3%E3%83%83%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%BC/","name":"モンゴルノマディックショー｜ツアーカテゴリー一覧","description":"モンゴルノマディックキャンプの遊牧民ショーを観戦できるツアーの一覧です。ブルド砂丘の観光とあわせて、草原の伝統芸能と馬術をお楽しみいただけます。","inLanguage":"ja","isPartOf":{"@id":"https://mongoru.jp/#website"},"publisher":{"@id":"https://mongoru.jp/#organization"},"breadcrumb":{"@id":"https://mongoru.jp/category/%E3%83%A2%E3%83%B3%E3%82%B4%E3%83%AB%E3%83%8E%E3%83%9E%E3%83%87%E3%82%A3%E3%83%83%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%BC/#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://mongoru.jp/category/%E3%83%A2%E3%83%B3%E3%82%B4%E3%83%AB%E3%83%8E%E3%83%9E%E3%83%87%E3%82%A3%E3%83%83%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%BC/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"トップ","item":"https://mongoru.jp/"},{"@type":"ListItem","position":2,"name":"モンゴルノマディックショー｜ツアーカテゴリー一覧","item":"https://mongoru.jp/category/%E3%83%A2%E3%83%B3%E3%82%B4%E3%83%AB%E3%83%8E%E3%83%9E%E3%83%87%E3%82%A3%E3%83%83%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%BC/"}]}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

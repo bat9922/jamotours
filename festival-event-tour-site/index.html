@@ -100,12 +100,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"祭りに合わせたツアーを作ってもらえますか？","acceptedAnswer":{"@type":"Answer","text":"はい。ご希望の祭り・イベントの日程に合わせて、航空券・ホテル・専用車・日本語ガイドをまとめて手配します。観光と組み合わせたプランもご提案します。"}},{"@type":"Question","name":"ナーダム祭りはいつ予約すればよいですか？","acceptedAnswer":{"@type":"Answer","text":"ナーダム祭りの時期は航空券やホテルが大変混み合います。半年前を目安に、お早めにご相談下さい。"}},{"@type":"Question","name":"冬の祭りはどのくらい寒いですか？","acceptedAnswer":{"@type":"Answer","text":"1月〜2月はマイナス20℃〜30℃になることもあります。防寒着や防寒靴のご準備をお願いします。レンタルのご相談も承ります。"}},{"@type":"Question","name":"イーグルフェスティバルはどこで見られますか？","acceptedAnswer":{"@type":"Answer","text":"3月はウランバートル、9月は西部バヤン・ウルギー県のアルタイ山脈のふもとで開かれます。アルタイの祭りは国内線で現地へ向かいます。"}},{"@type":"Question","name":"祭りの日程は変わることがありますか？","acceptedAnswer":{"@type":"Answer","text":"主催者の都合や天候により、日程が変更になる場合があります。最新の日程はお問い合わせ下さい。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

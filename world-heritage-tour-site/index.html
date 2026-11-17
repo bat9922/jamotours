@@ -100,12 +100,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"モンゴルにはいくつの世界遺産がありますか？","acceptedAnswer":{"@type":"Answer","text":"オルホン渓谷の文化的景観、モンゴル・アルタイ山系の岩絵群、大ブルカン・カルドゥン山、ウヴス・ヌール盆地、ダウリアの景観群、鹿石と青銅器時代の遺跡群、匈奴の貴族の墓地遺跡群など文化遺産（6つ）と自然遺産（2つ）の両方があります。各コースでそれぞれの遺産を訪ねます。"}},{"@type":"Question","name":"遺跡の歴史がわからなくても楽しめますか？","acceptedAnswer":{"@type":"Answer","text":"はい。日本語ガイドが各遺跡の歴史や見どころをわかりやすく解説します。遺跡のまわりに広がる草原や山の景色も、世界遺産の大きな魅力です。"}},{"@type":"Question","name":"遠い地方の世界遺産へはどうやって行きますか？","acceptedAnswer":{"@type":"Answer","text":"アルタイ山系やウヴス・ヌール盆地など遠方のコースでは、国内線の飛行機と4WDの専用車を組み合わせて移動します。詳しい移動方法は各コースでご案内します。"}},{"@type":"Question","name":"ベストシーズンはいつですか？","acceptedAnswer":{"@type":"Answer","text":"通年開催ですが、草原が緑に輝く5月〜9月がおすすめです。西部の山岳地帯や北部は、夏でも朝晩は冷え込みます。"}},{"@type":"Question","name":"複数の世界遺産を組み合わせられますか？","acceptedAnswer":{"@type":"Answer","text":"はい。ご希望の世界遺産を組み合わせたオーダーメイドの旅もご提案します。お気軽にご相談ください。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

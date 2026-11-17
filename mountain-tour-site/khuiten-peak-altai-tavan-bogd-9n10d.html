@@ -100,12 +100,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"どんな登山経験が必要ですか？","acceptedAnswer":{"@type":"Answer","text":"アイゼン・ピッケルを使った雪山登山の経験と、10時間前後の行動に耐える体力が必要です。ロープを結んで歩く経験があると安心です。"}},{"@type":"Question","name":"アイゼンやピッケルは借りられますか？","acceptedAnswer":{"@type":"Answer","text":"いいえ、レンタルはありません。アイゼン・ピッケル・ハーネスは、使い慣れたものを各自でご準備ください。ロープなどの共同装備は当社で用意します。"}},{"@type":"Question","name":"高山病が心配です。","acceptedAnswer":{"@type":"Answer","text":"山麓から中間キャンプまで2日かけて高度を上げ、体を慣らします。水分を多めにとり、ガイドのペースでゆっくり登ります。体調が悪い場合は無理をせず下山します。"}},{"@type":"Question","name":"天気が悪くて登頂できない場合はどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"安全を最優先し、山岳ガイドが登頂の可否を判断します。登頂できなかった場合の料金の扱い：[ ]"}},{"@type":"Question","name":"荷物はすべて自分で背負いますか？","acceptedAnswer":{"@type":"Answer","text":"山麓からはテントや食料などの共同装備と大きな荷物を[ラクダ・馬]で運びます。氷河の上では、個人装備と防寒着を各自で背負います。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

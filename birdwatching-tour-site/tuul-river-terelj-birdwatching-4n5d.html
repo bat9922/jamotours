@@ -100,12 +100,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"空港からテレルジまでどのくらいかかりますか？","acceptedAnswer":{"@type":"Answer","text":"専用車で約3時間です。市内通過しないので、渋滞はないです。到着時刻により初日は観察出来ない場合があります。"}},{"@type":"Question","name":"バードウォッチングが初めてでも参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい。専門ガイドが鳥の見つけ方や見分け方から案内し、日本語ガイドが通訳します。移動が少ないので、初めての方にもおすすめのコースです。"}},{"@type":"Question","name":"1日にどのくらい歩きますか？","acceptedAnswer":{"@type":"Answer","text":"観察ポイントまでは車で移動し、そこから鳥を探しながらゆっくり歩きます。1日の歩行は数キロ程度で、立ち止まって観察する時間が中心です。"}},{"@type":"Question","name":"ゲルキャンプの設備はどうですか？","acceptedAnswer":{"@type":"Answer","text":"ベッドと寝具のあるゲルに泊まります。トイレと温水シャワーは共同棟にあり、食事はキャンプのレストランでとります。"}},{"@type":"Question","name":"1人でも参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい、お一人様でもご参加いただけます。人数により追加料金がかかります。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

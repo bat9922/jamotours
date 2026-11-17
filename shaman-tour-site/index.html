@@ -99,12 +99,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"シャーマンの儀式は誰でも見学できますか？","acceptedAnswer":{"@type":"Answer","text":"はい。当社がシャーマンに事前にお願いし、見学の許可をいただいたうえでご案内します。信仰の場ですので、ガイドの案内に従い、敬意をもって見学してください。"}},{"@type":"Question","name":"儀式の写真や動画は撮れますか？","acceptedAnswer":{"@type":"Answer","text":"シャーマンの許可を得た場面のみ撮影できます。撮影できない場面もありますので、その都度ガイドがお伝えします。"}},{"@type":"Question","name":"宗教や信仰がなくても参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい。特定の信仰は必要ありません。モンゴルの文化や歴史を知る旅として、どなたでもご参加いただけます。"}},{"@type":"Question","name":"シャーマニズムと仏教はどう違いますか？","acceptedAnswer":{"@type":"Answer","text":"シャーマニズムは天と大地、祖先の霊をあがめるモンゴル古来の信仰で、仏教は16世紀以降に広まったチベット仏教です。現在のモンゴルでは、多くの人が両方を大切にしています。違いはSh-4コースで詳しくご案内します。"}},{"@type":"Question","name":"1人でも参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい、お一人様でもご参加いただけます。人数により追加料金がかかる場合があります。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

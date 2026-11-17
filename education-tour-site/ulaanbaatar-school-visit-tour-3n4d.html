@@ -100,12 +100,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"学校訪問はどのように手配されますか？","acceptedAnswer":{"@type":"Answer","text":"ご希望の学年・人数・目的をうかがい、当社がウランバートル市内の学校と日程や交流内容を調整します。授業見学、スポーツ交流、歌や踊りの発表など、学校の希望に合わせてプログラムを組みます。"}},{"@type":"Question","name":"モンゴルの生徒と言葉は通じますか？","acceptedAnswer":{"@type":"Answer","text":"日本語ガイドが通訳としてサポートします。スポーツや歌、遊びを通した交流が中心なので、言葉が通じなくても一緒に楽しめます。日本語を学んでいる生徒がいる学校もあります。"}},{"@type":"Question","name":"ゲル泊は子どもでも大丈夫ですか？","acceptedAnswer":{"@type":"Answer","text":"はい。ツーリストキャンプのゲルにはベッドやストーブがあり、トイレ・シャワー棟も併設されています。夏でも朝晩は冷えるため、上着をご用意ください。"}},{"@type":"Question","name":"乗馬は初めてでも参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい。おとなしい馬を用意し、馬方が手綱を引いて歩くので、初めての方や子どもでも安心して体験できます。ヘルメットを着用します。"}},{"@type":"Question","name":"どのくらい前に申し込めばよいですか？","acceptedAnswer":{"@type":"Answer","text":"学校との調整が必要なため、出発の3か月前までのお問い合わせをおすすめします。人数や日程に合わせて無料でお見積もりします。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

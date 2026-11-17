@@ -100,12 +100,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"移動はどのくらい大変ですか？","acceptedAnswer":{"@type":"Answer","text":"ウランバートル〜チョイバルサン間は整備された国道ですが、1日に長い距離を走る日があります。4WDの専用車で、途中で休憩をとりながら進みます。草原を走る時間そのものも、この旅の大きな魅力です。"}},{"@type":"Question","name":"ノモンハン事件の博物館では何が見られますか？","acceptedAnswer":{"@type":"Answer","text":"ハルハ川村の歴史博物館では、1939年のノモンハン事件（ハルハ川戦争）に関する資料や展示を見学できます。日本語ガイドが解説します。"}},{"@type":"Question","name":"モウコガゼルには必ず会えますか？","acceptedAnswer":{"@type":"Answer","text":"野生動物のため、出会いを保証することはできません。メネン平原はガゼルの多い地域で、移動中に群れを探しながら進みます。"}},{"@type":"Question","name":"ベストシーズンはいつですか？","acceptedAnswer":{"@type":"Answer","text":"草原が緑に輝く6月〜9月がおすすめです。冬も催行しますが、東部は気温が大きく下がるため、防寒対策が必要です。"}},{"@type":"Question","name":"1人でも参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい、お一人様でもご参加いただけます。人数により追加料金がかかる場合があります。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

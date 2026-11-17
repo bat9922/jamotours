@@ -100,12 +100,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"何名から参加できますか？","acceptedAnswer":{"@type":"Answer","text":"少人数の視察から、数十名規模の社員旅行・研修まで対応します。人数に合わせて車両・宿泊施設・会議室を手配します。"}},{"@type":"Question","name":"訪問先の企業や政府機関は選べますか？","acceptedAnswer":{"@type":"Answer","text":"はい。業種やご関心のテーマをうかがい、訪問先の企業・政府機関・モンゴル商工会議所などとのアポイントを調整します。"}},{"@type":"Question","name":"通訳はつきますか？","acceptedAnswer":{"@type":"Answer","text":"日本語ガイド・通訳が全行程同行します。専門的な商談や会議には、専門分野に対応した通訳の手配も可能です。"}},{"@type":"Question","name":"長期滞在や研修のプランも作れますか？","acceptedAnswer":{"@type":"Answer","text":"はい。2泊3日の短期から、2週間・3週間・１か月の長期滞在まで対応します。研修内容や日数に合わせてオーダーメイドでプランを作成します。"}},{"@type":"Question","name":"いつでも催行できますか？","acceptedAnswer":{"@type":"Answer","text":"通年開催しています。夏は草原での乗馬やゲル泊、冬は雪景色の中での研修やウィンターアクティビティもおすすめです。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

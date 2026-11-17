@@ -99,12 +99,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"歴史に詳しくなくても楽しめますか？","acceptedAnswer":{"@type":"Answer","text":"はい。日本語ガイドが各遺跡の背景や見どころをわかりやすく解説します。草原の景色や遊牧民の暮らしも一緒に楽しめます。"}},{"@type":"Question","name":"移動はどのくらい大変ですか？","acceptedAnswer":{"@type":"Answer","text":"No.2はウランバートル近郊で、移動は短めです。No.1・No.3・No.4は地方へ専用車で移動し、1日の移動が６～８時間ほどになる日があります。途中で遺跡巡りと休憩を取りながら進みます。"}},{"@type":"Question","name":"遺跡や寺院で写真は撮れますか？","acceptedAnswer":{"@type":"Answer","text":"屋外の遺跡は自由に撮影できます。寺院の堂内や博物館では、撮影が有料または禁止の場所があります。ガイドにご確認ください。"}},{"@type":"Question","name":"他のツアーと組み合わせられますか？","acceptedAnswer":{"@type":"Answer","text":"はい。乗馬、フラワーハイキング、遊牧民宅訪問などと組み合わせたオーダーメイドの旅もご相談いただけます。"}},{"@type":"Question","name":"1人でも参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい、お一人様でもご参加いただけます。人数により追加料金がかかる場合があります。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

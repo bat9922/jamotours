@@ -99,12 +99,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"何人から申し込めますか？","acceptedAnswer":{"@type":"Answer","text":"クラス・学年単位の団体から、少人数のグループやご家族まで対応します。人数に合わせて訪問先と交流内容を調整します。"}},{"@type":"Question","name":"言葉が通じなくても交流できますか？","acceptedAnswer":{"@type":"Answer","text":"日本語ガイドが通訳します。歌や遊び、スポーツ、折り紙など、言葉が分からなくても楽しめる交流プログラムもご提案します。"}},{"@type":"Question","name":"訪問する学校は選べますか？","acceptedAnswer":{"@type":"Answer","text":"ご希望の学年や目的（英語教育、日本語教育、姉妹校交流、地方の学校など）をお知らせください。条件に合う学校を探し、受け入れの調整を行います。"}},{"@type":"Question","name":"どのくらい前に申し込めばいいですか？","acceptedAnswer":{"@type":"Answer","text":"学校との調整に時間がかかるため、ご出発の3か月前までのお問い合わせをおすすめします。卒業式や始業式への参加は、特にお早めにご相談ください。"}},{"@type":"Question","name":"学校訪問と観光を組み合わせられますか？","acceptedAnswer":{"@type":"Answer","text":"はい。テレルジ国立公園でのゲル泊や乗馬、チンギスハーン騎馬像の見学など、学びと観光を組み合わせたプランご提案します。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

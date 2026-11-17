@@ -100,12 +100,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"ロシアに入国しますか？ビザは必要ですか？","acceptedAnswer":{"@type":"Answer","text":"いいえ、入国しません。国境の町まで行き、モンゴル側から国境を望みます。ロシアのビザは必要ありません。"}},{"@type":"Question","name":"寝台列車はどんな設備ですか？","acceptedAnswer":{"@type":"Answer","text":"4人用コンパートメントの寝台車を利用します。寝具が用意され、各車両にトイレと給湯器があります。シャワーはありません。充電はできるが、WiFiはありません。"}},{"@type":"Question","name":"食事が口に合うか心配です。","acceptedAnswer":{"@type":"Answer","text":"地元モンゴル料理は肉と小麦が中心で、塩味。日本の方には食べやすい味です。苦手な食材やアレルギーがあれば、ご予約時にお知らせください。対応致します。"}},{"@type":"Question","name":"体力に自信がなくても参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい。移動は列車と専用車が中心で、街歩きもゆっくりです。シニアの方にもご参加いただけます。"}},{"@type":"Question","name":"1人でも参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい、お一人様でもご参加いただけます。人数により追加料金がかかる場合があります。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }

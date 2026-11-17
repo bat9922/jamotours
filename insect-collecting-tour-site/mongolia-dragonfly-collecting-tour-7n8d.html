@@ -101,12 +101,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"採集可能な産地へ案内してくれますか？","acceptedAnswer":{"@type":"Answer","text":"はい。目的の蝶・昆虫が採集できる産地へご案内しますので、ご安心下さい。ただし、年によって発生時期や個体数に変動がある場合があります。"}},{"@type":"Question","name":"どんなトンボを採集できますか？","acceptedAnswer":{"@type":"Answer","text":"カワトンボ科、イトトンボ科、ヤンマ科、エゾトンボ科、サナエトンボ科、トンボ科などを採集・観察できます。"}},{"@type":"Question","name":"日数や採集地は変更できますか？","acceptedAnswer":{"@type":"Answer","text":"はい。延泊や採集地のアレンジが可能です。ご希望の種類・日数をお知らせいただければ、日程をご提案します。"}},{"@type":"Question","name":"1名でも参加できますか？","acceptedAnswer":{"@type":"Answer","text":"はい。1名様から催行します。料金はご参加人数によって変わりますので、お問い合わせ下さい。"}},{"@type":"Question","name":"採集用具は現地で用意できますか？","acceptedAnswer":{"@type":"Answer","text":"いいえ、現地ではご用意できませんので、捕虫網（ネット）・三角紙などはご持参下さい。"}}]}</script>
 <style id="jg-know-menu-css">
 .jg-know-menu .elementor-sub-item{display:flex;align-items:center}
-.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:#F3BD09;margin-right:10px}
+.jg-know-menu .elementor-sub-item::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:#C9A75A;margin-right:10px}
 .jg-know-menu > li{border-bottom:1px dotted #CFC7B5}
 .jg-know-menu > li:last-child{border-bottom:none}
 @media (min-width:1025px){
-  .jg-know-menu{display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,auto);min-width:580px}
-  .jg-know-menu > li{min-width:0}
+  /* SmartMenus writes display:block and min-width:10em inline when it opens the dropdown, which beat any stylesheet rule - that is why display:grid never applied. Multi-column works on a display:block box, so only the width needs !important here. */
+  .jg-know-menu{column-count:2;column-gap:24px;column-rule:1px dotted #CFC7B5;min-width:580px !important}
+  .jg-know-menu > li{min-width:0;break-inside:avoid}
   .jg-know-menu .elementor-sub-item{white-space:nowrap}
   .jg-know-menu > li:nth-child(8),.jg-know-menu > li:nth-child(16){border-bottom:none}
 }
