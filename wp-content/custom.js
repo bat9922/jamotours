@@ -113,6 +113,105 @@
 	}
 })();
 
+/* Make each of the nine newly added horse-tour cards fully clickable. */
+(function () {
+	'use strict';
+	var routes = [
+		'/heritage-history-horse-riding-7-day/',
+		'/tsagaan-suvraga-horse-riding-6-day/',
+		'/gobi-sands-horse-riding-7-day/',
+		'/khuvsgul-lake-horse-riding-6-day/',
+		'/altai-mount-kazah-horse-riding-8-day/',
+		'/east-mongolia-horse-riding-7-day/',
+		'/bogd-khan-mount-flower-horse-riding-5-day/',
+		'/chinggis-khaan-13-century-horse-riding-4-day/',
+		'/chinggis-khaan-terelj-horse-riding-1-day/'
+	];
+	function init() {
+		for (var i = 0; i < routes.length; i++) {
+			var link = document.querySelector('.tour-card-link[href="' + routes[i] + '"]') || document.querySelector('a[href="' + routes[i] + '"]');
+			if (!link || !link.parentElement || link.parentElement.dataset.cardLinkReady === 'true') { continue; }
+			var card = link.parentElement;
+			card.dataset.cardLinkReady = 'true';
+			card.classList.add('jamo-tour-card-active');
+			card.setAttribute('role', 'link');
+			card.setAttribute('tabindex', '0');
+			card.setAttribute('aria-label', link.textContent.trim() + 'の詳細を見る');
+			card.addEventListener('click', function (event) {
+				if (event.target.closest('a')) { return; }
+				var target = this.querySelector('a[href]');
+				if (target) { window.location.href = target.href; }
+			});
+			card.addEventListener('keydown', function (event) {
+				if (event.key === 'Enter' || event.key === ' ') {
+					event.preventDefault();
+					var target = this.querySelector('a[href]');
+					if (target) { window.location.href = target.href; }
+				}
+			});
+		}
+	}
+	if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
+})();
+
+/* Three-image hero slideshows for generated horse-tour detail pages. */
+(function () {
+	'use strict';
+	function init() {
+		var heroes = document.querySelectorAll('.horse-hero--slideshow');
+		for (var h = 0; h < heroes.length; h++) {
+			(function (hero) {
+				var slides = Array.prototype.slice.call(hero.querySelectorAll('.horse-hero-slide'));
+				var dots = Array.prototype.slice.call(hero.querySelectorAll('.horse-hero-dot'));
+				var caption = hero.querySelector('.horse-hero-caption');
+				var current = 0, timer = null;
+				function show(index) {
+					current = (index + slides.length) % slides.length;
+					for (var i = 0; i < slides.length; i++) { slides[i].classList.toggle('is-active', i === current); }
+					for (var j = 0; j < dots.length; j++) { dots[j].setAttribute('aria-current', j === current ? 'true' : 'false'); }
+					if (caption) { caption.textContent = '写真：' + (slides[current].getAttribute('data-caption') || 'モンゴル乗馬ツアー'); }
+				}
+				function schedule() { if (timer) { clearTimeout(timer); } timer = setTimeout(function () { show(current + 1); schedule(); }, 6000); }
+				hero.querySelector('.horse-hero-control--prev').addEventListener('click', function () { show(current - 1); schedule(); });
+				hero.querySelector('.horse-hero-control--next').addEventListener('click', function () { show(current + 1); schedule(); });
+				for (var d = 0; d < dots.length; d++) { (function (n) { dots[n].addEventListener('click', function () { show(n); schedule(); }); })(d); }
+				show(0); schedule();
+			})(heroes[h]);
+		}
+	}
+	if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
+})();
+
+/* Horse-tour photo galleries. Kept independent of the page's legacy inline
+   scripts, so every generated itinerary page gets working thumbnails. */
+(function () {
+	'use strict';
+	function init() {
+		var galleries = document.querySelectorAll('.horse-gallery');
+		for (var g = 0; g < galleries.length; g++) {
+			(function (gallery) {
+				var image = gallery.querySelector('.horse-gallery-main-image');
+				var count = gallery.querySelector('.horse-gallery-count');
+				var thumbs = Array.prototype.slice.call(gallery.querySelectorAll('.horse-gallery-thumb'));
+				var current = 0;
+				function show(index) {
+					current = (index + thumbs.length) % thumbs.length;
+					var thumb = thumbs[current];
+					image.src = thumb.getAttribute('data-src');
+					image.alt = thumb.getAttribute('data-alt');
+					count.textContent = (current + 1) + ' / ' + thumbs.length;
+					for (var i = 0; i < thumbs.length; i++) { thumbs[i].setAttribute('aria-current', i === current ? 'true' : 'false'); }
+				}
+				gallery.querySelector('.horse-gallery-prev').addEventListener('click', function () { show(current - 1); });
+				gallery.querySelector('.horse-gallery-next').addEventListener('click', function () { show(current + 1); });
+				for (var t = 0; t < thumbs.length; t++) { (function (n) { thumbs[n].addEventListener('click', function () { show(n); }); })(t); }
+				show(0);
+			})(galleries[g]);
+		}
+	}
+	if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
+})();
+
 /* A shared, accessible return-to-top button for the static site. */
 (function () {
 	'use strict';
