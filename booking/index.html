@@ -487,6 +487,7 @@ textarea.bk__in{min-height:150px;line-height:1.85;resize:vertical}
 
     <!-- スパム対策（人には見えません。入力しないでください） -->
     <input type="checkbox" name="botcheck" id="bkBot" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="h-captcha" data-captcha="true"></div>
 
     <div class="bk__submit">
       <button class="bk__btn" type="submit" id="bkBtn">送信</button>
@@ -661,6 +662,11 @@ textarea.bk__in{min-height:150px;line-height:1.85;resize:vertical}
     /* ハニーポット：人間は触れない項目。入っていれば黙って終了する */
     var bot = el('bkBot');
     if (bot && bot.checked) { return; }
+    var captcha = form.querySelector('textarea[name="h-captcha-response"]');
+    if (!captcha || !captcha.value) {
+      say('bad', 'Please complete the security check before sending.');
+      return;
+    }
 
     var bad = validate();
     if (bad.length) {
@@ -692,6 +698,7 @@ textarea.bk__in{min-height:150px;line-height:1.85;resize:vertical}
       from_name:  'mongoru.jp お問い合わせフォーム',
       email:      mail,
       botcheck:   false,
+      'h-captcha-response': captcha.value,
       'お名前':               name,
       'メールアドレス':        mail,
       'ツアー参加人数（合計）': total + ' 名',
@@ -1093,6 +1100,8 @@ var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/mongoru.jp\/wp-admin\/adm
 </script>
 <script id="elementor-pro-frontend-js" src="/wp-content/plugins/elementor-pro/assets/js/frontend.min.js?ver=3.6.5"></script>
 <script id="pro-preloaded-elements-handlers-js" src="/wp-content/plugins/elementor-pro/assets/js/preloaded-elements-handlers.min.js?ver=3.6.5"></script>
+<script src="https://web3forms.com/client/script.js" async defer></script>
+<script src="/wp-content/security-config.js" defer></script>
 <script id="ai-chat-widget" src="/wp-content/ai-chat.js" defer></script>
 <script id="mongoru-custom-js" src="/wp-content/custom.js" defer></script>
 </body>

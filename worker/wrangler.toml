@@ -2,5 +2,14 @@ name = "mongol"
 main = "worker.js"
 compatibility_date = "2026-11-15"
 
-# GEMINI_API_KEY is NOT set here on purpose.
-# It is a secret:  npx wrangler secret put GEMINI_API_KEY
+[[ratelimits]]
+name = "AI_CHAT_RATE_LIMITER"
+namespace_id = "2026112401"
+
+  [ratelimits.simple]
+  limit = 6
+  period = 60
+
+# Secrets are intentionally not stored here:
+#   npx wrangler secret put GEMINI_API_KEY
+#   npx wrangler secret put TURNSTILE_SECRET

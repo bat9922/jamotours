@@ -18,10 +18,13 @@
   window.__aiChatLoaded = true;
 
   var WORKER_URL = "https://mongol.bzorig9922.workers.dev";
+  var TURNSTILE_SITE_KEY = window.MONGORU_TURNSTILE_SITE_KEY || "";
+  var turnstileWidgetId = null;
+  var turnstileToken = "";
+  var sending = false;
   var TEL = "070-9181-9922";
   var MAX_REFS = 6;               // 参考リンクの最大表示数
 
-  var conversationId = null;      // Gemini が会話履歴を保持するためのID
 
   var GREETING = "Hello! モンゴルAIアシスタントです。モンゴル現地ツアーについてお気軽にご質問下さい。回答内容に不明な点がある場合は専門スタッフへ連絡下さい。";
   var NOTICE   = "※ AIが自動で回答しています。回答内容に不安な点は、スタッフへのご連絡方法をご案内します。";
@@ -195,12 +198,21 @@
   function labelFor(href, fallback) {
     var u;
     try { u = new URL(href, "https://mongoru.jp/"); } catch (e) { return fallback || href; }
-    if (u.hostname.indexOf("mongoru.jp") === -1) { return u.hostname; }
+    if (u.hostname !== "mongoru.jp" && u.hostname !== "www.mongoru.jp") { return u.hostname; }
     var path = u.pathname;
     try { path = decodeURIComponent(path); } catch (e2) {}
     if (TOURS[path]) { return TOURS[path]; }
     if (fallback) { return fallback; }
     return path;
+  }
+
+  function isSafeSiteUrl(href) {
+    try {
+      var u = new URL(href);
+      return u.protocol === "https:" && (u.hostname === "mongoru.jp" || u.hostname === "www.mongoru.jp");
+    } catch (e) {
+      return false;
+    }
   }
 
   /* 1行ぶんを組み立てる。URLは <a> にし、見つけたURLは addRef に渡す */
@@ -215,6 +227,11 @@
       if (!href) { continue; }
       if (m.index > last) {
         frag.appendChild(document.createTextNode(line.slice(last, m.index)));
+      }
+      if (!isSafeSiteUrl(href)) {
+        frag.appendChild(document.createTextNode(raw));
+        last = m.index + raw.length;
+        continue;
       }
       var a = el("a", { href: href, target: "_blank", rel: "noopener noreferrer", textContent: href });
       frag.appendChild(a);
@@ -237,7 +254,7 @@
     var seen = {};
     function addRef(href, fallback) {
       href = trimUrl(href);
-      if (!href || seen[href]) { return; }
+      if (!href || !isSafeSiteUrl(href) || seen[href]) { return; }
       seen[href] = true;
       refs.push({ href: href, label: labelFor(href, fallback) });
     }
@@ -252,7 +269,7 @@
       var hits = t.match(urlRe());
 
       /* URLだけの行は本文から外し、参考リンクに回す */
-      if (hits && hits.length === 1 && trimUrl(hits[0]) === trimUrl(t)) {
+      if (hits && hits.length === 1 && isSafeSiteUrl(trimUrl(t)) && trimUrl(hits[0]) === trimUrl(t)) {
         addRef(t, lastName);
         continue;
       }
@@ -314,6 +331,35 @@
     return div;
   }
 
+  function initialiseTurnstile(container) {
+    if (!TURNSTILE_SITE_KEY) {
+      container.textContent = "Security verification is not configured.";
+      return;
+    }
+
+    function render() {
+      if (!window.turnstile || turnstileWidgetId !== null) { return; }
+      turnstileWidgetId = window.turnstile.render(container, {
+        sitekey: TURNSTILE_SITE_KEY,
+        action: "ai_chat",
+        theme: "light",
+        size: "compact",
+        callback: function (token) { turnstileToken = token; },
+        "expired-callback": function () { turnstileToken = ""; },
+        "error-callback": function () { turnstileToken = ""; }
+      });
+    }
+
+    if (window.turnstile) { render(); return; }
+    var script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    script.async = true;
+    script.defer = true;
+    script.onload = render;
+    script.onerror = function () { container.textContent = "Security verification could not be loaded."; };
+    document.head.appendChild(script);
+  }
+
   function sendQuick(text) {
     input.value = text;
     sendMessage();
@@ -321,8 +367,13 @@
 
   function sendMessage() {
     var text = input.value.trim();
-    if (!text) { return; }
+    if (!text || sending) { return; }
+    if (!turnstileToken) {
+      addMessage("Please complete the security check before sending a message.", "msg-ai");
+      return;
+    }
 
+    sending = true;
     addMessage(text, "msg-user");
     input.value = "";
     var loading = addMessage("回答を作成中...", "msg-ai");
@@ -330,11 +381,10 @@
     fetch(WORKER_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: text, conversationId: conversationId })
+      body: JSON.stringify({ message: text, turnstileToken: turnstileToken })
     }).then(function (response) {
       return response.json();
     }).then(function (data) {
-      if (data.conversationId) { conversationId = data.conversationId; }
       if (data.reply) {
         renderReply(loading, data.reply);
       } else {
@@ -344,6 +394,10 @@
     })["catch"](function () {
       loading.textContent = "申し訳ありません、通信エラーが発生しました。お急ぎの場合は日本窓口（" + TEL + "）までお問い合わせください。";
       messages.scrollTop = messages.scrollHeight;
+    }).then(function () {
+      sending = false;
+      turnstileToken = "";
+      if (window.turnstile && turnstileWidgetId !== null) { window.turnstile.reset(turnstileWidgetId); }
     });
   }
 
@@ -386,6 +440,10 @@
     });
     messages.appendChild(quick);
     box.appendChild(messages);
+
+    var verification = el("div", { id: "ai-chat-turnstile" });
+    box.appendChild(verification);
+    initialiseTurnstile(verification);
 
     var area = el("div", { id: "ai-chat-input-area" });
     input = el("input", { id: "ai-chat-input", type: "text", placeholder: "質問を入力してください..." });

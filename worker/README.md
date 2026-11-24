@@ -1,5 +1,9 @@
 # AI チャットアシスタント用 Cloudflare Worker
 
+> **Security deployment is required.** This Worker rejects requests that do
+> not carry a valid `mongoru.jp` Origin, Turnstile token, and rate-limit
+> binding. Before deploying, follow [`../SECURITY_DEPLOYMENT.md`](../SECURITY_DEPLOYMENT.md).
+
 mongoru.jp のトップページにあるチャットウィジェットの送信先です。
 ブラウザ → この Worker → Google Gemini API、という流れで動きます。
 

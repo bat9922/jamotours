@@ -23,6 +23,9 @@ const ALLOWED_ORIGINS = new Set([
   "https://www.mongoru.jp",
 ]);
 
+const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+const TURNSTILE_ACTION = "ai_chat";
+
 /* ========================================================================
    ツアー情報（mongoru.jp の実在ページのみ。ここにないツアーは案内しない）
    ======================================================================== */
@@ -182,14 +185,43 @@ const SYSTEM_INSTRUCTION = `あなたはモンゴル現地旅行社アルタン�
 ${TOUR_CATALOG}`;
 
 function corsHeaders(origin) {
-  const allow = ALLOWED_ORIGINS.has(origin) ? origin : "https://mongoru.jp";
   return {
-    "Access-Control-Allow-Origin": allow,
+    "Access-Control-Allow-Origin": origin,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
     "Access-Control-Max-Age": "86400",
     Vary: "Origin",
   };
+}
+
+function clientIp(request) {
+  return request.headers.get("CF-Connecting-IP") ?? "unknown";
+}
+
+async function verifyTurnstile(token, request, env) {
+  if (!env.TURNSTILE_SECRET) return { ok: false, error: "server_misconfigured" };
+  if (typeof token !== "string" || token.length === 0 || token.length > 2048) {
+    return { ok: false, error: "verification_required" };
+  }
+
+  const form = new FormData();
+  form.set("secret", env.TURNSTILE_SECRET);
+  form.set("response", token);
+  form.set("remoteip", clientIp(request));
+
+  try {
+    const response = await fetch(TURNSTILE_VERIFY_URL, { method: "POST", body: form });
+    const result = await response.json();
+    const hostnameOk = ALLOWED_ORIGINS.has(`https://${result.hostname}`);
+    if (!response.ok || !result.success || result.action !== TURNSTILE_ACTION || !hostnameOk) {
+      console.warn("Turnstile validation failed", result["error-codes"] ?? []);
+      return { ok: false, error: "verification_failed" };
+    }
+    return { ok: true };
+  } catch (error) {
+    console.error("Turnstile validation error", error);
+    return { ok: false, error: "verification_unavailable" };
+  }
 }
 
 function json(body, status, cors) {
@@ -221,6 +253,9 @@ function extractText(data) {
 export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") ?? "";
+    if (!ALLOWED_ORIGINS.has(origin)) {
+      return json({ error: "forbidden_origin" }, 403, {});
+    }
     const cors = corsHeaders(origin);
 
     // ブラウザは本番の POST の前にこの OPTIONS を送ります
@@ -232,14 +267,38 @@ export default {
       return json({ error: "method_not_allowed" }, 405, cors);
     }
 
+    const contentLength = Number(request.headers.get("Content-Length") ?? 0);
+    if (!Number.isFinite(contentLength) || contentLength > 4096) {
+      return json({ error: "payload_too_large" }, 413, cors);
+    }
+
+    if (!request.headers.get("Content-Type")?.toLowerCase().startsWith("application/json")) {
+      return json({ error: "unsupported_media_type" }, 415, cors);
+    }
+
     if (!env.GEMINI_API_KEY) {
       console.error("GEMINI_API_KEY secret is not set");
       return json({ error: "server_misconfigured" }, 500, cors);
     }
 
+    if (!env.AI_CHAT_RATE_LIMITER) {
+      console.error("AI_CHAT_RATE_LIMITER binding is not configured");
+      return json({ error: "server_misconfigured" }, 500, cors);
+    }
+
+    try {
+      const limited = await env.AI_CHAT_RATE_LIMITER.limit({ key: clientIp(request) });
+      if (!limited.success) return json({ error: "rate_limited" }, 429, cors);
+    } catch (error) {
+      console.error("rate limit check failed", error);
+      return json({ error: "service_unavailable" }, 503, cors);
+    }
+
     let body;
     try {
-      body = await request.json();
+      const rawBody = await request.text();
+      if (rawBody.length > 4096) return json({ error: "payload_too_large" }, 413, cors);
+      body = JSON.parse(rawBody);
     } catch {
       return json({ error: "invalid_json" }, 400, cors);
     }
@@ -248,12 +307,10 @@ export default {
     if (!message) return json({ error: "message_required" }, 400, cors);
     if (message.length > 2000) return json({ error: "message_too_long" }, 400, cors);
 
-    // 会話の継続: クライアントが前回の conversationId を送り返すと、
-    // Gemini 側が履歴を保持しているので前のやり取りを踏まえて答えます。
-    const previousId =
-      typeof body?.conversationId === "string" && body.conversationId.trim()
-        ? body.conversationId.trim()
-        : null;
+    // Keep the public chat endpoint stateless. Upstream conversation IDs are
+    // never accepted from or returned to the browser.
+    const verification = await verifyTurnstile(body?.turnstileToken, request, env);
+    if (!verification.ok) return json({ error: verification.error }, 403, cors);
 
     const payload = {
       model: MODEL,
@@ -261,7 +318,6 @@ export default {
       input: message,
       generation_config: { max_output_tokens: MAX_OUTPUT_TOKENS },
     };
-    if (previousId) payload.previous_interaction_id = previousId;
 
     let upstream;
     try {
@@ -284,32 +340,6 @@ export default {
 
     if (!upstream.ok) {
       // 会話IDが期限切れ等で使えない場合は、履歴なしで一度だけやり直す
-      if (previousId && (upstream.status === 400 || upstream.status === 404)) {
-        console.warn("retrying without previous_interaction_id", upstream.status);
-        delete payload.previous_interaction_id;
-        try {
-          upstream = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "x-goog-api-key": env.GEMINI_API_KEY,
-              "Api-Revision": API_REVISION,
-            },
-            body: JSON.stringify(payload),
-          });
-        } catch (err) {
-          console.error("retry fetch failed:", err);
-          return json({ error: "upstream_unreachable" }, 502, cors);
-        }
-        if (!upstream.ok) {
-          const t = await upstream.text();
-          console.error("retry failed", upstream.status, t.slice(0, 500));
-          return json({ error: "upstream_error", status: upstream.status }, 502, cors);
-        }
-        const retryRaw = await upstream.text();
-        return finish(retryRaw, cors);
-      }
-
       console.error("upstream error", upstream.status, raw.slice(0, 500));
       const status = upstream.status === 429 ? 429 : 502;
       return json({ error: "upstream_error", status: upstream.status }, status, cors);
@@ -349,7 +379,6 @@ export default {
       return json(
         {
           reply,
-          conversationId: typeof data.id === "string" ? data.id : null,
           truncated: data.status === "incomplete",
         },
         200,
