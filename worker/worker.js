@@ -25,6 +25,17 @@ const ALLOWED_ORIGINS = new Set([
 
 const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 const TURNSTILE_ACTION = "ai_chat";
+const API_SECURITY_HEADERS = {
+  // This endpoint only returns API data: do not let browsers treat it as
+  // executable content, embed it, or retain potentially sensitive replies.
+  "Cache-Control": "no-store",
+  "Content-Security-Policy": "default-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'",
+  "Cross-Origin-Opener-Policy": "same-origin",
+  "Permissions-Policy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()",
+  "Referrer-Policy": "no-referrer",
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY",
+};
 
 /* ========================================================================
    ツアー情報（mongoru.jp の実在ページのみ。ここにないツアーは案内しない）
@@ -186,6 +197,7 @@ ${TOUR_CATALOG}`;
 
 function corsHeaders(origin) {
   return {
+    ...API_SECURITY_HEADERS,
     "Access-Control-Allow-Origin": origin,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
@@ -227,7 +239,11 @@ async function verifyTurnstile(token, request, env) {
 function json(body, status, cors) {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { ...cors, "Content-Type": "application/json; charset=utf-8" },
+    headers: {
+      ...cors,
+      "Content-Type": "application/json; charset=utf-8",
+      ...API_SECURITY_HEADERS,
+    },
   });
 }
 
